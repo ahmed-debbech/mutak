@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/spotifyico.png</file>
+        <file>resources/circula-medium.otf</file>
+    </qresource>
+</RCC>
