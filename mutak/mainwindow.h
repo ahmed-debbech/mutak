@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QOAuth2AuthorizationCodeFlow>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

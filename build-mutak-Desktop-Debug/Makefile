@@ -138,6 +138,8 @@ Makefile: ../mutak/mutak.pro C:/Qt/5.13.1/mingw73_64/mkspecs/win32-g++/qmake.con
 		C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_multimediawidgets_private.pri \
 		C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_network.pri \
 		C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_network_private.pri \
+		C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_networkauth.pri \
+		C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_networkauth_private.pri \
 		C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_nfc.pri \
 		C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_nfc_private.pri \
 		C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_opengl.pri \
@@ -237,6 +239,8 @@ Makefile: ../mutak/mutak.pro C:/Qt/5.13.1/mingw73_64/mkspecs/win32-g++/qmake.con
 		../mutak/mutak.pro \
 		C:/Qt/5.13.1/mingw73_64/lib/Qt5Widgets.prl \
 		C:/Qt/5.13.1/mingw73_64/lib/Qt5Gui.prl \
+		C:/Qt/5.13.1/mingw73_64/lib/Qt5NetworkAuth.prl \
+		C:/Qt/5.13.1/mingw73_64/lib/Qt5Network.prl \
 		C:/Qt/5.13.1/mingw73_64/lib/Qt5Core.prl \
 		C:/Qt/5.13.1/mingw73_64/lib/qtmain.prl
 	$(QMAKE) -o Makefile ../mutak/mutak.pro -spec win32-g++ CONFIG+=debug CONFIG+=qml_debug
@@ -315,6 +319,8 @@ C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_multimediawidgets.pri:
 C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_multimediawidgets_private.pri:
 C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_network.pri:
 C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_network_private.pri:
+C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_networkauth.pri:
+C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_networkauth_private.pri:
 C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_nfc.pri:
 C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_nfc_private.pri:
 C:/Qt/5.13.1/mingw73_64/mkspecs/modules/qt_lib_opengl.pri:
@@ -414,6 +420,8 @@ C:/Qt/5.13.1/mingw73_64/mkspecs/features/lex.prf:
 ../mutak/mutak.pro:
 C:/Qt/5.13.1/mingw73_64/lib/Qt5Widgets.prl:
 C:/Qt/5.13.1/mingw73_64/lib/Qt5Gui.prl:
+C:/Qt/5.13.1/mingw73_64/lib/Qt5NetworkAuth.prl:
+C:/Qt/5.13.1/mingw73_64/lib/Qt5Network.prl:
 C:/Qt/5.13.1/mingw73_64/lib/Qt5Core.prl:
 C:/Qt/5.13.1/mingw73_64/lib/qtmain.prl:
 qmake: FORCE
