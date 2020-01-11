@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QOAuth2AuthorizationCodeFlow>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,11 +15,14 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
 private slots:
     void on_pushButton_clicked();
+    void granted();
 
+        void authStatusChanged (QAbstractOAuth::Status status);
 private:
     Ui::MainWindow *ui;
+    QOAuth2AuthorizationCodeFlow spotify;
+
 };
 #endif // MAINWINDOW_H

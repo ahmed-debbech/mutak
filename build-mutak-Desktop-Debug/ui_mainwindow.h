@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QWidget>
@@ -27,6 +28,7 @@ public:
     QWidget *page;
     QLabel *label;
     QPushButton *pushButton;
+    QPlainTextEdit *plainTextEdit;
     QWidget *page_2;
 
     void setupUi(QMainWindow *MainWindow)
@@ -51,6 +53,9 @@ public:
         pushButton = new QPushButton(page);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(260, 260, 211, 81));
+        plainTextEdit = new QPlainTextEdit(page);
+        plainTextEdit->setObjectName(QString::fromUtf8("plainTextEdit"));
+        plainTextEdit->setGeometry(QRect(90, 440, 511, 131));
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));

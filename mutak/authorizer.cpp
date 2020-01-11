@@ -20,8 +20,4 @@ void Authorizer :: setValues(QMainWindow * w){
 
     connect(&spotify, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser,
              &QDesktopServices::openUrl);
-    connect(&spotify, &QOAuth2AuthorizationCodeFlow::statusChanged,
-            this, &MainWindow::authStatusChanged);
-    connect(&spotify, &QOAuth2AuthorizationCodeFlow::granted,
-            this, &MainWindow::granted);
 }
