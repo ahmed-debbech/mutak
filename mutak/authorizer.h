@@ -13,7 +13,7 @@ class Authorizer : public QObject{
 public:
     Authorizer();
     void setValues();
-    void openBrowser();
+    void connectToBrowser();
     QOAuth2AuthorizationCodeFlow * getAuthObject();
 };
 

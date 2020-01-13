@@ -18,8 +18,10 @@ public:
     ~MainWindow();
 private slots:
     void on_loginButton_clicked();
+    void isGranted();
 private:
     Ui::MainWindow *ui;
     Authorizer auth;
+    QString Token;
 };
 #endif // MAINWINDOW_H

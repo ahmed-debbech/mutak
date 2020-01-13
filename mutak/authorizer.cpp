@@ -18,7 +18,7 @@ void Authorizer :: setValues(){
     spotify.setScope("user-read-private user-read-recently-played");
 }
 
-void Authorizer :: openBrowser(){
+void Authorizer :: connectToBrowser(){
     connect(&spotify, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser,
              &QDesktopServices::openUrl);
 }
