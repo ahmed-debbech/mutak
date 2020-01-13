@@ -9,8 +9,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-   // auto replyHandler = new QOAuthHttpServerReplyHandler(8080, this);
-     //  spotify.setReplyHandler(replyHandler);
+   auto replyHandler = new QOAuthHttpServerReplyHandler(80, this);
+   replyHandler->setCallbackPath("cb");
+     spotify.setReplyHandler(replyHandler);
        spotify.setAuthorizationUrl(QUrl("https://accounts.spotify.com/authorize"));
        spotify.setAccessTokenUrl(QUrl("https://accounts.spotify.com/api/token"));
        spotify.setClientIdentifier("17003af1c95b4506b21dbf98110a6e6f");
@@ -20,15 +21,12 @@ MainWindow::MainWindow(QWidget *parent)
        connect(&spotify, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser,
                 &QDesktopServices::openUrl);
     std::cout << "hey" << std::endl;
-   /* spotify.authorizeWithBrowser();
-    QDesktopServices ds;
-    QUrl u ("https://example.com");
-    ds.openUrl(u);
+
        connect(&spotify, &QOAuth2AuthorizationCodeFlow::statusChanged,
                this, &MainWindow::authStatusChanged);
 
        connect(&spotify, &QOAuth2AuthorizationCodeFlow::granted,
-               this, &MainWindow::granted); */
+               this, &MainWindow::granted);
 }
 
 MainWindow::~MainWindow()
