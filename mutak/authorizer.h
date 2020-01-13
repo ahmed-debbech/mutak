@@ -12,7 +12,9 @@ class Authorizer : public QObject{
     QString clientSecret;
 public:
     Authorizer();
-    void setValues(QMainWindow * w);
+    void setValues();
+    void openBrowser();
+    QOAuth2AuthorizationCodeFlow * getAuthObject();
 };
 
 #endif // AUTHORIZER_H

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QOAuth2AuthorizationCodeFlow>
+#include "authorizer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,13 +17,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 private slots:
-    void on_pushButton_clicked();
-    void granted();
-
-        void authStatusChanged (QAbstractOAuth::Status status);
+    void on_loginButton_clicked();
 private:
     Ui::MainWindow *ui;
-    QOAuth2AuthorizationCodeFlow spotify;
-
+    Authorizer auth;
 };
 #endif // MAINWINDOW_H

@@ -9,24 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-   auto replyHandler = new QOAuthHttpServerReplyHandler(80, this);
-   replyHandler->setCallbackPath("cb");
-     spotify.setReplyHandler(replyHandler);
-       spotify.setAuthorizationUrl(QUrl("https://accounts.spotify.com/authorize"));
-       spotify.setAccessTokenUrl(QUrl("https://accounts.spotify.com/api/token"));
-       spotify.setClientIdentifier("17003af1c95b4506b21dbf98110a6e6f");
-       spotify.setClientIdentifierSharedKey("52291278398442e1961f84615d55a097");
-       spotify.setScope("user-read-private");
-
-       connect(&spotify, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser,
-                &QDesktopServices::openUrl);
-    std::cout << "hey" << std::endl;
-
-       connect(&spotify, &QOAuth2AuthorizationCodeFlow::statusChanged,
-               this, &MainWindow::authStatusChanged);
-
-       connect(&spotify, &QOAuth2AuthorizationCodeFlow::granted,
-               this, &MainWindow::granted);
+   auth.setValues();
+   auth.openBrowser();
 }
 
 MainWindow::~MainWindow()
@@ -35,29 +19,9 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_loginButton_clicked()
 {
-    spotify.grant();
+    auth.getAuthObject()->grant();
 }
 
-void MainWindow::granted ()
-{
-    ui->plainTextEdit->appendPlainText("Signal granted received");
 
-    QString token = spotify.token();
-    ui->plainTextEdit->appendPlainText("Token: " + token);
-}
-
-void MainWindow::authStatusChanged(QAbstractOAuth::Status status)
-{
-    QString s;
-    if (status == QAbstractOAuth::Status::Granted)
-        s = "granted";
-
-    if (status == QAbstractOAuth::Status::TemporaryCredentialsReceived) {
-        s = "temp credentials";
-        //oauth2.refreshAccessToken();
-    }
-
-    ui->plainTextEdit->appendPlainText("Auth Status changed: " + s +  "\n");
-}
