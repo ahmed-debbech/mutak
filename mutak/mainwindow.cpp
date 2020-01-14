@@ -4,6 +4,8 @@
 #include <QDesktopServices>
 #include <iostream>
 #include <QOAuth2AuthorizationCodeFlow>
+#include <QMessageBox>
+#include <QtNetwork>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -26,18 +28,27 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_loginButton_clicked()
 {
-    auth.getAuthObject()->grant();
+    QNetworkAccessManager nam;
+    QNetworkRequest req(QUrl("https://www.google.com"));
+    QNetworkReply* reply = nam.get(req);
+    QEventLoop loop;
+    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
+    if (reply->bytesAvailable())
+        auth.getAuthObject()->grant();
+    else
+        QMessageBox::critical(this, "Info", "You are not connected to the internet :(");
 }
 
 
 void MainWindow:: isGranted(){
 
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
-        ui->plainTextEdit->appendPlainText("Signal granted received");
         Token = auth.getAuthObject()->token();
         ui->plainTextEdit->appendPlainText(Token);
     }else{
-        std::cout << "Could not connect" << std::endl;
+        QMessageBox::critical(nullptr, QObject::tr("Info"),
+        QObject::tr("Access denied, Can not access this account!"), QMessageBox::Ok);
     }
 }
 
