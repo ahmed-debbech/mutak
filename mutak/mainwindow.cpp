@@ -34,10 +34,12 @@ void MainWindow::on_loginButton_clicked()
     QEventLoop loop;
     connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
     loop.exec();
-    if (reply->bytesAvailable())
-        auth.getAuthObject()->grant();
-    else
+    if (reply->bytesAvailable()){
+            auth.getAuthObject()->grant();
+        ui->stackedWidget->setCurrentIndex(1);
+    }else{
         QMessageBox::critical(this, "Info", "You are not connected to the internet :(");
+    }
 }
 
 
@@ -52,3 +54,22 @@ void MainWindow:: isGranted(){
     }
 }
 
+
+void MainWindow::on_whoami_clicked(){
+    auto reply = auth.getAuthObject()->get(QUrl("https://api.spotify.com/v1/me"));
+    connect(reply, &QNetworkReply::finished, [=]() {
+    if (reply->error() != QNetworkReply::NoError) {
+        std::cout << "error " << reply->errorString().toStdString() << std::endl;
+        return;
+    }
+    QByteArray data = reply->readAll();
+
+    std::cout << "error " << data.toStdString() << std::endl;
+    QJsonDocument document = QJsonDocument::fromJson(data);
+    QJsonObject root = document.object();
+
+    ui->label_2->setText("Username: " + root.value("id").toString());
+
+    reply->deleteLater();
+});
+}

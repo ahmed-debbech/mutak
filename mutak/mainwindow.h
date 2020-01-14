@@ -19,6 +19,8 @@ public:
 private slots:
     void on_loginButton_clicked();
     void isGranted();
+    void on_whoami_clicked();
+
 private:
     Ui::MainWindow *ui;
     Authorizer auth;
