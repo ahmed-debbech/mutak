@@ -6,7 +6,7 @@
 #include <QOAuth2AuthorizationCodeFlow>
 #include <QMessageBox>
 #include <QtNetwork>
-
+#include "user.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -48,6 +48,7 @@ void MainWindow:: isGranted(){
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
         Token = auth.getAuthObject()->token();
         ui->plainTextEdit->appendPlainText(Token);
+        std::cout << Token.toStdString() << std::endl;
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Info"),
         QObject::tr("Access denied, Can not access this account!"), QMessageBox::Ok);
@@ -58,18 +59,16 @@ void MainWindow:: isGranted(){
 void MainWindow::on_whoami_clicked(){
     auto reply = auth.getAuthObject()->get(QUrl("https://api.spotify.com/v1/me"));
     connect(reply, &QNetworkReply::finished, [=]() {
-    if (reply->error() != QNetworkReply::NoError) {
-        std::cout << "error " << reply->errorString().toStdString() << std::endl;
-        return;
-    }
-    QByteArray data = reply->readAll();
-
-    std::cout << "error " << data.toStdString() << std::endl;
-    QJsonDocument document = QJsonDocument::fromJson(data);
-    QJsonObject root = document.object();
-
-    ui->label_2->setText("Username: " + root.value("id").toString());
-
-    reply->deleteLater();
-});
+        if (reply->error() != QNetworkReply::NoError) {
+            QMessageBox::critical(nullptr, QObject::tr("Info"),
+            QObject::tr("An error occured while retriving data!"), QMessageBox::Ok);
+        }else{
+            QByteArray data = reply->readAll();
+            std::cout << "json doc: " << data.toStdString() << std::endl;
+            QJsonDocument document = QJsonDocument::fromJson(data);
+            QJsonObject root = document.object();
+            User u(root);
+        }
+        reply->deleteLater();
+    });
 }
