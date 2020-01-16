@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <QtNetwork>
 #include "user.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -36,7 +37,6 @@ void MainWindow::on_loginButton_clicked()
     loop.exec();
     if (reply->bytesAvailable()){
             auth.getAuthObject()->grant();
-        ui->stackedWidget->setCurrentIndex(1);
     }else{
         QMessageBox::critical(this, "Info", "You are not connected to the internet :(");
     }
@@ -46,29 +46,29 @@ void MainWindow::on_loginButton_clicked()
 void MainWindow:: isGranted(){
 
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
-        Token = auth.getAuthObject()->token();
-        ui->plainTextEdit->appendPlainText(Token);
+        QString Token = auth.getAuthObject()->token();
         std::cout << Token.toStdString() << std::endl;
+        //passing to the next interface after login
+        ui->stackedWidget->setCurrentIndex(1);
+        auto reply = auth.getAuthObject()->get(QUrl("https://api.spotify.com/v1/me"));
+        connect(reply, &QNetworkReply::finished, [=]() {
+            if (reply->error() != QNetworkReply::NoError) {
+                QMessageBox::critical(nullptr, QObject::tr("Info"),
+                QObject::tr("An error occured while retriving data!"), QMessageBox::Ok);
+                ui->stackedWidget->setCurrentIndex(2);
+            }else{
+                QByteArray data = reply->readAll();
+                std::cout << "json doc: " << data.toStdString() << std::endl;
+                QJsonDocument document = QJsonDocument::fromJson(data);
+                QJsonObject root = document.object();
+                User u(root, Token);
+                u.printOnUI(this->getUi());
+            }
+            reply->deleteLater();
+        });
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Info"),
         QObject::tr("Access denied, Can not access this account!"), QMessageBox::Ok);
     }
 }
 
-
-void MainWindow::on_whoami_clicked(){
-    auto reply = auth.getAuthObject()->get(QUrl("https://api.spotify.com/v1/me"));
-    connect(reply, &QNetworkReply::finished, [=]() {
-        if (reply->error() != QNetworkReply::NoError) {
-            QMessageBox::critical(nullptr, QObject::tr("Info"),
-            QObject::tr("An error occured while retriving data!"), QMessageBox::Ok);
-        }else{
-            QByteArray data = reply->readAll();
-            std::cout << "json doc: " << data.toStdString() << std::endl;
-            QJsonDocument document = QJsonDocument::fromJson(data);
-            QJsonObject root = document.object();
-            User u(root);
-        }
-        reply->deleteLater();
-    });
-}

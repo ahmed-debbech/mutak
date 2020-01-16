@@ -15,15 +15,14 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    Ui::MainWindow * getUi(){ return ui;}
     ~MainWindow();
 private slots:
     void on_loginButton_clicked();
     void isGranted();
-    void on_whoami_clicked();
 
 private:
     Ui::MainWindow *ui;
     Authorizer auth;
-    QString Token;
 };
 #endif // MAINWINDOW_H
