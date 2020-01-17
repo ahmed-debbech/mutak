@@ -10,8 +10,8 @@ User::User(const QJsonObject & data, QString t){
    token = t;
 }
 void User::printOnUI(Ui_MainWindow *mw){
-    mw->label_2->setText("Name: " + name);
-    mw->label_3->setText("Id: " + id);
+    mw->disp_name->setText(name);
+    mw->photo->setText(imageRef);
 }
 User :: ~User(){
 

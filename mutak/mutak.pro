@@ -19,12 +19,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     authorizer.cpp \
     main.cpp \
-    mainwindow.cpp \ \
+    mainwindow.cpp \
     user.cpp
 
 HEADERS += \
     authorizer.h \
-    mainwindow.h \ \
+    mainwindow.h \
     user.h
 
 FORMS += \
