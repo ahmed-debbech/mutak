@@ -17,7 +17,9 @@ void User::printOnUI(Ui_MainWindow *mw){
     mw->photo->setText(imageRef);
     //load photo
     photoDownloader * pd = new photoDownloader(imageRef);
-    connect(pd, SIGNAL (downloaded()), mw->photo, SLOT (setPixmap(QPixmap::loadFromData(pd->downloadedData()))));
+    QPixmap q;
+    q.loadFromData(pd->downloadedData());
+    mw->photo->setPixmap(q);
     std::cout<< photo.toStdString() << std::endl;
 }
 User :: ~User(){

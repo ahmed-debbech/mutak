@@ -74,8 +74,6 @@ void MainWindow:: isGranted(){
         if(root.empty() == false){
             this->user = new User(root, Token);
             this->user->printOnUI(this->getUi());
-        }else{
-            std::cout << "oh crap" << std::endl;
         }
     }
 }

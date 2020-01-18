@@ -1,22 +1,23 @@
 #include "photodownloader.h"
+#include <QEventLoop>
 
 photoDownloader::photoDownloader(QUrl imageUrl, QObject *parent):QObject(parent){
-
-    connect(&m_WebCtrl, SIGNAL (finished(QNetworkReply*)),
-     this, SLOT (fileDownloaded(QNetworkReply*)));
+    QEventLoop loop;
+    connect(&m_WebCtrl, &QNetworkAccessManager::finished,
+     this, &photoDownloader::fileDownloaded);
 
     QNetworkRequest request(imageUrl);
     m_WebCtrl.get(request);
-
+    connect(&m_WebCtrl, &QNetworkAccessManager::finished,
+            &loop, &QEventLoop::quit);
+    loop.exec();
 }
 photoDownloader ::  ~photoDownloader(){
 
 }
 void photoDownloader::fileDownloaded(QNetworkReply* pReply) {
  m_DownloadedData = pReply->readAll();
- //emit a signal
  pReply->deleteLater();
- emit downloaded();
 }
 QByteArray photoDownloader::downloadedData() const {
   return m_DownloadedData;
