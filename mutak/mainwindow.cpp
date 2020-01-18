@@ -8,6 +8,27 @@
 #include <QtNetwork>
 #include "user.h"
 
+QJsonObject  MainWindow:: getFromEndPoint(QUrl q){
+    QJsonObject root;
+    QEventLoop loop; // to never quit the function untill the reply is finished
+    auto reply = auth.getAuthObject()->get(q);
+    connect(reply, &QNetworkReply::finished, [&root, reply, this]() { //this is a lambda fun
+        if (reply->error() != QNetworkReply::NoError) {
+            QMessageBox::critical(nullptr, QObject::tr("Info"),
+            QObject::tr("An error occured while retriving data!"), QMessageBox::Ok);
+            ui->stackedWidget->setCurrentIndex(2);
+        }else{
+            QByteArray data = reply->readAll();
+            std::cout << "json doc: " << data.toStdString() << std::endl;
+            QJsonDocument document = QJsonDocument::fromJson(data);
+            root = document.object();
+        }
+        reply->deleteLater();
+    });
+    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
+    return root;
+}
 bool MainWindow::checkForInternet(){
     QNetworkAccessManager nam;
     QNetworkRequest req(QUrl("https://www.google.com"));
@@ -49,27 +70,18 @@ void MainWindow:: isGranted(){
         std::cout << Token.toStdString() << std::endl;
         //passing to the next interface after login
         ui->stackedWidget->setCurrentIndex(1);
-        auto reply = auth.getAuthObject()->get(QUrl("https://api.spotify.com/v1/me"));
-        connect(reply, &QNetworkReply::finished, [=]() {
-            if (reply->error() != QNetworkReply::NoError) {
-                QMessageBox::critical(nullptr, QObject::tr("Info"),
-                QObject::tr("An error occured while retriving data!"), QMessageBox::Ok);
-                ui->stackedWidget->setCurrentIndex(2);
-            }else{
-                QByteArray data = reply->readAll();
-                std::cout << "json doc: " << data.toStdString() << std::endl;
-                QJsonDocument document = QJsonDocument::fromJson(data);
-                QJsonObject root = document.object();
-                User u(root, Token);
-                u.printOnUI(this->getUi());
-            }
-            reply->deleteLater();
-        });
+        QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me"));
+        if(root.empty() == false){
+            this->user = new User(root, Token);
+            this->user->printOnUI(this->getUi());
+        }else{
+            std::cout << "oh crap" << std::endl;
+        }
     }
 }
 void MainWindow::on_refresh_button_clicked(){
     if(this->checkForInternet() == true){
-
+        QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=1"));
     }
 }
 void MainWindow:: on_refresh_retriv_clicked(){

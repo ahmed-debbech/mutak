@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QOAuth2AuthorizationCodeFlow>
 #include "authorizer.h"
+#include "user.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,6 +18,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     Ui::MainWindow * getUi(){ return ui;}
     bool checkForInternet();
+    QJsonObject  getFromEndPoint(QUrl);
     ~MainWindow();
 private slots:
     void on_loginButton_clicked();
@@ -26,5 +28,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Authorizer auth;
+    User * user;
 };
 #endif // MAINWINDOW_H
