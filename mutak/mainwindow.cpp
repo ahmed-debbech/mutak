@@ -8,6 +8,18 @@
 #include <QtNetwork>
 #include "user.h"
 
+bool MainWindow::checkForInternet(){
+    QNetworkAccessManager nam;
+    QNetworkRequest req(QUrl("https://www.google.com"));
+    QNetworkReply* reply = nam.get(req);
+    QEventLoop loop;
+    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
+    if (reply->bytesAvailable()){
+            return true;
+    }
+    return false;
+}
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -24,19 +36,12 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::on_loginButton_clicked(){
-    QNetworkAccessManager nam;
-    QNetworkRequest req(QUrl("https://www.google.com"));
-    QNetworkReply* reply = nam.get(req);
-    QEventLoop loop;
-    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
-    loop.exec();
-    if (reply->bytesAvailable()){
+    if (this->checkForInternet() == true){
             auth.getAuthObject()->grant();
     }else{
         ui->stackedWidget->setCurrentIndex(2);
     }
 }
-
 
 void MainWindow:: isGranted(){
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
@@ -63,7 +68,9 @@ void MainWindow:: isGranted(){
     }
 }
 void MainWindow::on_refresh_button_clicked(){
+    if(this->checkForInternet() == true){
 
+    }
 }
 void MainWindow:: on_refresh_retriv_clicked(){
     this->on_loginButton_clicked();

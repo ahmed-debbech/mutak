@@ -16,6 +16,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     Ui::MainWindow * getUi(){ return ui;}
+    bool checkForInternet();
     ~MainWindow();
 private slots:
     void on_loginButton_clicked();
