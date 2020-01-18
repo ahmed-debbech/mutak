@@ -12,8 +12,6 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    QString clientID = "17003af1c95b4506b21dbf98110a6e6f";
-   QString clientSecret = "52291278398442e1961f84615d55a097";
     ui->setupUi(this);
     auth.setValues();
     auth.connectToBrowser();
@@ -21,14 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
                 this, &MainWindow::isGranted);
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete ui;
 }
 
-
-void MainWindow::on_loginButton_clicked()
-{
+void MainWindow::on_loginButton_clicked(){
     QNetworkAccessManager nam;
     QNetworkRequest req(QUrl("https://www.google.com"));
     QNetworkReply* reply = nam.get(req);
@@ -38,13 +33,12 @@ void MainWindow::on_loginButton_clicked()
     if (reply->bytesAvailable()){
             auth.getAuthObject()->grant();
     }else{
-        QMessageBox::critical(this, "Info", "You are not connected to the internet :(");
+        ui->stackedWidget->setCurrentIndex(2);
     }
 }
 
 
 void MainWindow:: isGranted(){
-
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
         QString Token = auth.getAuthObject()->token();
         std::cout << Token.toStdString() << std::endl;
@@ -66,9 +60,11 @@ void MainWindow:: isGranted(){
             }
             reply->deleteLater();
         });
-    }else{
-        QMessageBox::critical(nullptr, QObject::tr("Info"),
-        QObject::tr("Access denied, Can not access this account!"), QMessageBox::Ok);
     }
 }
+void MainWindow::on_refresh_button_clicked(){
 
+}
+void MainWindow:: on_refresh_retriv_clicked(){
+    this->on_loginButton_clicked();
+}

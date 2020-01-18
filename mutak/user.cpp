@@ -16,7 +16,7 @@ void User::printOnUI(Ui_MainWindow *mw){
     mw->disp_name->setText(name);
     mw->photo->setText(imageRef);
     //load photo
-    photoDownloader * pd = new photoDownloader(imageRef, this);
+    photoDownloader * pd = new photoDownloader(imageRef);
     connect(pd, SIGNAL (downloaded()), mw->photo, SLOT (setPixmap(QPixmap::loadFromData(pd->downloadedData()))));
     std::cout<< photo.toStdString() << std::endl;
 }

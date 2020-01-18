@@ -20,7 +20,8 @@ public:
 private slots:
     void on_loginButton_clicked();
     void isGranted();
-
+    void on_refresh_button_clicked();
+    void on_refresh_retriv_clicked();
 private:
     Ui::MainWindow *ui;
     Authorizer auth;

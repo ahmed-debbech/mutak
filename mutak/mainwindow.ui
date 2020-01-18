@@ -158,7 +158,14 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="refresh_button">
+              <property name="text">
+               <string>Refresh</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="logout_button">
               <property name="text">
                <string>Log out</string>
               </property>
@@ -181,32 +188,44 @@
        </layout>
       </widget>
       <widget class="QWidget" name="page_3">
-       <widget class="QLabel" name="error_retriv">
-        <property name="geometry">
-         <rect>
-          <x>150</x>
-          <y>200</y>
-          <width>451</width>
-          <height>191</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Could not retrive data please refresh again, check your internet connection</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="refresh_retriv">
-        <property name="geometry">
-         <rect>
-          <x>260</x>
-          <y>380</y>
-          <width>141</width>
-          <height>81</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Refresh</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item alignment="Qt::AlignHCenter">
+         <widget class="QLabel" name="error_retriv">
+          <property name="text">
+           <string>Could not retrive data please refresh again, check your internet connection</string>
+          </property>
+         </widget>
+        </item>
+        <item alignment="Qt::AlignHCenter">
+         <widget class="QPushButton" name="refresh_retriv">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Refresh</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
