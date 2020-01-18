@@ -11,17 +11,14 @@ User::User(const QJsonObject & data, QString t){
    QJsonArray array = data.value("images").toArray();
    imageRef = array.at(0).toObject().value("url").toString();
    token = t;
-   photoDownloader pd(imageRef, NULL);
-   photo = pd.downloadedData();
-   std::cout<< photo.toStdString() << std::endl;
 }
 void User::printOnUI(Ui_MainWindow *mw){
     mw->disp_name->setText(name);
     mw->photo->setText(imageRef);
-    QPixmap p;
-    p.loadFromData(photo);
-    std::cout << p.height() << std::endl;
-    mw->photo->setPixmap(p);
+    //load photo
+    photoDownloader * pd = new photoDownloader(imageRef, this);
+    connect(pd, SIGNAL (downloaded()), mw->photo, SLOT (setPixmap(QPixmap::loadFromData(pd->downloadedData()))));
+    std::cout<< photo.toStdString() << std::endl;
 }
 User :: ~User(){
 

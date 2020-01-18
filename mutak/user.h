@@ -4,10 +4,11 @@
 #include <QString>
 #include <QJsonObject>
 #include "ui_mainwindow.h"
+#include <QObject>
 
 using namespace std;
 
-class User{
+class User : public QObject{
     QString id;
     QString name;
     QString imageRef;
