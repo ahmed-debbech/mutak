@@ -20,11 +20,13 @@ SOURCES += \
     authorizer.cpp \
     main.cpp \
     mainwindow.cpp \
+    photodownloader.cpp \
     user.cpp
 
 HEADERS += \
     authorizer.h \
     mainwindow.h \
+    photodownloader.h \
     user.h
 
 FORMS += \

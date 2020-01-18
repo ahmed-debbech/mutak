@@ -12,6 +12,7 @@ class User{
     QString name;
     QString imageRef;
     QString token;
+    QByteArray photo;
 public:
     User(const QJsonObject & data, QString token);
     void setId(QString i){ id = i;}
