@@ -79,19 +79,21 @@ void MainWindow:: isGranted(){
 }
 void MainWindow :: dataToPlaylist(QJsonObject &data){
     QJsonObject jb = data;
-    QJsonArray arr = jb.value("items").toArray();
-
-    jb = (arr.at(0).toObject()).value("track").toObject();
-    arr = jb.value("artists").toArray();
-    QString artistName = arr.at(0).toObject().value("name").toString();
-    jb = data.value("items").toArray().at(0).toObject().value("track").toObject(); // go back from nested objects in jsondocment
-    QString trackName = jb.value("name").toString();
-    QString buffer = "song: " + artistName + " - " + trackName;
-    ui->listWidget->addItem(buffer);
+    QJsonArray arr;
+    for(int i=0; i <= 49; i++){
+        jb = data;
+        arr = jb.value("items").toArray();
+        jb = (arr.at(i).toObject()).value("track").toObject();
+        arr = jb.value("artists").toArray();
+        QString artistName = arr.at(0).toObject().value("name").toString();
+        QString trackName = jb.value("name").toString();
+        QString buffer = "song: " + artistName + " - " + trackName;
+        ui->listWidget->addItem(buffer);
+    }
 }
 void MainWindow::on_refresh_button_clicked(){
     if(this->checkForInternet() == true){
-        QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=1"));
+        QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"));
         this->dataToPlaylist(root);
     }
 }
