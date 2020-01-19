@@ -17,9 +17,6 @@ class photoDownloader : public QObject
  signals:
   void downloaded();
 
- private slots:
-  void fileDownloaded(QNetworkReply* pReply);
-
  private:
   QNetworkAccessManager m_WebCtrl;
   QByteArray m_DownloadedData;
