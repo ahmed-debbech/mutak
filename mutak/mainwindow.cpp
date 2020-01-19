@@ -8,7 +8,7 @@
 #include <QtNetwork>
 #include "user.h"
 
-QJsonObject  MainWindow:: getFromEndPoint(QUrl q){
+QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     QJsonObject root;
     QEventLoop loop; // to never quit the function untill the reply is finished
     auto reply = auth.getAuthObject()->get(q);
@@ -77,9 +77,22 @@ void MainWindow:: isGranted(){
         }
     }
 }
+void MainWindow :: dataToPlaylist(QJsonObject &data){
+    QJsonObject jb = data;
+    QJsonArray arr = jb.value("items").toArray();
+
+    jb = (arr.at(0).toObject()).value("track").toObject();
+    arr = jb.value("artists").toArray();
+    QString artistName = arr.at(0).toObject().value("name").toString();
+    jb = data.value("items").toArray().at(0).toObject().value("track").toObject(); // go back from nested objects in jsondocment
+    QString trackName = jb.value("name").toString();
+    QString buffer = "song: " + artistName + " - " + trackName;
+    ui->listWidget->addItem(buffer);
+}
 void MainWindow::on_refresh_button_clicked(){
     if(this->checkForInternet() == true){
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=1"));
+        this->dataToPlaylist(root);
     }
 }
 void MainWindow:: on_refresh_retriv_clicked(){

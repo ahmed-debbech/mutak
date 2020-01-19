@@ -18,7 +18,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     Ui::MainWindow * getUi(){ return ui;}
     bool checkForInternet();
-    QJsonObject  getFromEndPoint(QUrl);
+    QJsonObject  getFromEndPoint(const QUrl&);
+    void dataToPlaylist(QJsonObject &);
     ~MainWindow();
 private slots:
     void on_loginButton_clicked();

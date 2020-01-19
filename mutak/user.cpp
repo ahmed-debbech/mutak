@@ -19,11 +19,8 @@ void User::printOnUI(Ui_MainWindow *mw){
     photoDownloader * pd = new photoDownloader(imageRef);
     QPixmap q;
     q.loadFromData(pd->downloadedData());
-    std::cout << q.height() << std::endl;
     q = q.scaled(50,50,Qt::KeepAspectRatio,Qt::SmoothTransformation);
-    std::cout << q.height() << std::endl;
     mw->photo->setPixmap(q);
-    std::cout<< photo.toStdString() << std::endl;
 }
 User :: ~User(){
 
