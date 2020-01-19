@@ -77,7 +77,7 @@ void MainWindow:: isGranted(){
         }
     }
 }
-void MainWindow :: dataToPlaylist(QJsonObject &data){
+void MainWindow :: dataToTracksObjects(QJsonObject &data){
     QJsonObject jb = data;
     QJsonArray arr;
     for(int i=0; i <= 49; i++){
@@ -87,14 +87,17 @@ void MainWindow :: dataToPlaylist(QJsonObject &data){
         arr = jb.value("artists").toArray();
         QString artistName = arr.at(0).toObject().value("name").toString();
         QString trackName = jb.value("name").toString();
-        QString buffer = "song: " + artistName + " - " + trackName;
-        ui->listWidget->addItem(buffer);
+        double dur = jb.value("duration_ms").toDouble();
+        QString play = (data.value("items").toArray()).at(0).toObject().value("played_at").toString();
+        jb = jb.value("external_urls").toObject();
+        QString link = jb.value("spotify").toString();
+        tracks.push_back(Track(trackName,artistName,dur,play,link));
     }
 }
 void MainWindow::on_refresh_button_clicked(){
     if(this->checkForInternet() == true){
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"));
-        this->dataToPlaylist(root);
+        this->dataToTracksObjects(root);
     }
 }
 void MainWindow:: on_refresh_retriv_clicked(){

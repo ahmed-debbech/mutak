@@ -5,15 +5,15 @@
 class Track{
     QString name;
     QString artist;
-    unsigned long long int duration;
+    double duration;
     QString playedAt;
     QString linkID;
 public:
-    Track(QString name, QString artist, unsigned long long int duration,
+    Track(QString namesong, QString artist, double duration,
           QString playedAt, QString linkID);
     QString getName(){return name;}
     QString getArtist(){return artist;}
-    unsigned long long int getDuration(){return duration;}
+   double getDuration(){return duration;}
     QString getPlayDate(){return playedAt;}
     QString getLink(){ return linkID;}
 };

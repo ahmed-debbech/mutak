@@ -20,7 +20,7 @@ public:
     Ui::MainWindow * getUi(){ return ui;}
     bool checkForInternet();
     QJsonObject  getFromEndPoint(const QUrl&);
-    void dataToPlaylist(QJsonObject &);
+    void dataToTracksObjects(QJsonObject &);
     ~MainWindow();
 private slots:
     void on_loginButton_clicked();
@@ -31,6 +31,6 @@ private:
     Ui::MainWindow *ui;
     Authorizer auth;
     User * user;
-    vector<Track> v;
+    vector<Track> tracks;
 };
 #endif // MAINWINDOW_H
