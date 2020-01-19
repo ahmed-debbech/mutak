@@ -5,6 +5,7 @@
 #include <QOAuth2AuthorizationCodeFlow>
 #include "authorizer.h"
 #include "user.h"
+#include "track.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,5 +31,6 @@ private:
     Ui::MainWindow *ui;
     Authorizer auth;
     User * user;
+    vector<Track> v;
 };
 #endif // MAINWINDOW_H
