@@ -21,6 +21,7 @@ public:
     bool checkForInternet();
     QJsonObject  getFromEndPoint(const QUrl&);
     void dataToTracksObjects(QJsonObject &);
+    void addToList();
     ~MainWindow();
 private slots:
     void on_loginButton_clicked();

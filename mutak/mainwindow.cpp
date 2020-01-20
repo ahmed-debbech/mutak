@@ -7,7 +7,16 @@
 #include <QMessageBox>
 #include <QtNetwork>
 #include "user.h"
+#include "listitem.h"
+#include <QStringRef>
 
+void MainWindow::addToList(){
+    for(unsigned int i=0; i<= tracks.size()-1; i++){
+        QString link = tracks[i].getLink();
+        QStringRef substr(&link, 31, ((tracks[i].getLink()).size()-1) - 30);
+        this->getFromEndPoint(QUrl("https://open.spotify.com/track/"+substr));
+    }
+}
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     QJsonObject root;
     QEventLoop loop; // to never quit the function untill the reply is finished
@@ -91,8 +100,10 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
         QString play = (data.value("items").toArray()).at(0).toObject().value("played_at").toString();
         jb = jb.value("external_urls").toObject();
         QString link = jb.value("spotify").toString();
+        std::cout << link.toStdString() << std::endl;
         tracks.push_back(Track(trackName,artistName,dur,play,link));
     }
+    this->addToList();
 }
 void MainWindow::on_refresh_button_clicked(){
     if(this->checkForInternet() == true){
