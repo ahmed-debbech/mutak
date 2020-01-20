@@ -9,12 +9,29 @@
 #include "user.h"
 #include "listitem.h"
 #include <QStringRef>
+#include "photodownloader.h"
+#include <QPixmap>
+#include <QListWidgetItem>
 
 void MainWindow::addToList(){
     for(unsigned int i=0; i<= tracks.size()-1; i++){
         QString link = tracks[i].getLink();
         QStringRef substr(&link, 31, ((tracks[i].getLink()).size()-1) - 30);
-        this->getFromEndPoint(QUrl("https://open.spotify.com/track/"+substr));
+        //request the image of each track
+        QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+substr));
+        root = root.value("tacks").toObject();
+        root = root.value("album").toObject();
+        QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
+        //prepare and resize each image
+        photoDownloader * pd = new photoDownloader(download);
+        QPixmap pix;
+        pix.loadFromData(pd->downloadedData());
+        pix = pix.scaled(32,32,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+        QString name = tracks[i].getName();
+        QString artist = tracks[i].getArtist();
+        QString play = tracks[i].getPlayDate();
+        QListWidgetItem * lwi = new listItem(pix, name, artist, play);
+        ui->listWidget->addItem(lwi);
     }
 }
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
@@ -63,6 +80,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow(){
     delete ui;
+    delete user;
 }
 
 void MainWindow::on_loginButton_clicked(){
