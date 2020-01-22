@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QString>
 #include <QPixmap>
+#include <QVariant>
 
 class listItem : public QListWidgetItem{
     QLabel photo;
@@ -12,6 +13,7 @@ class listItem : public QListWidgetItem{
     QLabel playedAt;
 public:
     listItem(QPixmap&, QString&, QString&, QString&);
+    virtual void setData(int role, const QVariant & value);
 };
 
 #endif // LISTITEM_H
