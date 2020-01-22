@@ -12,6 +12,7 @@
 #include "photodownloader.h"
 #include <QPixmap>
 #include <QListWidgetItem>
+#include <QFont>
 
 void MainWindow::addToList(){
     for(unsigned int i=0; i<= tracks.size()-1; i++){
@@ -19,11 +20,12 @@ void MainWindow::addToList(){
         QStringRef substr(&link, 31, ((tracks[i].getLink()).size()-1) - 30);
         //request the image of each track
         QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+substr));
-        root = root.value("tacks").toObject();
+        root = (root.value("tracks").toArray().at(0)).toObject();
         root = root.value("album").toObject();
         QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
+        std::cout << download.toStdString() <<std::endl;
         //prepare and resize each image
-        photoDownloader * pd = new photoDownloader(download);
+       photoDownloader * pd = new photoDownloader(download);
         QPixmap pix;
         pix.loadFromData(pd->downloadedData());
         pix = pix.scaled(32,32,Qt::KeepAspectRatio,Qt::SmoothTransformation);
@@ -31,6 +33,8 @@ void MainWindow::addToList(){
         QString artist = tracks[i].getArtist();
         QString play = tracks[i].getPlayDate();
         QListWidgetItem * lwi = new listItem(pix, name, artist, play);
+        QFont font("Helvetica [Cronyx]", -1, -1, false);
+        //lwi->setFont(font);
         ui->listWidget->addItem(lwi);
     }
 }
@@ -45,7 +49,7 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
             ui->stackedWidget->setCurrentIndex(2);
         }else{
             QByteArray data = reply->readAll();
-            std::cout << "json doc: " << data.toStdString() << std::endl;
+            //std::cout << "json doc: " << data.toStdString() << std::endl;
             QJsonDocument document = QJsonDocument::fromJson(data);
             root = document.object();
         }
@@ -118,7 +122,6 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
         QString play = (data.value("items").toArray()).at(0).toObject().value("played_at").toString();
         jb = jb.value("external_urls").toObject();
         QString link = jb.value("spotify").toString();
-        std::cout << link.toStdString() << std::endl;
         tracks.push_back(Track(trackName,artistName,dur,play,link));
     }
     this->addToList();
