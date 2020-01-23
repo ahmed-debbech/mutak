@@ -7,12 +7,11 @@
 #include <QMessageBox>
 #include <QtNetwork>
 #include "user.h"
-#include "listitem.h"
+#include "listModel.h"
 #include <QStringRef>
 #include "photodownloader.h"
 #include <QPixmap>
-#include <QListWidgetItem>
-#include <QFont>
+#include <QAbstractListModel>
 
 void MainWindow::addToList(){
     for(unsigned int i=0; i<= tracks.size()-1; i++){
@@ -25,17 +24,16 @@ void MainWindow::addToList(){
         QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
         std::cout << download.toStdString() <<std::endl;
         //prepare and resize each image
-       photoDownloader * pd = new photoDownloader(download);
+       /*photoDownloader * pd = new photoDownloader(download);
         QPixmap pix;
         pix.loadFromData(pd->downloadedData());
-        pix = pix.scaled(32,32,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+        pix = pix.scaled(32,32,Qt::KeepAspectRatio,Qt::SmoothTransformation);*/
         QString name = tracks[i].getName();
         QString artist = tracks[i].getArtist();
         QString play = tracks[i].getPlayDate();
-        QListWidgetItem * lwi = new listItem(pix, name, artist, play);
-        QFont font("Helvetica [Cronyx]", -1, -1, false);
-        //lwi->setFont(font);
-        ui->listWidget->addItem(lwi);
+        QPixmap pix;
+        QAbstractListModel * lwi = new listModel(pix, name, artist, play);
+        ui->listView->setModel(lwi);
     }
 }
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
