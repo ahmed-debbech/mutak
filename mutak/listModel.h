@@ -1,5 +1,5 @@
-#ifndef LISTITEM_H
-#define LISTITEM_H
+#ifndef LISTMODEL_H
+#define LISTMODEL_H
 #include <QAbstractListModel>
 #include <QLabel>
 #include <QString>
@@ -13,6 +13,7 @@
 using namespace std;
 class listModel : public QAbstractListModel{
    mutable vector <Track> v;
+   mutable QList <listItem> items;
 public:
     listModel(vector <Track>& tracks, QObject * parent);
     QVariant data(const QModelIndex &index, int role) const ;

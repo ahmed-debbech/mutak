@@ -7,6 +7,7 @@
 listModel::listModel(vector <Track> &tracks, QObject * parent = 0)
     :QAbstractListModel(parent){
     v = tracks;
+    items.push_back(v[0]);
 }
 Track  getd(vector <Track> v){
     Track t(v[0].getName(), v[0].getArtist(), v[0].getDuration(), v[0].getPlayDate(), v[0].getLink());
@@ -22,8 +23,7 @@ QVariant listModel::data(const QModelIndex &index, int role)const{
     }
 
     if (role == Qt::DisplayRole){
-        Track t(v[0].getName(), v[0].getArtist(), v[0].getDuration(), v[0].getPlayDate(), v[0].getLink());
-        return QVariant(QVariant::fromValue<QString>(t.getName()));
+        return QVariant(QVariant::fromValue<listItem>(items[0]));
     }
      return QVariant();
 }
