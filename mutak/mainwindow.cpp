@@ -11,6 +11,9 @@
 #include "photodownloader.h"
 #include <QPixmap>
 #include <QListWidgetItem>
+#include "listitem.h"
+#include <QWidget>
+#include "widgetitem.h"
 
 void MainWindow::addToList(){
     for(unsigned int i=0; i<= tracks.size()-1; i++){
@@ -27,9 +30,13 @@ void MainWindow::addToList(){
         QPixmap pix;
         pix.loadFromData(pd->downloadedData());
         pix = pix.scaled(32,32,Qt::KeepAspectRatio,Qt::SmoothTransformation);*/
+        listItem * l = new listItem(tracks[i]);
+        WidgetItem *theWidgetItem = new WidgetItem;
+        QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
+        ui->listWidget->addItem(lwi);
+        lwi->setSizeHint (theWidgetItem->sizeHint());
+        ui->listWidget->setItemWidget(lwi, theWidgetItem);
     }
-    QListWidgetItem * lwi = NULL;
-    ui->listWidget->addItem(lwi);
 }
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     QJsonObject root;
