@@ -7,11 +7,10 @@
 #include <QMessageBox>
 #include <QtNetwork>
 #include "user.h"
-#include "listModel.h"
 #include <QStringRef>
 #include "photodownloader.h"
 #include <QPixmap>
-#include <QAbstractListModel>
+#include <QListWidgetItem>
 
 void MainWindow::addToList(){
     for(unsigned int i=0; i<= tracks.size()-1; i++){
@@ -29,9 +28,8 @@ void MainWindow::addToList(){
         pix.loadFromData(pd->downloadedData());
         pix = pix.scaled(32,32,Qt::KeepAspectRatio,Qt::SmoothTransformation);*/
     }
-    QAbstractListModel * lwi = new listModel(tracks,NULL);
-    std::cout << lwi->rowCount() << std::endl;
-    ui->listView->setModel(lwi);
+    QListWidgetItem * lwi = NULL;
+    ui->listWidget->addItem(lwi);
 }
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     QJsonObject root;
