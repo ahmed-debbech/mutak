@@ -7,16 +7,18 @@
 #include <QVariant>
 #include "track.h"
 #include <vector>
+#include <QList>
+#include "listitem.h"
 
 using namespace std;
 class listModel : public QAbstractListModel{
-    vector <Track> v;
+   mutable vector <Track> v;
 public:
-    listModel(vector <Track> tracks, QObject * parent);
-    QVariant data(const QModelIndex &index, int role) const;
+    listModel(vector <Track>& tracks, QObject * parent);
+    QVariant data(const QModelIndex &index, int role) const ;
      QVariant headerData(int section, Qt::Orientation orientation,
                          int role = Qt::DisplayRole) const;
-     int rowCount(const QModelIndex &parent = QModelIndex()) const;
+     int rowCount(const QModelIndex &parent = QModelIndex())const;
 
 };
 

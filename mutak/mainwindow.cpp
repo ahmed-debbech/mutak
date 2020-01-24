@@ -28,13 +28,10 @@ void MainWindow::addToList(){
         QPixmap pix;
         pix.loadFromData(pd->downloadedData());
         pix = pix.scaled(32,32,Qt::KeepAspectRatio,Qt::SmoothTransformation);*/
-        QString name = tracks[i].getName();
-        QString artist = tracks[i].getArtist();
-        QString play = tracks[i].getPlayDate();
-        QPixmap pix;
-        QAbstractListModel * lwi = new listModel(pix, name, artist, play);
-        ui->listView->setModel(lwi);
     }
+    QAbstractListModel * lwi = new listModel(tracks,NULL);
+    std::cout << lwi->rowCount() << std::endl;
+    ui->listView->setModel(lwi);
 }
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     QJsonObject root;
