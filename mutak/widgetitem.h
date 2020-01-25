@@ -2,6 +2,8 @@
 #define WIDGETITEM_H
 
 #include <QWidget>
+#include "track.h"
+#include <QPixmap>
 
 namespace Ui {
 class WidgetItem;
@@ -12,7 +14,7 @@ class WidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit WidgetItem(QWidget *parent = nullptr);
+    explicit WidgetItem(QPixmap & pix, Track &t,QWidget *parent = nullptr);
     ~WidgetItem();
 
 private:
