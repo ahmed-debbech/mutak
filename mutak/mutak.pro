@@ -18,7 +18,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     authorizer.cpp \
-    listitem.cpp \
     main.cpp \
     mainwindow.cpp \
     photodownloader.cpp \
@@ -28,7 +27,6 @@ SOURCES += \
 
 HEADERS += \
     authorizer.h \
-    listitem.h \
     mainwindow.h \
     photodownloader.h \
     track.h \

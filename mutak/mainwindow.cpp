@@ -11,7 +11,6 @@
 #include "photodownloader.h"
 #include <QPixmap>
 #include <QListWidgetItem>
-#include "listitem.h"
 #include <QWidget>
 #include "widgetitem.h"
 
@@ -30,7 +29,6 @@ void MainWindow::addToList(){
         QPixmap pix;
         pix.loadFromData(pd->downloadedData());
         pix = pix.scaled(32,32,Qt::KeepAspectRatio,Qt::SmoothTransformation);*/
-        listItem * l = new listItem(tracks[i]);
         WidgetItem *theWidgetItem = new WidgetItem;
         QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
         ui->listWidget->addItem(lwi);
