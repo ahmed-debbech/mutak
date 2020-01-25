@@ -32,7 +32,7 @@ void MainWindow::addToList(){
         pix = pix.scaled(32,32,Qt::KeepAspectRatio,Qt::SmoothTransformation);
 
         //prepare the item and fill it with data
-        WidgetItem *theWidgetItem = new WidgetItem(pix,tracks[i]);
+        WidgetItem *theWidgetItem = new WidgetItem(pix, tracks[i]);
         QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
         ui->listWidget->addItem(lwi);
         lwi->setSizeHint (theWidgetItem->sizeHint());

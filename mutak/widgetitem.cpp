@@ -1,7 +1,7 @@
 #include "widgetitem.h"
 #include "ui_widgetitem.h"
 
-WidgetItem::WidgetItem(QPixmap & pix, Track & t, QWidget *parent) :
+WidgetItem::WidgetItem(QPixmap &pix, Track & t, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WidgetItem)
 {
