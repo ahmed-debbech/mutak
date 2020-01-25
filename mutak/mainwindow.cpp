@@ -77,6 +77,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    dbapi = new DatabaseAPI();
     auth.setValues();
     auth.connectToBrowser();
     connect(auth.getAuthObject(), &QOAuth2AuthorizationCodeFlow::granted,
@@ -86,6 +87,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow(){
     delete ui;
     delete user;
+    delete dbapi;
 }
 
 void MainWindow::on_loginButton_clicked(){
@@ -99,11 +101,14 @@ void MainWindow::on_loginButton_clicked(){
 void MainWindow:: isGranted(){
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
         QString Token = auth.getAuthObject()->token();
-        std::cout << Token.toStdString() << std::endl;
+
         //passing to the next interface after login
         ui->stackedWidget->setCurrentIndex(1);
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me"));
         if(root.empty() == false){
+            //check if the folder of user exists
+            dbapi->prepareUserDir(root.value("id").toString());
+
             this->user = new User(root, Token);
             this->user->printOnUI(this->getUi());
         }

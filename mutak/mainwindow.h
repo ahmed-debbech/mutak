@@ -6,6 +6,7 @@
 #include "authorizer.h"
 #include "user.h"
 #include "track.h"
+#include "databaseapi.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,5 +34,6 @@ private:
     Authorizer auth;
     User * user;
     vector<Track> tracks;
+    DatabaseAPI * dbapi;
 };
 #endif // MAINWINDOW_H
