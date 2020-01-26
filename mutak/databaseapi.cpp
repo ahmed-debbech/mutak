@@ -13,13 +13,13 @@ void DatabaseAPI :: prepareUserDir(QString id){
     if(userDir.exists() == true){
         if(userDir.cd(id)== false){
             userDir.mkdir(id);
-            userDir.cd(id);
-            if(userDir.cd("db") == false){
-                userDir.mkdir("db");
-                userDir.cd("db");
-                userDirName = userDir.path() + "/";
-            }
         }
+        userDir.cd(id);
+        if(userDir.cd("db") == false){
+            userDir.mkdir("db");
+        }
+        userDir.cd("db");
+        userDirName = userDir.path() + "/";
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Error"),
         QObject::tr("Could not find the correct directory of Mutak"), QMessageBox::Ok);
