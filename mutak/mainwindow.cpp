@@ -115,7 +115,7 @@ void MainWindow:: isGranted(){
     }
 }
 void MainWindow :: dataToTracksObjects(QJsonObject &data){
-    QJsonObject jb = data;
+    QJsonObject jb = data, r = data;
     QJsonArray arr;
     for(int i=0; i <= 49; i++){
         jb = data;
@@ -125,7 +125,7 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
         QString artistName = arr.at(0).toObject().value("name").toString();
         QString trackName = jb.value("name").toString();
         double dur = jb.value("duration_ms").toDouble();
-        QString play = (data.value("items").toArray()).at(0).toObject().value("played_at").toString();
+        QString play = (r.value("items").toArray()).at(i).toObject().value("played_at").toString();
         jb = jb.value("external_urls").toObject();
         QString link = jb.value("spotify").toString();
         tracks.push_back(Track(trackName,artistName,dur,play,link));
