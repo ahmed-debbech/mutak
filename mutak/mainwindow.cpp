@@ -15,28 +15,34 @@
 #include "widgetitem.h"
 
 void MainWindow::addToList(){
-    for(unsigned int i=0; i<= tracks.size()-1; i++){
-        QString link = tracks[i].getLink();
-        QStringRef substr(&link, 31, ((tracks[i].getLink()).size()-1) - 30);
+    bool quitLoop = false;
+    for(unsigned int i=0; (i<= tracks.size()-1) && (quitLoop == false); i++){
+        if(this->checkForInternet() == true){
+            QString link = tracks[i].getLink();
+            QStringRef substr(&link, 31, ((tracks[i].getLink()).size()-1) - 30);
+            //request the image of each track
+            QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+substr));
+            root = (root.value("tracks").toArray().at(0)).toObject();
+            root = root.value("album").toObject();
+            QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
 
-        //request the image of each track
-        QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+substr));
-        root = (root.value("tracks").toArray().at(0)).toObject();
-        root = root.value("album").toObject();
-        QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
-
-        //prepare and resize each image
-        photoDownloader * pd = new photoDownloader(download);
-        QPixmap pix;
-        pix.loadFromData(pd->downloadedData());
-        pix = pix.scaled(32,32,Qt::KeepAspectRatio,Qt::SmoothTransformation);
-
-        //prepare the item and fill it with data
-        WidgetItem *theWidgetItem = new WidgetItem(pix, tracks[i]);
-        QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
-        ui->listWidget->addItem(lwi);
-        lwi->setSizeHint (theWidgetItem->sizeHint());
-        ui->listWidget->setItemWidget(lwi, theWidgetItem);
+            //prepare and resize each image
+            photoDownloader * pd = new photoDownloader(download);
+            QPixmap pix;
+            pix.loadFromData(pd->downloadedData());
+            pix = pix.scaled(32,32,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+            //prepare the item and fill it with data
+            WidgetItem *theWidgetItem = new WidgetItem(pix, tracks[i]);
+            QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
+            ui->listWidget->addItem(lwi);
+            lwi->setSizeHint (theWidgetItem->sizeHint());
+            ui->listWidget->setItemWidget(lwi, theWidgetItem);
+        }else{
+           quitLoop = true;
+        }
+    }
+    if(quitLoop == true){
+        ui->stackedWidget->setCurrentIndex(2); //pass to no connection screen
     }
 }
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
