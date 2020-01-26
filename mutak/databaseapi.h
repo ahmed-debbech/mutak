@@ -8,9 +8,11 @@
 
 class DatabaseAPI{
     QDir userDir;
+    QFile userFiles;
 public:
     DatabaseAPI();
     void prepareUserDir(QString id);
+    void prepareUserFiles();
 };
 
 #endif // DATABASEAPI_H

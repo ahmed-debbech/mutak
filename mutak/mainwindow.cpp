@@ -114,6 +114,8 @@ void MainWindow:: isGranted(){
         if(root.empty() == false){
             //check if the folder of user exists
             dbapi->prepareUserDir(root.value("id").toString());
+            //check for files in the current sys date
+            dbapi->prepareUserFiles();
 
             this->user = new User(root, Token);
             this->user->printOnUI(this->getUi());
