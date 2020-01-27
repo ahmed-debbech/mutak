@@ -48,6 +48,12 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     });
     connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
     loop.exec();
+    if(root.contains("error") == true){
+        auth.getAuthObject()->refreshAccessToken();
+        user->setToken(auth.getAuthObject()->token());
+        this->getFromEndPoint(q);
+        std::cout << "Access token " <<std::endl;
+    }
     return root;
 }
 
@@ -115,9 +121,10 @@ void MainWindow::addToList(){
     }
 }
 //=================================SIGNALS=======================================
-void MainWindow:: isGranted(){
+void MainWindow :: isGranted(){
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
         QString Token = auth.getAuthObject()->token();
+        QString refToken = auth.getAuthObject()->refreshToken();
 
         //passing to the next interface after login
         ui->stackedWidget->setCurrentIndex(1);
@@ -128,8 +135,11 @@ void MainWindow:: isGranted(){
             //check for files in the current sys date
             dbapi->prepareUserFiles();
 
-            this->user = new User(root, Token);
+            this->user = new User(root, Token, refToken);
             this->user->printOnUI(this->getUi());
+        }else{
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("Could not retrive account data."), QMessageBox::Ok);
         }
     }
 }

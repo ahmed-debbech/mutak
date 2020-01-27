@@ -13,9 +13,10 @@ class User : public QObject{
     QString name;
     QString imageRef;
     QString token;
+    QString refToken;
     QByteArray photo;
 public:
-    User(const QJsonObject & data, QString token);
+    User(const QJsonObject & data, QString token, QString ref);
     void setId(QString i){ id = i;}
     void setName(QString i){ name = i;}
     void setImageRef(QString i){ imageRef = i;}
