@@ -51,8 +51,7 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     if(root.contains("error") == true){
         auth.getAuthObject()->refreshAccessToken();
         user->setToken(auth.getAuthObject()->token());
-        this->getFromEndPoint(q);
-        std::cout << "Access token " <<std::endl;
+        return this->getFromEndPoint(q); //repeat the request
     }
     return root;
 }
@@ -86,6 +85,7 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
         QString link = jb.value("spotify").toString();
         tracks.push_back(Track(trackName,artistName,dur,play,link));
     }
+    dbapi->sendToDB(tracks); //send to database to save
     this->addToList();
 }
 

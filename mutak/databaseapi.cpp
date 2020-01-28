@@ -2,6 +2,8 @@
 #include <iostream>
 #include <QMessageBox>
 #include <QDateTime>
+#include <QByteArray>
+#include <QTextStream>
 
 DatabaseAPI::DatabaseAPI(){
 
@@ -40,8 +42,44 @@ void DatabaseAPI :: prepareUserFiles(){
 
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
+            QObject::tr("Something went wrong in the database! Please restart the application."), QMessageBox::Ok);
         }
+    }
+    userFiles.close();
+}
+void DatabaseAPI :: sendToDB(vector <Track> &t){
+    userFiles.setFileName(filePathToday);
+    bool found = false;
+    if (userFiles.open(QIODevice::ReadWrite | QIODevice::Text)){
+        for(unsigned int i=0; i<=49; i++){
+            if(userFiles.atEnd() == true){
+                QTextStream out(&userFiles);
+                out << "The magic number is: " << 49 << "\n";
+                found = true;
+            }else{
+                while((!userFiles.atEnd()) && (found == false)){
+                    QByteArray arr = userFiles.readLine();
+                    int j =0;
+                    do{
+                       j++;
+                    }while(arr[j] != ':');
+                    j++;
+                    QString id;
+                    for(int k=0; arr[k]!='\0'; k++){
+                        id += arr[k];
+                    }
+                    std::cout << "id of line extracted from file" << id.toStdString() <<std::endl;
+                    if(t[i].getLink() != id){
+                        QTextStream out(&userFiles);
+                        out << "The magic number is: " << 49 << "\n";
+                        found = true;
+                    }
+                }
+            }
+        }
+    }else{
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+        QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
     }
     userFiles.close();
 }

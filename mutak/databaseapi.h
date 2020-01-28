@@ -5,7 +5,10 @@
 #include <QDir>
 #include <QString>
 #include <QStandardPaths>
+#include <vector>
+#include "track.h"
 
+using namespace std;
 class DatabaseAPI{
     QDir userDir;
     QFile userFiles;
@@ -15,6 +18,9 @@ public:
     DatabaseAPI();
     void prepareUserDir(QString id);
     void prepareUserFiles();
+    void sendToDB(vector <Track> & t);
+private:
+    void f();
 };
 
 #endif // DATABASEAPI_H
