@@ -15,7 +15,7 @@ public:
     QString getArtist(){return artist;}
    double getDuration(){return duration;}
     QString getPlayDate(){return playedAt;}
-    QString getLink(){ return linkID;}
+    QString getID(){ return linkID;}
 };
 
 #endif // TRACK_H

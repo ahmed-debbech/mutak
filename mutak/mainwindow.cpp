@@ -83,9 +83,11 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
         QString play = (r.value("items").toArray()).at(i).toObject().value("played_at").toString();
         jb = jb.value("external_urls").toObject();
         QString link = jb.value("spotify").toString();
-        tracks.push_back(Track(trackName,artistName,dur,play,link));
+        QStringRef substr(&link, 31, (link.size()-1) - 30);
+        QString l = substr.toString();
+        tracks.push_back(Track(trackName,artistName,dur,play,l));
     }
-    dbapi->sendToDB(tracks); //send to database to save
+   dbapi->sendToDB(tracks); //send to database to save
     this->addToList();
 }
 
@@ -93,10 +95,9 @@ void MainWindow::addToList(){
     bool quitLoop = false;
     for(unsigned int i=0; (i<= tracks.size()-1) && (quitLoop == false); i++){
         if(this->checkForInternet() == true){
-            QString link = tracks[i].getLink();
-            QStringRef substr(&link, 31, ((tracks[i].getLink()).size()-1) - 30);
+            QString link = tracks[i].getID();
             //request the image of each track
-            QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+substr));
+            QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+link));
             root = (root.value("tracks").toArray().at(0)).toObject();
             root = root.value("album").toObject();
             QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();

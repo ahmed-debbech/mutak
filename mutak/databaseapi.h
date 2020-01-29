@@ -22,7 +22,7 @@ public:
     void sendToDB(vector <Track> & t);
 private:
     void writeToFile( Track & t);
-    QByteArray readFromFile();
+    bool checkForExistance(Track & t);
 };
 
 #endif // DATABASEAPI_H

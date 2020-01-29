@@ -49,31 +49,46 @@ void DatabaseAPI :: prepareUserFiles(){
 }
 void DatabaseAPI :: sendToDB(vector <Track> &t){
     userFiles.setFileName(filePathToday);
-    bool found = false;
         for(unsigned int i=0; i<=49; i++){
-            writeToFile(t[i]);
-            std::cout << readFromFile().toStdString() << endl;
+            if(checkForExistance(t[i]) == false){
+                writeToFile(t[i]);
+            }
         }
 }
 //=====================PRV METHODES ============================
 void DatabaseAPI :: writeToFile(Track & t){
     if(userFiles.open(QIODevice::Append | QIODevice::Text)){
         QTextStream tofile(&userFiles);
-        tofile << t.getName() << ";" << t.getArtist() << ";" << t.getDuration() << ";" << t.getPlayDate() << ":" << t.getLink() << "\n";
+        tofile << t.getName() << "|" << t.getArtist() << "|" << t.getDuration() << "|" << t.getPlayDate() << "|" << t.getID() << "\n";
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Error"),
         QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
     }
     userFiles.close();
 }
-QByteArray DatabaseAPI :: readFromFile(){
-    QByteArray ret;
+bool DatabaseAPI :: checkForExistance(Track & t){
+    bool found = false;
     if(userFiles.open(QIODevice::ReadOnly | QIODevice::Text)){
-        ret = userFiles.readAll();
+        while((!userFiles.atEnd()) && (found == false)){
+            QByteArray arr = userFiles.readLine();
+            int j =0;
+            do{
+               j++;
+            }while(arr[j] != '|');
+            j++;
+            QString id;
+            for(int k=0; arr[k]!='\n'; k++){
+                id += arr[k];
+            }
+            std::cout << "id of line extracted from file " << id.toStdString() <<std::endl;
+            if(t.getID() == id){
+                found = true;
+            }
+        }
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Error"),
         QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
     }
     userFiles.close();
-    return ret;
+    return found;
 }
