@@ -7,6 +7,7 @@
 #include <QStandardPaths>
 #include <vector>
 #include "track.h"
+#include "track.h"
 
 using namespace std;
 class DatabaseAPI{
@@ -20,7 +21,8 @@ public:
     void prepareUserFiles();
     void sendToDB(vector <Track> & t);
 private:
-    void f();
+    void writeToFile( Track & t);
+    QByteArray readFromFile();
 };
 
 #endif // DATABASEAPI_H

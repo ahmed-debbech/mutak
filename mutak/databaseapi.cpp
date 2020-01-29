@@ -50,36 +50,30 @@ void DatabaseAPI :: prepareUserFiles(){
 void DatabaseAPI :: sendToDB(vector <Track> &t){
     userFiles.setFileName(filePathToday);
     bool found = false;
-    if (userFiles.open(QIODevice::ReadWrite | QIODevice::Text)){
         for(unsigned int i=0; i<=49; i++){
-            if(userFiles.atEnd() == true){
-                QTextStream out(&userFiles);
-                out << "The magic number is: " << 49 << "\n";
-                found = true;
-            }else{
-                while((!userFiles.atEnd()) && (found == false)){
-                    QByteArray arr = userFiles.readLine();
-                    int j =0;
-                    do{
-                       j++;
-                    }while(arr[j] != ':');
-                    j++;
-                    QString id;
-                    for(int k=0; arr[k]!='\0'; k++){
-                        id += arr[k];
-                    }
-                    std::cout << "id of line extracted from file" << id.toStdString() <<std::endl;
-                    if(t[i].getLink() != id){
-                        QTextStream out(&userFiles);
-                        out << "The magic number is: " << 49 << "\n";
-                        found = true;
-                    }
-                }
-            }
+            writeToFile(t[i]);
+            std::cout << readFromFile().toStdString() << endl;
         }
+}
+//=====================PRV METHODES ============================
+void DatabaseAPI :: writeToFile(Track & t){
+    if(userFiles.open(QIODevice::Append | QIODevice::Text)){
+        QTextStream tofile(&userFiles);
+        tofile << t.getName() << ";" << t.getArtist() << ";" << t.getDuration() << ";" << t.getPlayDate() << ":" << t.getLink() << "\n";
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Error"),
         QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
     }
     userFiles.close();
+}
+QByteArray DatabaseAPI :: readFromFile(){
+    QByteArray ret;
+    if(userFiles.open(QIODevice::ReadOnly | QIODevice::Text)){
+        ret = userFiles.readAll();
+    }else{
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+        QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
+    }
+    userFiles.close();
+    return ret;
 }
