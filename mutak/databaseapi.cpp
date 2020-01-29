@@ -37,6 +37,8 @@ void DatabaseAPI :: prepareUserFiles(){
     userFiles.setFileName(userDirName + QString::number(d) + "-" +
                           QString::number(m) + "-" + QString::number(y) +  ".mu");
     filePathToday = userFiles.fileName();
+
+    //creating file of that specefic day
     if(userFiles.exists() == false){
         if (userFiles.open(QIODevice::WriteOnly | QIODevice::Text)){
 
@@ -59,7 +61,7 @@ void DatabaseAPI :: sendToDB(vector <Track> &t){
 void DatabaseAPI :: writeToFile(Track & t){
     if(userFiles.open(QIODevice::Append | QIODevice::Text)){
         QTextStream tofile(&userFiles);
-        tofile << t.getName() << "|" << t.getArtist() << "|" << t.getDuration() << "|" << t.getPlayDate() << "|" << t.getID() << "\n";
+        tofile << t.getName() << "|" << t.getArtist() << "|" << t.getDuration() << "|" << t.getPlayDate() << "%" << t.getID() << "\n";
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Error"),
         QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
@@ -74,10 +76,10 @@ bool DatabaseAPI :: checkForExistance(Track & t){
             int j =0;
             do{
                j++;
-            }while(arr[j] != '|');
+            }while(arr[j] != '%');
             j++;
             QString id;
-            for(int k=0; arr[k]!='\n'; k++){
+            for(int k=j; arr[k]!='\n'; k++){
                 id += arr[k];
             }
             std::cout << "id of line extracted from file " << id.toStdString() <<std::endl;
