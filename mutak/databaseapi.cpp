@@ -4,6 +4,7 @@
 #include <QDateTime>
 #include <QByteArray>
 #include <QTextStream>
+#include <QString>
 
 DatabaseAPI::DatabaseAPI(){
 
@@ -93,4 +94,50 @@ bool DatabaseAPI :: checkForExistance(Track & t){
     }
     userFiles.close();
     return found;
+}
+vector<Track> DatabaseAPI :: retriveFromDB(){
+    vector<Track> t;
+    if(userFiles.open(QIODevice::ReadOnly | QIODevice::Text)){
+        while(!userFiles.atEnd()){
+               QByteArray arr = userFiles.readLine();
+               int y=0;
+               QString name,artist,dur,play,id;
+               do{
+                   name += arr[y];
+                   y++;
+               }while(arr[y] != '|');
+               std::cout << "ret: " <<name.toStdString() <<std::endl;
+               y++;
+               do{
+                   artist += arr[y];
+                   y++;
+               }while(arr[y] != '|');
+               std::cout << "ret: " <<artist.toStdString() <<std::endl;
+               y++;
+               do{
+                   dur += arr[y];
+                   y++;
+               }while(arr[y] != '|');
+               std::cout << "ret: " <<dur.toStdString() <<std::endl;
+               y++;
+               do{
+                   play += arr[y];
+                   y++;
+               }while(arr[y] != '%');
+               std::cout << "ret: " <<play.toStdString() <<std::endl;
+               y++;
+               do{
+                   id += arr[y];
+                   y++;
+               }while(arr[y] != '\n');
+               std::cout << "ret: " <<id.toStdString() <<std::endl;
+               Track tr(name,artist,dur.toDouble(),play,id);
+               t.push_back(tr);
+        }
+    }else{
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+        QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
+    }
+    userFiles.close();
+    return t;
 }

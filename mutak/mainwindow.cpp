@@ -93,9 +93,10 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
 
 void MainWindow::addToList(){
     bool quitLoop = false;
-    for(unsigned int i=0; (i<= tracks.size()-1) && (quitLoop == false); i++){
+    vector<Track> t = dbapi->retriveFromDB();
+    for(unsigned int i=0; (i<= t.size()-1) && (quitLoop == false); i++){
         if(this->checkForInternet() == true){
-            QString link = tracks[i].getID();
+            QString link = t[i].getID();
             //request the image of each track
             QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+link));
             root = (root.value("tracks").toArray().at(0)).toObject();
@@ -108,7 +109,7 @@ void MainWindow::addToList(){
             pix.loadFromData(pd->downloadedData());
             pix = pix.scaled(32,32,Qt::KeepAspectRatio,Qt::SmoothTransformation);
             //prepare the item and fill it with data
-            WidgetItem *theWidgetItem = new WidgetItem(pix, tracks[i]);
+            WidgetItem *theWidgetItem = new WidgetItem(pix, t[i]);
             QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
             ui->listWidget->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());

@@ -20,6 +20,7 @@ public:
     void prepareUserDir(QString id);
     void prepareUserFiles();
     void sendToDB(vector <Track> & t);
+    vector<Track> retriveFromDB();
 private:
     void writeToFile( Track & t);
     bool checkForExistance(Track & t);
