@@ -52,11 +52,52 @@ void DatabaseAPI :: prepareUserFiles(){
 }
 void DatabaseAPI :: sendToDB(vector <Track> &t){
     userFiles.setFileName(filePathToday);
-        for(unsigned int i=0; i<=49; i++){
-            if(checkForExistance(t[i]) == false){
-                writeToFile(t[i]);
+        for(unsigned int i=50; i>0; i--){
+            if(checkForExistance(t[i-1]) == false){
+                writeToFile(t[i-1]);
             }
         }
+}
+vector<Track> DatabaseAPI :: retriveFromDB(){
+    vector<Track> t;
+    if(userFiles.open(QIODevice::ReadOnly | QIODevice::Text)){
+        while(!userFiles.atEnd()){
+               QByteArray arr = userFiles.readLine();
+               int y=0;
+               QString name,artist,dur,play,id;
+               do{
+                   name += arr[y];
+                   y++;
+               }while(arr[y] != '|');
+               y++;
+               do{
+                   artist += arr[y];
+                   y++;
+               }while(arr[y] != '|');
+               y++;
+               do{
+                   dur += arr[y];
+                   y++;
+               }while(arr[y] != '|');
+               y++;
+               do{
+                   play += arr[y];
+                   y++;
+               }while(arr[y] != '%');
+               y++;
+               do{
+                   id += arr[y];
+                   y++;
+               }while(arr[y] != '\n');
+               Track tr(name,artist,dur.toDouble(),play,id);
+               t.push_back(tr);
+        }
+    }else{
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+        QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
+    }
+    userFiles.close();
+    return t;
 }
 //=====================PRV METHODES ============================
 void DatabaseAPI :: writeToFile(Track & t){
@@ -83,7 +124,6 @@ bool DatabaseAPI :: checkForExistance(Track & t){
             for(int k=j; arr[k]!='\n'; k++){
                 id += arr[k];
             }
-            std::cout << "id of line extracted from file " << id.toStdString() <<std::endl;
             if(t.getID() == id){
                 found = true;
             }
@@ -94,50 +134,4 @@ bool DatabaseAPI :: checkForExistance(Track & t){
     }
     userFiles.close();
     return found;
-}
-vector<Track> DatabaseAPI :: retriveFromDB(){
-    vector<Track> t;
-    if(userFiles.open(QIODevice::ReadOnly | QIODevice::Text)){
-        while(!userFiles.atEnd()){
-               QByteArray arr = userFiles.readLine();
-               int y=0;
-               QString name,artist,dur,play,id;
-               do{
-                   name += arr[y];
-                   y++;
-               }while(arr[y] != '|');
-               std::cout << "ret: " <<name.toStdString() <<std::endl;
-               y++;
-               do{
-                   artist += arr[y];
-                   y++;
-               }while(arr[y] != '|');
-               std::cout << "ret: " <<artist.toStdString() <<std::endl;
-               y++;
-               do{
-                   dur += arr[y];
-                   y++;
-               }while(arr[y] != '|');
-               std::cout << "ret: " <<dur.toStdString() <<std::endl;
-               y++;
-               do{
-                   play += arr[y];
-                   y++;
-               }while(arr[y] != '%');
-               std::cout << "ret: " <<play.toStdString() <<std::endl;
-               y++;
-               do{
-                   id += arr[y];
-                   y++;
-               }while(arr[y] != '\n');
-               std::cout << "ret: " <<id.toStdString() <<std::endl;
-               Track tr(name,artist,dur.toDouble(),play,id);
-               t.push_back(tr);
-        }
-    }else{
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
-    }
-    userFiles.close();
-    return t;
 }
