@@ -87,16 +87,18 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
         //timezone conversion to play date
         QString format = "yyyy-MM-ddTHH:mm:ss.zzzZ";
         QDateTime dt = QDateTime::fromString (play, format);
-        std::cout << "tt " << dt.toString().toStdString() <<std::endl;
-        QDateTime dd = QDateTime(dt.date(), dt.time(), Qt::UTC).toLocalTime();
-        //dd = dt.toTimeSpec(Qt::LocalTime);
-        std::cout << dd.toString().toStdString() <<std::endl;
+        QDateTime playtimeConverted = QDateTime(dt.date(), dt.time(), Qt::UTC).toLocalTime();
 
         jb = jb.value("external_urls").toObject();
         QString link = jb.value("spotify").toString();
         QStringRef substr(&link, 31, (link.size()-1) - 30);
         QString l = substr.toString();
-        tracks.push_back(Track(trackName,artistName,dur,dd.toString(),l));
+
+        //check if the timestamp of the track is still the same day
+        QDateTime lt;
+        if(playtimeConverted.date() == lt.toLocalTime().date()){
+            tracks.push_back(Track(trackName,artistName,dur,playtimeConverted.toString(),l));
+        }
     }
    dbapi->sendToDB(tracks); //send to database to save
     this->addToList();

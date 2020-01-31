@@ -52,7 +52,7 @@ void DatabaseAPI :: prepareUserFiles(){
 }
 void DatabaseAPI :: sendToDB(vector <Track> &t){
     userFiles.setFileName(filePathToday);
-        for(unsigned int i=50; i>0; i--){
+        for(unsigned int i=t.size(); i>0; i--){
             if(checkForExistance(t[i-1]) == false){
                 writeToFile(t[i-1]);
             }
