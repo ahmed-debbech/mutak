@@ -13,6 +13,8 @@
 #include <QListWidgetItem>
 #include <QWidget>
 #include "widgetitem.h"
+#include <QDateTime>
+#include <QTimeZone>
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this);
@@ -81,11 +83,20 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
         QString trackName = jb.value("name").toString();
         double dur = jb.value("duration_ms").toDouble();
         QString play = (r.value("items").toArray()).at(i).toObject().value("played_at").toString();
+
+        //timezone conversion to play date
+        QString format = "yyyy-MM-ddTHH:mm:ss.zzzZ";
+        QDateTime dt = QDateTime::fromString (play, format);
+        std::cout << "tt " << dt.toString().toStdString() <<std::endl;
+        QDateTime dd = QDateTime(dt.date(), dt.time(), Qt::UTC).toLocalTime();
+        //dd = dt.toTimeSpec(Qt::LocalTime);
+        std::cout << dd.toString().toStdString() <<std::endl;
+
         jb = jb.value("external_urls").toObject();
         QString link = jb.value("spotify").toString();
         QStringRef substr(&link, 31, (link.size()-1) - 30);
         QString l = substr.toString();
-        tracks.push_back(Track(trackName,artistName,dur,play,l));
+        tracks.push_back(Track(trackName,artistName,dur,dd.toString(),l));
     }
    dbapi->sendToDB(tracks); //send to database to save
     this->addToList();
