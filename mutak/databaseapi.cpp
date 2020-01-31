@@ -31,7 +31,7 @@ void DatabaseAPI :: prepareUserDir(QString id){
 void DatabaseAPI :: prepareUserFiles(){
     //get date and time of sys to name the file after it (if file doesnt exist)
     QDateTime UTC(QDateTime::currentDateTimeUtc());
-    QDateTime local(UTC.toLocalTime());
+    QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
     int y,m,d;
     local.date().getDate( &y, &m, &d);
 
