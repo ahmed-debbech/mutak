@@ -76,7 +76,7 @@ void DatabaseAPI :: sendToDB(vector <Track> &t){
 }
 void DatabaseAPI :: writeToOldDayFile(QString day, Track & t){
     QFile pastFile;
-    pastFile.setFileName(day);
+    pastFile.setFileName(userDirName + day);
     bool found = false;
 
     //check for existance
