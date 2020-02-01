@@ -5,6 +5,7 @@
 #include <QByteArray>
 #include <QTextStream>
 #include <QString>
+#include <QDateTime>
 
 DatabaseAPI::DatabaseAPI(){
 
@@ -51,12 +52,73 @@ void DatabaseAPI :: prepareUserFiles(){
     userFiles.close();
 }
 void DatabaseAPI :: sendToDB(vector <Track> &t){
+
     userFiles.setFileName(filePathToday);
         for(unsigned int i=t.size(); i>0; i--){
-            if(checkForExistance(t[i-1]) == false){
-                writeToFile(t[i-1]);
+            //check if the timestamp of the track is still the same day
+            QDateTime UTC(QDateTime::currentDateTimeUtc());
+            QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
+
+            QDateTime playtimeConverted = QDateTime::fromString(t[i-1].getPlayDate());
+            if(playtimeConverted.date() == local.date()){
+                if(checkForExistance(t[i-1]) == false){
+                    writeToFile(t[i-1]);
+                }
+            }else{
+                if(playtimeConverted.date() < local.date()){
+                    QString pastday = QString::number(playtimeConverted.date().day()) + "-" +
+                            QString::number(playtimeConverted.date().month()) + "-"
+                            + QString::number(playtimeConverted.date().year()) + ".mu";
+                    this->writeToOldDayFile(pastday, t[i-1]);
+                }
             }
         }
+}
+void DatabaseAPI :: writeToOldDayFile(QString day, Track & t){
+    QFile pastFile;
+    pastFile.setFileName(day);
+    bool found = false;
+
+    //check for existance
+    if(pastFile.open(QIODevice::ReadOnly | QIODevice::Text)){
+        while((!pastFile.atEnd()) && (found == false)){
+            QByteArray arr = pastFile.readLine();
+            int j =0;
+            do{
+               j++;
+            }while(arr[j] != '%');
+            j++;
+            QString id;
+            for(int k=j; arr[k]!='\n'; k++){
+                id += arr[k];
+            }
+            if(t.getID() == id){
+                found = true;
+            }
+        }
+    }else{
+        // if the file doesnt exist create it
+        if(pastFile.open(QIODevice::WriteOnly | QIODevice::Text)){
+            found = false;
+        }else{
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
+            found = false;
+        }
+    }
+    pastFile.close();
+
+    //if not found
+    if(found == false){
+        if(pastFile.open(QIODevice::Append | QIODevice::Text)){
+            QTextStream tofile(&pastFile);
+            tofile << t.getName() << "|" << t.getArtist() << "|" << t.getDuration() << "|" << t.getPlayDate() << "%" << t.getID() << "\n";
+        }else{
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
+        }
+        pastFile.close();
+    }
 }
 vector<Track> DatabaseAPI :: retriveFromDB(){
     vector<Track> t;
@@ -129,8 +191,14 @@ bool DatabaseAPI :: checkForExistance(Track & t){
             }
         }
     }else{
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
+        // if the file doesnt exist create it
+        if(userFiles.open(QIODevice::WriteOnly | QIODevice::Text)){
+            found = false;
+        }else{
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("Something went wrong! Please restart the application."), QMessageBox::Ok);
+            found = false;
+        }
     }
     userFiles.close();
     return found;

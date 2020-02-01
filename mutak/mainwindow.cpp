@@ -94,15 +94,7 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
         QStringRef substr(&link, 31, (link.size()-1) - 30);
         QString l = substr.toString();
 
-        //check if the timestamp of the track is still the same day
-        QDateTime UTC(QDateTime::currentDateTimeUtc());
-        QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
-
-        std::cout << local.date().toString().toStdString() <<std::endl;
-        if(playtimeConverted.date() == local.date()){
-            tracks.push_back(Track(trackName,artistName,dur,playtimeConverted.toString(),l));
-            std::cout << "pusheed" <<std::endl;
-        }
+         tracks.push_back(Track(trackName,artistName,dur,playtimeConverted.toString(),l));
     }
    dbapi->sendToDB(tracks); //send to database to save
     this->addToList();

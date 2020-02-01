@@ -21,6 +21,7 @@ public:
     void prepareUserFiles();
     void sendToDB(vector <Track> & t);
     vector<Track> retriveFromDB();
+    void writeToOldDayFile(QString day, Track & t);
 private:
     void writeToFile( Track & t);
     bool checkForExistance(Track & t);
