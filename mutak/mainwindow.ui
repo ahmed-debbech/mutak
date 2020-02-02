@@ -10,8 +10,20 @@
     <height>734</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #191414;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -49,6 +61,9 @@
             <pointsize>24</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
           <property name="text">
            <string>Welcome to Mutak</string>
           </property>
@@ -84,6 +99,10 @@
             <height>0</height>
            </size>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;
+background-color:  #1db954;</string>
+          </property>
           <property name="text">
            <string>Log In</string>
           </property>
@@ -114,6 +133,10 @@
           </property>
           <property name="autoFillBackground">
            <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;
+</string>
           </property>
           <property name="text">
            <string>An Ahmed Debbech Production - All Rights Reserved © 2020</string>
@@ -176,6 +199,9 @@
                 <bold>true</bold>
                </font>
               </property>
+              <property name="styleSheet">
+               <string notr="true">color: white;</string>
+              </property>
               <property name="text">
                <string>name</string>
               </property>
@@ -196,6 +222,10 @@
             </item>
             <item>
              <widget class="QPushButton" name="refresh_button">
+              <property name="styleSheet">
+               <string notr="true">color: white;
+background-color: #1db954</string>
+              </property>
               <property name="text">
                <string>Refresh</string>
               </property>
@@ -203,6 +233,10 @@
             </item>
             <item>
              <widget class="QPushButton" name="logout_button">
+              <property name="styleSheet">
+               <string notr="true">color: white;
+background-color: #1db954</string>
+              </property>
               <property name="text">
                <string>Log out</string>
               </property>
@@ -213,7 +247,11 @@
          </layout>
         </item>
         <item>
-         <widget class="QListWidget" name="listWidget"/>
+         <widget class="QListWidget" name="listWidget">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -234,13 +272,16 @@
            <widget class="QLabel" name="countText">
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
+              <pointsize>10</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
+            <property name="styleSheet">
+             <string notr="true">color: white;</string>
+            </property>
             <property name="text">
-             <string>0 Tracks</string>
+             <string>No tracks</string>
             </property>
            </widget>
           </item>
@@ -252,6 +293,9 @@
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="error_retriv">
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
           <property name="text">
            <string>Could not retrive data please refresh again, check your internet connection</string>
           </property>
@@ -264,6 +308,10 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;
+background-color: #1db954</string>
           </property>
           <property name="text">
            <string>Refresh</string>

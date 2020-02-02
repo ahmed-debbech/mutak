@@ -130,7 +130,16 @@ void MainWindow::addToList(){
     if(quitLoop == true){
         ui->stackedWidget->setCurrentIndex(2); //pass to no connection screen
     }else{
-        ui->countText->setText(QString::number(ui->listWidget->count())+ " Tracks");
+        //get the local date and time in sys
+        QDateTime UTC(QDateTime::currentDateTimeUtc());
+        QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
+        int count = ui->listWidget->count();
+        if(count != 0){
+            ui->countText->setText("You listened to " + QString::number(count)+ " tracks" + " in " +  local.date().toString());
+        }else{
+            ui->countText->setText("No Tracks");
+        }
+        ui->listWidget->setStyleSheet("background-color: #1db954");
     }
 }
 //=================================SIGNALS=======================================
