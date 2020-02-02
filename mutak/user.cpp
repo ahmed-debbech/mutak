@@ -23,7 +23,7 @@ void User::printOnUI(Ui_MainWindow *mw){
     photoDownloader * pd = new photoDownloader(imageRef);
     QPixmap q;
     q.loadFromData(pd->downloadedData());
-    q = q.scaled(50,50,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+    q = q.scaled(64,64,Qt::KeepAspectRatio,Qt::SmoothTransformation);
 
      mw->photo->setPixmap(q);
 }
