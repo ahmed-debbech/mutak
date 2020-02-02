@@ -135,11 +135,10 @@ void MainWindow::addToList(){
         QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
         int count = ui->listWidget->count();
         if(count != 0){
-            ui->countText->setText("You listened to " + QString::number(count)+ " tracks" + " in " +  local.date().toString());
+            ui->countText->setText("You've listened to " + QString::number(count)+ " tracks" + " on " +  local.date().toString());
         }else{
             ui->countText->setText("No Tracks");
         }
-        ui->listWidget->setStyleSheet("background-color: #1db954");
     }
 }
 //=================================SIGNALS=======================================

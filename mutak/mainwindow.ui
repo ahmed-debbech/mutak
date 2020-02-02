@@ -101,7 +101,11 @@
           </property>
           <property name="styleSheet">
            <string notr="true">color: white;
-background-color:  #1db954;</string>
+background-color:  #1db954;
+border-radius: 25px;
+  padding: 20px;
+  width: 200px;
+  height: 10px;</string>
           </property>
           <property name="text">
            <string>Log In</string>
@@ -224,7 +228,8 @@ background-color:  #1db954;</string>
              <widget class="QPushButton" name="refresh_button">
               <property name="styleSheet">
                <string notr="true">color: white;
-background-color: #1db954</string>
+background-color:  #1db954;
+</string>
               </property>
               <property name="text">
                <string>Refresh</string>
