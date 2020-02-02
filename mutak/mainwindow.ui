@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>662</width>
-    <height>733</height>
+    <width>581</width>
+    <height>734</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -207,6 +207,19 @@
         </item>
         <item>
          <widget class="QListWidget" name="listWidget"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="countText">
+          <property name="font">
+           <font>
+            <family>MS Shell Dlg 2</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>0 Tracks</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>

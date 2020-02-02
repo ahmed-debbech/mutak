@@ -114,10 +114,6 @@ void MainWindow::addToList(){
             root = root.value("album").toObject();
             QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
 
-           //prepare and resize each image
-            /*photoDownloader * pd = new photoDownloader(download);
-            QPixmap pix;
-            pix.loadFromData(pd->downloadedData());*/
             //prepare the item and fill it with data
             WidgetItem *theWidgetItem = new WidgetItem(t[i-1]);
             retrivePhotosThread rpt(download);
@@ -126,12 +122,15 @@ void MainWindow::addToList(){
             ui->listWidget->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());
             ui->listWidget->setItemWidget(lwi, theWidgetItem);
+            ui->countText->setText("Please Wait...");
         }else{
            quitLoop = true;
         }
     }
     if(quitLoop == true){
         ui->stackedWidget->setCurrentIndex(2); //pass to no connection screen
+    }else{
+        ui->countText->setText(QString::number(ui->listWidget->count())+ " Tracks");
     }
 }
 //=================================SIGNALS=======================================
@@ -160,6 +159,7 @@ void MainWindow :: isGranted(){
 //=================================SLOTS ========================================
 void MainWindow::on_refresh_button_clicked(){
     if(this->checkForInternet() == true){
+        ui->listWidget->clear();
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"));
         this->dataToTracksObjects(root);
     }
