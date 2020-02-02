@@ -4,6 +4,9 @@
 #include "photodownloader.h"
 #include <QPixmap>
 #include <iostream>
+#include <QBrush>
+#include <QPainter>
+#include <QBitmap>
 
 User::User(const QJsonObject & data, QString t, QString r){
    id = data.value("id").toString();
@@ -21,7 +24,8 @@ void User::printOnUI(Ui_MainWindow *mw){
     QPixmap q;
     q.loadFromData(pd->downloadedData());
     q = q.scaled(50,50,Qt::KeepAspectRatio,Qt::SmoothTransformation);
-    mw->photo->setPixmap(q);
+
+     mw->photo->setPixmap(q);
 }
 User :: ~User(){
 

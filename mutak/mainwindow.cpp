@@ -15,6 +15,7 @@
 #include "widgetitem.h"
 #include <QDateTime>
 #include <QTimeZone>
+#include "retrivephotosthread.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this);
@@ -113,12 +114,14 @@ void MainWindow::addToList(){
             root = root.value("album").toObject();
             QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
 
-            //prepare and resize each image
-            photoDownloader * pd = new photoDownloader(download);
+           //prepare and resize each image
+            /*photoDownloader * pd = new photoDownloader(download);
             QPixmap pix;
-            pix.loadFromData(pd->downloadedData());
+            pix.loadFromData(pd->downloadedData());*/
             //prepare the item and fill it with data
-            WidgetItem *theWidgetItem = new WidgetItem(pix, t[i-1]);
+            WidgetItem *theWidgetItem = new WidgetItem(t[i-1]);
+            retrivePhotosThread rpt(download);
+            rpt.run(theWidgetItem);
             QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
             ui->listWidget->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());

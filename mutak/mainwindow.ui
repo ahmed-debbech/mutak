@@ -109,6 +109,12 @@
             <pointsize>7</pointsize>
            </font>
           </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>An Ahmed Debbech Production - All Rights Reserved © 2020</string>
           </property>

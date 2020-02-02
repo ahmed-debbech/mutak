@@ -22,6 +22,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     photodownloader.cpp \
+    retrivephotosthread.cpp \
     track.cpp \
     user.cpp \
     widgetitem.cpp
@@ -31,6 +32,7 @@ HEADERS += \
     databaseapi.h \
     mainwindow.h \
     photodownloader.h \
+    retrivephotosthread.h \
     track.h \
     user.h \
     widgetitem.h

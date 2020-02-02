@@ -1,12 +1,12 @@
 #include "widgetitem.h"
 #include "ui_widgetitem.h"
 
-WidgetItem::WidgetItem(QPixmap &pix, Track & t, QWidget *parent) :
+WidgetItem::WidgetItem(Track & t, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WidgetItem)
 {
     ui->setupUi(this);
-    ui->photo->setPixmap(pix);
+    //ui->photo->setPixmap(pix);
     if(t.getName().size() <= 32){
         ui->name->setText(t.getName());
     }else{

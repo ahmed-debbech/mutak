@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include "track.h"
-#include <QPixmap>
 #include "photodownloader.h"
 
 
@@ -16,9 +15,9 @@ class WidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit WidgetItem(QPixmap &pix, Track &t,QWidget *parent = nullptr);
+    explicit WidgetItem( Track &t,QWidget *parent = nullptr);
     ~WidgetItem();
-
+    Ui::WidgetItem * getUi(){ return ui;}
 private:
     Ui::WidgetItem *ui;
 };
