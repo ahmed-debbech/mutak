@@ -27,6 +27,7 @@ WidgetItem::WidgetItem(Track & t, QWidget *parent) :
     }
     ui->duration->setText(QString::number(t.getDuration()));
     ui->playedat->setText(t.getPlayDate());
+
 }
 
 WidgetItem::~WidgetItem()

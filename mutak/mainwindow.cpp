@@ -119,6 +119,9 @@ void MainWindow::addToList(){
             retrivePhotosThread rpt(download);
             rpt.run(theWidgetItem);
             QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
+            QBrush b ;
+            b.setColor(QColor(45,45,45,255));
+            lwi->setBackground(b); // sets green background
             ui->listWidget->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());
             ui->listWidget->setItemWidget(lwi, theWidgetItem);
