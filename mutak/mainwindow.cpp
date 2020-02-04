@@ -155,13 +155,13 @@ void MainWindow :: isGranted(){
         ui->stackedWidget->setCurrentIndex(1);
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me"));
         if(root.empty() == false){
+            this->user = new User(root, Token, refToken);
+            this->user->printOnUI(this->getUi());
+
             //check if the folder of user exists
             dbapi->prepareUserDir(root.value("id").toString());
             //check for files in the current sys date
-            dbapi->prepareUserFiles();
-
-            this->user = new User(root, Token, refToken);
-            this->user->printOnUI(this->getUi());
+            dbapi->prepareUserFiles(user->getId());
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("Could not retrive account data."), QMessageBox::Ok);

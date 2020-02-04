@@ -39,7 +39,6 @@ void DatabaseAPI :: prepareUserFiles(QString userID){
     userFiles.setFileName(userDirName + QString::number(d) + "-" +
                           QString::number(m) + "-" + QString::number(y) +  ".mu");
     filePathToday = userFiles.fileName();
-
     //creating file of that specefic day
     if(userFiles.exists() == false){
         if (userFiles.open(QIODevice::WriteOnly | QIODevice::Text)){
@@ -125,7 +124,10 @@ vector<Track> DatabaseAPI :: retriveFromDB(){
     vector<Track> t;
     if(userFiles.open(QIODevice::ReadOnly | QIODevice::Text)){
         while(!userFiles.atEnd()){
-               QByteArray arr = userFiles.readLine();
+            QByteArray arr;
+            do{
+                arr = userFiles.readLine();
+            }while(arr.contains("user:") == true);
                int y=0;
                QString name,artist,dur,play,id;
                do{
@@ -177,7 +179,10 @@ bool DatabaseAPI :: checkForExistance(Track & t){
     bool found = false;
     if(userFiles.open(QIODevice::ReadOnly | QIODevice::Text)){
         while((!userFiles.atEnd()) && (found == false)){
-            QByteArray arr = userFiles.readLine();
+            QByteArray arr;
+            do{
+                arr = userFiles.readLine();
+            }while(arr.contains("user:") == true);
             int j =0;
             do{
                j++;
