@@ -18,7 +18,7 @@ class DatabaseAPI{
 public:
     DatabaseAPI();
     void prepareUserDir(QString id);
-    void prepareUserFiles();
+    void prepareUserFiles(QString userID);
     void sendToDB(vector <Track> & t);
     vector<Track> retriveFromDB();
     void writeToOldDayFile(QString day, Track & t);

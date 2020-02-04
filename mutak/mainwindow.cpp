@@ -126,6 +126,7 @@ void MainWindow::addToList(){
             lwi->setSizeHint (theWidgetItem->sizeHint());
             ui->listWidget->setItemWidget(lwi, theWidgetItem);
             ui->countText->setText("Please Wait...");
+            ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
         }else{
            quitLoop = true;
         }

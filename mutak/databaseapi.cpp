@@ -29,7 +29,7 @@ void DatabaseAPI :: prepareUserDir(QString id){
         QObject::tr("Could not find the correct directory of Mutak"), QMessageBox::Ok);
     }
 }
-void DatabaseAPI :: prepareUserFiles(){
+void DatabaseAPI :: prepareUserFiles(QString userID){
     //get date and time of sys to name the file after it (if file doesnt exist)
     QDateTime UTC(QDateTime::currentDateTimeUtc());
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
@@ -43,7 +43,8 @@ void DatabaseAPI :: prepareUserFiles(){
     //creating file of that specefic day
     if(userFiles.exists() == false){
         if (userFiles.open(QIODevice::WriteOnly | QIODevice::Text)){
-
+            QTextStream out(&userFiles);
+            out << "user:" << userID <<"\n";
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("Something went wrong in the database! Please restart the application."), QMessageBox::Ok);

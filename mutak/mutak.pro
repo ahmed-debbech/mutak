@@ -51,6 +51,5 @@ RESOURCES += \
 
 DISTFILES += \
     .gitignore \
-    resources/circula-medium.otf \
     resources/spotifyico.png
 

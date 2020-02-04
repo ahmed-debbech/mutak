@@ -57,12 +57,16 @@
           </property>
           <property name="font">
            <font>
-            <family>MS Shell Dlg 2</family>
-            <pointsize>24</pointsize>
+            <family>://resources/fonts/GothamBook.ttf</family>
+            <pointsize>36</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color: white;</string>
+           <string notr="true">color: white;
+font: 36pt  '://resources/fonts/GothamBook.ttf';</string>
           </property>
           <property name="text">
            <string>Welcome to Mutak</string>
@@ -101,9 +105,11 @@
           </property>
           <property name="font">
            <font>
+            <family>://resources/fonts/GothamBoldItalic.ttf</family>
             <pointsize>12</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
            </font>
           </property>
           <property name="styleSheet">
@@ -114,23 +120,14 @@ border-radius: 25px;
   padding: 20px;
   width: 200px;
   height: 15px;
+font: 12pt  '://resources/fonts/GothamBoldItalic.ttf';
  }
-QPushButton#loginButton:pressed {
-     background-color: rgb(0.0.0.0);    
-color: white;
-border-radius: 25px;
-  padding: 20px;
-  width: 200px;
-  height: 15px; 
+#loginButton:hover {
+	background-color: #2DC964;
  }
-QPushButton#loginButton:hover {
-     background-color: rgb(37.211.77);
-color: white;
-border-radius: 25px;
-  padding: 20px;
-  width: 200px;
-  height: 15px;
- }</string>
+#loginButton:pressed{
+	background-color: #2BB85D;
+}</string>
           </property>
           <property name="text">
            <string>Log In</string>
@@ -226,13 +223,16 @@ border-radius: 25px;
              <widget class="QLabel" name="disp_name">
               <property name="font">
                <font>
+                <family>://resources/fonts/GothamBook.ttf</family>
                 <pointsize>12</pointsize>
                 <weight>75</weight>
+                <italic>false</italic>
                 <bold>true</bold>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">color: white;</string>
+               <string notr="true">color: white;
+font: bold 12pt  '://resources/fonts/GothamBook.ttf';</string>
               </property>
               <property name="text">
                <string>name</string>
@@ -255,12 +255,19 @@ border-radius: 25px;
             <item>
              <widget class="QPushButton" name="refresh_button">
               <property name="styleSheet">
-               <string notr="true">color: white;
+               <string notr="true">#refresh_button {
+color: white;
 background-color:  #1db954;
 border-radius: 25px;
-padding: 20px;
-width: 80px;
-</string>
+  padding: 20px;
+  width: 80px;
+ }
+#refresh_button:hover {
+	background-color: #2DC964;
+ }
+#refresh_button:pressed{
+	background-color: #2BB85D;
+}</string>
               </property>
               <property name="text">
                <string>Refresh</string>
@@ -270,11 +277,19 @@ width: 80px;
             <item>
              <widget class="QPushButton" name="logout_button">
               <property name="styleSheet">
-               <string notr="true">color: white;
+               <string notr="true">#logout_button {
+color: white;
 background-color:  #1db954;
 border-radius: 25px;
-padding: 20px;
-width: 80px;</string>
+  padding: 20px;
+  width: 80px;
+ }
+#logout_button:hover {
+	background-color: #2DC964;
+ }
+#logout_button:pressed{
+	background-color: #2BB85D;
+}</string>
               </property>
               <property name="text">
                <string>Log out</string>

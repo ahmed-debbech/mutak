@@ -1,6 +1,21 @@
 <RCC>
     <qresource prefix="/">
         <file>resources/spotifyico.png</file>
-        <file>resources/circula-medium.otf</file>
+        <file>resources/fonts/Gotham-Black.otf</file>
+        <file>resources/fonts/GothamBoldItalic.ttf</file>
+        <file>resources/fonts/GothamBook.ttf</file>
+        <file>resources/fonts/Gotham-BookItalic.otf</file>
+        <file>resources/fonts/GothamBookItalic.ttf</file>
+        <file>resources/fonts/Gotham-Light.otf</file>
+        <file>resources/fonts/GothamLight.ttf</file>
+        <file>resources/fonts/GothamLightItalic.ttf</file>
+        <file>resources/fonts/GothamMedium.ttf</file>
+        <file>resources/fonts/GothamMedium_1.ttf</file>
+        <file>resources/fonts/GothamMediumItalic.ttf</file>
+        <file>resources/fonts/Gotham-Thin.otf</file>
+        <file>resources/fonts/Gotham-ThinItalic.otf</file>
+        <file>resources/fonts/Gotham-UltraItalic.otf</file>
+        <file>resources/fonts/Gotham-XLight.otf</file>
+        <file>resources/fonts/Gotham-XLightItalic.otf</file>
     </qresource>
 </RCC>
