@@ -118,46 +118,54 @@ void MainWindow::closeEvent (QCloseEvent *event){
     }
 }
 void MainWindow::addToList(){
-    bool quitLoop = false;
-    vector<Track> t = dbapi->retriveFromDB();
-    for(unsigned int i=t.size(); ((i>0) && (quitLoop == false)); i--){
-        if(this->checkForInternet() == true){
+    vector<Track> t = dbapi->retriveFromDB(); //dataaaa
+    vector <WidgetItem*> widitem;
+    //list all the items in list
+    for(unsigned int i=t.size(); (i>0); i--){
+         WidgetItem *theWidgetItem = nullptr;
+        //prepare the item and fill it with data
+        theWidgetItem = new WidgetItem(t[i-1]);
+        QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
+        ui->listWidget->addItem(lwi);
+        lwi->setSizeHint (theWidgetItem->sizeHint());
+        widitem.push_back(theWidgetItem); // we store the widget in individual vector to use it back
+        ui->listWidget->setItemWidget(lwi, theWidgetItem);
+        ui->countText->setText("Please Wait...");
+        ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
+    }
+
+    //then retrive each photo for each track and update the item
+    bool theresInternet = true;
+    for(unsigned int i=t.size(); (theresInternet == true) && (i>0); i--){
+         theresInternet = this->checkForInternet();
+        if(theresInternet == true){
             runningWeb = true;
             QString link = t[i-1].getID();
+
             //request the image of each track
             QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+link));
             root = (root.value("tracks").toArray().at(0)).toObject();
             root = root.value("album").toObject();
             QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
-
-            //prepare the item and fill it with data
-            WidgetItem *theWidgetItem = new WidgetItem(t[i-1]);
-            retrivePhotosThread rpt(download);
-            rpt.run(theWidgetItem);
-            QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
-            ui->listWidget->addItem(lwi);
-            lwi->setSizeHint (theWidgetItem->sizeHint());
-            ui->listWidget->setItemWidget(lwi, theWidgetItem);
-            ui->countText->setText("Please Wait...");
+           retrivePhotosThread rpt(download);
+            rpt.run(widitem[t.size()-i]);
+            ui->countText->setText("Please Wait... Downloading photos");
             ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
         }else{
-           quitLoop = true;
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("An error occured in retriving photos."), QMessageBox::Ok);
         }
     }
-    if(quitLoop == true){
-        ui->stackedWidget->setCurrentIndex(2); //pass to no connection screen
+    runningWeb = false;
+    ui->listWidget->setCursor(QCursor(Qt::ArrowCursor));
+    //get the local date and time in sys
+    QDateTime UTC(QDateTime::currentDateTimeUtc());
+    QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
+    int count = ui->listWidget->count();
+    if(count != 0){
+        ui->countText->setText("You've listened to " + QString::number(count)+ " tracks" + " on " +  local.date().toString());
     }else{
-        runningWeb = false;
-        ui->listWidget->setCursor(QCursor(Qt::ArrowCursor));
-        //get the local date and time in sys
-        QDateTime UTC(QDateTime::currentDateTimeUtc());
-        QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
-        int count = ui->listWidget->count();
-        if(count != 0){
-            ui->countText->setText("You've listened to " + QString::number(count)+ " tracks" + " on " +  local.date().toString());
-        }else{
-            ui->countText->setText("No Tracks");
-        }
+        ui->countText->setText("No Tracks");
     }
 }
 //=================================SIGNALS=======================================
@@ -177,7 +185,6 @@ void MainWindow :: isGranted(){
             dbapi->prepareUserDir(root.value("id").toString());
             //check for files in the current sys date
             dbapi->prepareUserFiles(user->getId());
-            this->on_refresh_button_clicked();
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("Could not retrive account data."), QMessageBox::Ok);
