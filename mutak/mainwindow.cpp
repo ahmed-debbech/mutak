@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->setupUi(this);
     this->setWindowTitle("Mutak");
     dbapi = new DatabaseAPI();
+    runningWeb = false;
     auth.setValues();
     auth.connectToBrowser();
     connect(auth.getAuthObject(), &QOAuth2AuthorizationCodeFlow::granted,
@@ -101,12 +102,27 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
    dbapi->sendToDB(tracks); //send to database to save
     this->addToList();
 }
-
+void MainWindow::closeEvent (QCloseEvent *event){
+    if(runningWeb == true){
+        QMessageBox::StandardButton resBtn;
+        resBtn = QMessageBox::question( this, "Warning",tr("Are you sure you want to exit?\n Mutak is retriving data."),
+                            QMessageBox::No | QMessageBox::Yes,
+                            QMessageBox::Yes);
+        if (resBtn != QMessageBox::Yes) {
+            event->ignore();
+        } else {
+            event->accept();
+        }
+    }else{
+        event->accept();
+    }
+}
 void MainWindow::addToList(){
     bool quitLoop = false;
     vector<Track> t = dbapi->retriveFromDB();
     for(unsigned int i=t.size(); ((i>0) && (quitLoop == false)); i--){
         if(this->checkForInternet() == true){
+            runningWeb = true;
             QString link = t[i-1].getID();
             //request the image of each track
             QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+link));
@@ -119,9 +135,6 @@ void MainWindow::addToList(){
             retrivePhotosThread rpt(download);
             rpt.run(theWidgetItem);
             QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
-            QBrush b ;
-            b.setColor(QColor(45,45,45,255));
-            lwi->setBackground(b); // sets green background
             ui->listWidget->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());
             ui->listWidget->setItemWidget(lwi, theWidgetItem);
@@ -134,6 +147,8 @@ void MainWindow::addToList(){
     if(quitLoop == true){
         ui->stackedWidget->setCurrentIndex(2); //pass to no connection screen
     }else{
+        runningWeb = false;
+        ui->listWidget->setCursor(QCursor(Qt::ArrowCursor));
         //get the local date and time in sys
         QDateTime UTC(QDateTime::currentDateTimeUtc());
         QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
@@ -162,6 +177,7 @@ void MainWindow :: isGranted(){
             dbapi->prepareUserDir(root.value("id").toString());
             //check for files in the current sys date
             dbapi->prepareUserFiles(user->getId());
+            this->on_refresh_button_clicked();
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("Could not retrive account data."), QMessageBox::Ok);

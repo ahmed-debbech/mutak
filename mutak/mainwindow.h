@@ -7,6 +7,7 @@
 #include "user.h"
 #include "track.h"
 #include "databaseapi.h"
+#include <QCloseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,6 +27,7 @@ public:
 private slots:
     void on_loginButton_clicked();
     void isGranted();
+    void closeEvent (QCloseEvent *event);
     void on_refresh_button_clicked();
     void on_refresh_retriv_clicked();
 private:
@@ -35,5 +37,6 @@ private:
     User * user;
     vector<Track> tracks;
     DatabaseAPI * dbapi;
+    bool runningWeb;
 };
 #endif // MAINWINDOW_H
