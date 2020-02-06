@@ -105,10 +105,8 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
 }
 void MainWindow::closeEvent (QCloseEvent *event){
     if(runningWeb == true){
-        QMessageBox::StandardButton resBtn;
-        resBtn = QMessageBox::question( this, "Warning",tr("Are you sure you want to exit?\n Mutak is retriving data."),
-                            QMessageBox::No | QMessageBox::Yes,
-                            QMessageBox::Yes);
+        QMessageBox::StandardButton resBtn = QMessageBox::critical(nullptr, QObject::tr("Warning"),
+        QObject::tr("Are you sure you want to exit?\n Mutak is retriving data."), QMessageBox::Yes);
         if (resBtn != QMessageBox::Yes) {
             event->ignore();
         } else {
@@ -148,7 +146,7 @@ void MainWindow::addToList(){
             root = (root.value("tracks").toArray().at(0)).toObject();
             root = root.value("album").toObject();
             QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
-           retrivePhotosThread rpt(download);
+           retrivePhotosThread rpt (download);
             rpt.run(widitem[t.size()-i]);
             ui->countText->setText("Please Wait... Downloading photos");
             ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
@@ -191,6 +189,7 @@ void MainWindow :: isGranted(){
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("Could not retrive account data."), QMessageBox::Ok);
+            ui->stackedWidget->setCurrentIndex(0);
         }
     }
 }
