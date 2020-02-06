@@ -3,7 +3,6 @@
 
 photoDownloader::photoDownloader(QUrl imageUrl, QObject *parent):QObject(parent){
     QEventLoop loop;
-
     QNetworkRequest request(imageUrl);
     QNetworkReply * reply = m_WebCtrl.get(request);
     connect(&m_WebCtrl, &QNetworkAccessManager::finished,
@@ -14,6 +13,7 @@ photoDownloader::photoDownloader(QUrl imageUrl, QObject *parent):QObject(parent)
     connect(&m_WebCtrl, &QNetworkAccessManager::finished,
             &loop, &QEventLoop::quit);
     loop.exec();
+
 }
 photoDownloader ::  ~photoDownloader(){
 

@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include "ui_mainwindow.h"
 #include <QObject>
+#include "retrivephotosthread.h"
 
 using namespace std;
 

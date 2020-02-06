@@ -13,3 +13,10 @@ void retrivePhotosThread :: run(WidgetItem * i){
     pix.loadFromData(pd->downloadedData());
     w->photo->setPixmap(pix);
 }
+void retrivePhotosThread :: run(QLabel * q){
+    std::cout << "run photo" << "\n";
+    QPixmap pix;
+    pix.loadFromData(pd->downloadedData());
+    pix = pix.scaled(64,64,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+    q->setPixmap(pix);
+}

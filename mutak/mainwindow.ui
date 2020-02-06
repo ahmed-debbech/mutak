@@ -55,15 +55,6 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="font">
-           <font>
-            <family>://resources/fonts/GothamBook.ttf</family>
-            <pointsize>36</pointsize>
-            <weight>50</weight>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
           <property name="styleSheet">
            <string notr="true">color: white;
 font: 36pt  '://resources/fonts/GothamBook.ttf';</string>
@@ -146,6 +137,20 @@ font: 12pt  '://resources/fonts/GothamBoldItalic.ttf';
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="wait_label">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;
+font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
+          </property>
+          <property name="text">
+           <string>Please Wait...</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="copyright">

@@ -20,6 +20,7 @@
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this);
     this->setWindowTitle("Mutak");
+    ui->wait_label->setHidden(true);
     dbapi = new DatabaseAPI();
     runningWeb = false;
     auth.setValues();
@@ -174,10 +175,12 @@ void MainWindow :: isGranted(){
         QString Token = auth.getAuthObject()->token();
         QString refToken = auth.getAuthObject()->refreshToken();
 
-        //passing to the next interface after login
-        ui->stackedWidget->setCurrentIndex(1);
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me"));
         if(root.empty() == false){
+            //passing to the next interface after login
+            ui->wait_label->setHidden(true);
+            ui->stackedWidget->setCurrentIndex(1);
+
             this->user = new User(root, Token, refToken);
             this->user->printOnUI(this->getUi());
 
@@ -203,6 +206,7 @@ void MainWindow:: on_refresh_retriv_clicked(){
     this->on_loginButton_clicked();
 }
 void MainWindow::on_loginButton_clicked(){
+    ui->wait_label->setHidden(false);
     if (this->checkForInternet() == true){
             auth.getAuthObject()->grant();
     }else{

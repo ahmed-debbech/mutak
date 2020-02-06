@@ -1,7 +1,6 @@
 #include "user.h"
 #include <QJsonArray>
 #include <QString>
-#include "photodownloader.h"
 #include <QPixmap>
 #include <iostream>
 #include <QBrush>
@@ -18,14 +17,11 @@ User::User(const QJsonObject & data, QString t, QString r){
 }
 void User::printOnUI(Ui_MainWindow *mw){
     mw->disp_name->setText(name);
-    mw->photo->setText(imageRef);
-    //load photo
-    photoDownloader * pd = new photoDownloader(imageRef);
-    QPixmap q;
-    q.loadFromData(pd->downloadedData());
-    q = q.scaled(64,64,Qt::KeepAspectRatio,Qt::SmoothTransformation);
 
-     mw->photo->setPixmap(q);
+    //load photo
+    //we run a thread that retrives the image
+    retrivePhotosThread rpt(imageRef);
+    rpt.run(mw->photo);
 }
 User :: ~User(){
 

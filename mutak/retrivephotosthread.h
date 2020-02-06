@@ -13,6 +13,7 @@ public:
     retrivePhotosThread(QString t);
     ~retrivePhotosThread();
     virtual void run(WidgetItem *i);
+    virtual void run(QLabel * q);
 };
 
 #endif // RETRIVEPHOTOSTHREAD_H
