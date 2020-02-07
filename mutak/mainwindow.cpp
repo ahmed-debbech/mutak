@@ -162,6 +162,7 @@ void MainWindow::addToList(){
         }
     }
     runningWeb = false;
+    ui->refresh_button->setEnabled(true);
     ui->listWidget->setCursor(QCursor(Qt::ArrowCursor));
     //get the local date and time in sys
     QDateTime UTC(QDateTime::currentDateTimeUtc());
@@ -201,6 +202,7 @@ void MainWindow :: isGranted(){
 }
 //=================================SLOTS ========================================
 void MainWindow::on_refresh_button_clicked(){
+    ui->refresh_button->setEnabled(false);
     if(this->checkForInternet() == true){
         ui->listWidget->clear();
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"));
@@ -212,9 +214,11 @@ void MainWindow:: on_refresh_retriv_clicked(){
 }
 void MainWindow::on_loginButton_clicked(){
     ui->wait_label->setHidden(false);
+    ui->loginButton->setEnabled(false);
     if (this->checkForInternet() == true){
             auth.getAuthObject()->grant();
     }else{
         ui->stackedWidget->setCurrentIndex(2);
     }
+    ui->loginButton->setEnabled(true);
 }

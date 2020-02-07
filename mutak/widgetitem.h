@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "track.h"
 #include "photodownloader.h"
-
+#include <QTime>
 
 namespace Ui {
 class WidgetItem;
@@ -19,6 +19,7 @@ public:
     ~WidgetItem();
     Ui::WidgetItem * getUi(){ return ui;}
 private:
+    QString convertToMin(int millsec);
     Ui::WidgetItem *ui;
 };
 

@@ -26,11 +26,19 @@ WidgetItem::WidgetItem(Track & t, QWidget *parent) :
         ui->artist->setText(l);
         ui->artist->setToolTip(t.getArtist());
     }
-    ui->duration->setText(QString::number(t.getDuration()));
+    ui->duration->setText(this->convertToMin(static_cast<int>(t.getDuration())));
     ui->playedat->setText(t.getPlayDate());
 
 }
-
+QString WidgetItem :: convertToMin(int millsec){
+    QTime time(0,0,0);
+    time = time.addMSecs(millsec);
+    QString r;
+    r = time.toString();
+    QStringRef substr(&r, 3, r.size()-2);
+    r = substr.toString();
+    return r;
+}
 WidgetItem::~WidgetItem()
 {
     delete ui;
