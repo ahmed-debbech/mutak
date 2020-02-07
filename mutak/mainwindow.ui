@@ -57,7 +57,7 @@
           </property>
           <property name="styleSheet">
            <string notr="true">color: white;
-font: 36pt  '://resources/fonts/GothamBook.ttf';</string>
+font: bold 36pt  '://resources/fonts/Gotham-UltraItalic.otf';</string>
           </property>
           <property name="text">
            <string>Welcome to Mutak</string>
@@ -96,8 +96,8 @@ font: 36pt  '://resources/fonts/GothamBook.ttf';</string>
           </property>
           <property name="font">
            <font>
-            <family>://resources/fonts/GothamBoldItalic.ttf</family>
-            <pointsize>12</pointsize>
+            <family>://resources/fonts/Gotham-UltraItalic.otf</family>
+            <pointsize>14</pointsize>
             <weight>50</weight>
             <italic>false</italic>
             <bold>false</bold>
@@ -110,8 +110,8 @@ background-color:  #1db954;
 border-radius: 25px;
   padding: 20px;
   width: 200px;
-  height: 15px;
-font: 12pt  '://resources/fonts/GothamBoldItalic.ttf';
+  height: 20px;
+font: 14pt '://resources/fonts/Gotham-UltraItalic.otf';
  }
 #loginButton:hover {
 	background-color: #3AE476;
@@ -139,40 +139,62 @@ font: 12pt  '://resources/fonts/GothamBoldItalic.ttf';
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="wait_label">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: white;
-font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
-          </property>
-          <property name="text">
-           <string>Please Wait...</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="copyright">
-          <property name="font">
-           <font>
-            <pointsize>7</pointsize>
-           </font>
-          </property>
-          <property name="layoutDirection">
-           <enum>Qt::LeftToRight</enum>
-          </property>
-          <property name="autoFillBackground">
-           <bool>false</bool>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: white;
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="copyright">
+            <property name="font">
+             <font>
+              <family>://resources/fonts/Gotham-XLight.otf</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: white;
+font: 10pt '://resources/fonts/Gotham-XLight.otf';
 </string>
-          </property>
-          <property name="text">
-           <string>An Ahmed Debbech Production - All Rights Reserved © 2020</string>
-          </property>
-         </widget>
+            </property>
+            <property name="text">
+             <string>An Ahmed Debbech Production - All Rights Reserved © 2020</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="wait_label">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: white;
+font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
+            </property>
+            <property name="text">
+             <string>Please Wait...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -228,8 +250,8 @@ font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
              <widget class="QLabel" name="disp_name">
               <property name="font">
                <font>
-                <family>://resources/fonts/GothamBook.ttf</family>
-                <pointsize>12</pointsize>
+                <family>://resources/fonts/Gotham-UltraItalic.otf</family>
+                <pointsize>-1</pointsize>
                 <weight>75</weight>
                 <italic>false</italic>
                 <bold>true</bold>
@@ -237,7 +259,8 @@ font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
               </property>
               <property name="styleSheet">
                <string notr="true">color: white;
-font: bold 12pt  '://resources/fonts/GothamBook.ttf';</string>
+font: bold 18px '://resources/fonts/Gotham-UltraItalic.otf';
+</string>
               </property>
               <property name="text">
                <string>name</string>
@@ -265,7 +288,8 @@ color: white;
 background-color:  #1db954;
 border-radius: 25px;
   padding: 20px;
-  width: 80px;
+  width: 60px;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
  }
 #refresh_button:hover {
 	background-color: #3AE476;
@@ -287,14 +311,16 @@ color: white;
 background-color:  #1db954;
 border-radius: 25px;
   padding: 20px;
-  width: 80px;
+  width: 60px;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
  }
 #logout_button:hover {
 	background-color: #3AE476;
  }
 #logout_button:pressed{
 	background-color: #2BB85D;
-}</string>
+}
+</string>
               </property>
               <property name="text">
                <string>Log out</string>
