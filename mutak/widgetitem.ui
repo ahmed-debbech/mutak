@@ -14,7 +14,10 @@
    <string>Form</string>
   </property>
   <property name="windowOpacity">
-   <double>1.000000000000000</double>
+   <double>0.000000000000000</double>
+  </property>
+  <property name="autoFillBackground">
+   <bool>true</bool>
   </property>
   <property name="styleSheet">
    <string notr="true"/>

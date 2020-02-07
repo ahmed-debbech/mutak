@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     this->setWindowTitle("Mutak");
     ui->wait_label->setHidden(true);
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
+    ui->listWidget->setStyleSheet("QListView::item:selected {background-image: #1db954; background-color: #1db954;padding: 0px;color: black;}\n"
+                                  "QListView::item:hover{background-image: #202020; background-color: #202020;padding: 0px; color: black;}");
     dbapi = new DatabaseAPI();
     runningWeb = false;
 
