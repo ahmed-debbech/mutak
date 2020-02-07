@@ -16,13 +16,19 @@
 #include <QDateTime>
 #include <QTimeZone>
 #include "retrivephotosthread.h"
+#include <QScrollBar>
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
-    ui->setupUi(this);
+    ui->setupUi(this); // init all GUI
+
+    //preparing the customization of widgets
     this->setWindowTitle("Mutak");
     ui->wait_label->setHidden(true);
+    ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
     dbapi = new DatabaseAPI();
     runningWeb = false;
+
+    //start authorization stuff..
     auth.setValues();
     auth.connectToBrowser();
     connect(auth.getAuthObject(), &QOAuth2AuthorizationCodeFlow::granted,

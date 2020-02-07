@@ -13,8 +13,8 @@ photoDownloader::photoDownloader(QUrl imageUrl, QObject *parent):QObject(parent)
     connect(&m_WebCtrl, &QNetworkAccessManager::finished,
             &loop, &QEventLoop::quit);
     loop.exec();
-
 }
+
 photoDownloader ::  ~photoDownloader(){
 
 }

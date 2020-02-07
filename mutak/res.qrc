@@ -17,5 +17,6 @@
         <file>resources/fonts/Gotham-UltraItalic.otf</file>
         <file>resources/fonts/Gotham-XLight.otf</file>
         <file>resources/fonts/Gotham-XLightItalic.otf</file>
+        <file>resources/unloaded.png</file>
     </qresource>
 </RCC>
