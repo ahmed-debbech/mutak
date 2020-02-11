@@ -75,10 +75,31 @@ bool MainWindow::checkForInternet(){
     QNetworkRequest req(QUrl("https://www.google.com"));
     QNetworkReply* reply = nam.get(req);
     QEventLoop loop;
+    QTimer timer;    // timer for time out when no response
+    timer.setSingleShot(true);
     connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+    timer.start(5000);  // use miliseconds
     loop.exec();
-    if (reply->bytesAvailable()){
-            return true;
+    /* If the timer ended before the reply from the net then there's no internet if not then
+     * the response came before the timer times out eventually there's internet*/
+    if(timer.isActive() == true){ //check if the timer still running
+        timer.stop();
+        std::cout << "papa" <<std::endl;
+        if (reply->bytesAvailable()){
+                return true;
+        }else{
+            disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+            disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+            std::cout << "to" << "\n";
+            reply->abort();
+        }
+    }else{
+        std::cout << "long" <<std::endl;
+        disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+        disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+        reply->abort();
+        return false;
     }
     return false;
 }
@@ -209,6 +230,10 @@ void MainWindow::on_refresh_button_clicked(){
         ui->listWidget->clear();
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"));
         this->dataToTracksObjects(root);
+    }else{
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+        QObject::tr("Could not retrive data.\nPlease check your connection and try again"), QMessageBox::Ok);
+        ui->refresh_button->setEnabled(true);
     }
 }
 void MainWindow:: on_refresh_retriv_clicked(){
