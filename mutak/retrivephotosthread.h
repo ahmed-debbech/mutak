@@ -2,10 +2,27 @@
 #define RETRIVEPHOTOSTHREAD_H
 
 #include <QThread>
-#include "photodownloader.h"
 #include "widgetitem.h"
 #include "ui_widgetitem.h"
 #include <QPixmap>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+
+//this is a key component class for retrivePhotosClass to achive the download properly
+class photoDownloader : public QObject{
+ Q_OBJECT
+ public:
+  explicit photoDownloader(QUrl imageUrl, QObject *parent = 0);
+  virtual ~photoDownloader();
+  QByteArray downloadedData() const;
+
+ signals:
+  void downloaded();
+
+ private:
+  QNetworkAccessManager m_WebCtrl;
+  QByteArray m_DownloadedData;
+};
 
 class retrivePhotosThread : public QThread{
     photoDownloader * pd;

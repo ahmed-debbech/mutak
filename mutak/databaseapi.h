@@ -16,13 +16,17 @@ class DatabaseAPI{
     QString filePathToday;
     QString userDirName;
 public:
+    //initialization of folders and files depending in user id
     DatabaseAPI();
     void prepareUserDir(QString id);
     void prepareUserFiles(QString userID);
+
+    //input/output from DB,it uses the private methodes below
     void sendToDB(vector <Track> & t);
     vector<Track> retriveFromDB();
-    void writeToOldDayFile(QString day, Track & t);
-private:
+
+ private:
+    void writeToOldDayFile(QString day, Track & t); // this private method is needed when it is necessary to write to past day files.
     void writeToFile( Track & t);
     bool checkForExistance(Track & t);
 };

@@ -1,22 +1,22 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "authorizer.h"
 #include <QDesktopServices>
 #include <iostream>
 #include <QOAuth2AuthorizationCodeFlow>
 #include <QMessageBox>
 #include <QtNetwork>
-#include "user.h"
 #include <QStringRef>
-#include "photodownloader.h"
 #include <QPixmap>
 #include <QListWidgetItem>
 #include <QWidget>
-#include "widgetitem.h"
 #include <QDateTime>
 #include <QTimeZone>
-#include "retrivephotosthread.h"
 #include <QScrollBar>
+
+#include "retrivephotosthread.h"
+#include "widgetitem.h"
+#include "user.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "authorizer.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this); // init all GUI
@@ -85,17 +85,14 @@ bool MainWindow::checkForInternet(){
      * the response came before the timer times out eventually there's internet*/
     if(timer.isActive() == true){ //check if the timer still running
         timer.stop();
-        std::cout << "papa" <<std::endl;
         if (reply->bytesAvailable()){
                 return true;
         }else{
             disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
             disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
-            std::cout << "to" << "\n";
             reply->abort();
         }
     }else{
-        std::cout << "long" <<std::endl;
         disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
         disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
         reply->abort();

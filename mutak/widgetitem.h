@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include "track.h"
-#include "photodownloader.h"
 #include <QTime>
 
 namespace Ui {

@@ -21,7 +21,6 @@ SOURCES += \
     databaseapi.cpp \
     main.cpp \
     mainwindow.cpp \
-    photodownloader.cpp \
     retrivephotosthread.cpp \
     track.cpp \
     user.cpp \
@@ -31,7 +30,6 @@ HEADERS += \
     authorizer.h \
     databaseapi.h \
     mainwindow.h \
-    photodownloader.h \
     retrivephotosthread.h \
     track.h \
     user.h \
