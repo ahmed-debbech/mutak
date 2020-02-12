@@ -30,7 +30,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -353,6 +353,51 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPushButton" name="navPrev">
+            <property name="styleSheet">
+             <string notr="true">#navPrev{
+	background-color: grey;
+	color: white;
+	font: bold 13px '://resources/fonts/Gotham-UltraItalic.otf';
+}</string>
+            </property>
+            <property name="text">
+             <string>Yesterday</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="nav">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#nav{
+	background-color: grey;
+	color: white;
+	font: bold 13px '://resources/fonts/Gotham-UltraItalic.otf';
+}</string>
+            </property>
+            <property name="text">
+             <string>Agenda</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="navNext">
+            <property name="styleSheet">
+             <string notr="true">#navNext{
+	background-color: grey;
+	color: white;
+	font: bold 13px '://resources/fonts/Gotham-UltraItalic.otf';
+}</string>
+            </property>
+            <property name="text">
+             <string>Today</string>
+            </property>
+           </widget>
+          </item>
           <item>
            <spacer name="horizontalSpacer_4">
             <property name="orientation">
