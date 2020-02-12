@@ -47,7 +47,12 @@ MainWindow::~MainWindow(){
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     QJsonObject root;
     QEventLoop loop; // to never quit the function untill the reply is finished
+    QTimer timer;    // timer for time out when no response
+    timer.setSingleShot(true);
     auto reply = auth.getAuthObject()->get(q);
+    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+
     connect(reply, &QNetworkReply::finished, [&root, reply, this]() { //this is a lambda fun
         if (reply->error() != QNetworkReply::NoError) {
             QMessageBox::critical(nullptr, QObject::tr("Info"),
@@ -60,12 +65,26 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
         }
         reply->deleteLater();
     });
-    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    timer.start(8000);  // use miliseconds
     loop.exec();
-    if(root.contains("error") == true){
-        auth.getAuthObject()->refreshAccessToken();
-        user->setToken(auth.getAuthObject()->token());
-        return this->getFromEndPoint(q); //repeat the request
+    /* If the timer ended before the reply from the net then there's no internet if not then
+     * the response came before the timer times out eventually there's internet*/
+    if(timer.isActive() == true){ //check if the timer still running
+        timer.stop();
+        if (reply->bytesAvailable()){
+            if(root.contains("error") == true){
+                auth.getAuthObject()->refreshAccessToken();
+                user->setToken(auth.getAuthObject()->token());
+                QMessageBox::critical(nullptr, QObject::tr("Error"),
+                QObject::tr("An error occured while retriving data!"), QMessageBox::Ok);
+            }else{
+                return root;
+            }
+        }
+    }else{
+        disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+        disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+        reply->abort();
     }
     return root;
 }
@@ -79,7 +98,7 @@ bool MainWindow::checkForInternet(){
     timer.setSingleShot(true);
     connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
     connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
-    timer.start(5000);  // use miliseconds
+    timer.start(8000);  // use miliseconds
     loop.exec();
     /* If the timer ended before the reply from the net then there's no internet if not then
      * the response came before the timer times out eventually there's internet*/
