@@ -19,5 +19,6 @@
         <file>resources/fonts/Gotham-XLightItalic.otf</file>
         <file>resources/unloaded.png</file>
         <file>resources/unloaded-profile.png</file>
+        <file>resources/caution.png</file>
     </qresource>
 </RCC>

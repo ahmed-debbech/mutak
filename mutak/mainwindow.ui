@@ -323,7 +323,7 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
 </string>
               </property>
               <property name="text">
-               <string>Log out</string>
+               <string>Settings</string>
               </property>
              </widget>
             </item>
@@ -376,13 +376,25 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
       </widget>
       <widget class="QWidget" name="page_3">
        <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QLabel" name="cautionImage">
+          <property name="styleSheet">
+           <string notr="true">margin-left: 135%;</string>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
         <item alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="error_retriv">
           <property name="styleSheet">
-           <string notr="true">color: white;</string>
+           <string notr="true">color: white;
+font: bold 20px;</string>
           </property>
           <property name="text">
-           <string>Could not retrive data please refresh again, check your internet connection</string>
+           <string>Could not retrive data please refresh again,
+          check your internet connection</string>
           </property>
          </widget>
         </item>
@@ -395,8 +407,20 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">color: white;
-background-color: #1db954</string>
+           <string notr="true">#refresh_retriv{
+color: white;
+background-color:  #1db954;
+border-radius: 25px;
+  padding: 20px;
+  width: 60px;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
+ }
+#refresh_retriv:hover {
+	background-color: #3AE476;
+ }
+#refresh_retriv:pressed{
+	background-color: #2BB85D;
+}</string>
           </property>
           <property name="text">
            <string>Refresh</string>

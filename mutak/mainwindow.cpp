@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     //preparing the customization of widgets
     this->setWindowTitle("Mutak");
     ui->wait_label->setHidden(true);
+    ui->cautionImage->setPixmap(QPixmap("://resources/caution.png"));
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
     ui->listWidget->setStyleSheet("QListView::item:selected {background-image: #1db954; background-color: #1db954;padding: 0px;color: black;}\n"
                                   "QListView::item:hover{background-image: #202020; background-color: #202020;padding: 0px; color: black;}");
@@ -54,7 +55,6 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
             ui->stackedWidget->setCurrentIndex(2);
         }else{
             QByteArray data = reply->readAll();
-            //std::cout << "json doc: " << data.toStdString() << std::endl;
             QJsonDocument document = QJsonDocument::fromJson(data);
             root = document.object();
         }
