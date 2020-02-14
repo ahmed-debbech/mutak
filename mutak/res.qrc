@@ -20,5 +20,8 @@
         <file>resources/unloaded.png</file>
         <file>resources/unloaded-profile.png</file>
         <file>resources/caution.png</file>
+        <file>resources/rightArrow.png</file>
+        <file>resources/leftArrow.png</file>
+        <file>resources/calendar.png</file>
     </qresource>
 </RCC>

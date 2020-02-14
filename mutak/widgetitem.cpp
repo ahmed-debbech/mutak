@@ -16,7 +16,7 @@ WidgetItem::WidgetItem(Track & t, QWidget *parent) :
         ui->name->setText(l);
         ui->name->setToolTip(t.getName());
     }
-    ui->name->setStyleSheet("color:white;\nfont: bold 9pt  '://resources/fonts/Gotham-MediumItalic.ttf';");
+    ui->name->setStyleSheet("color: #1db954;\nfont: bold 9pt  '://resources/fonts/Gotham-MediumItalic.ttf';");
     if(t.getArtist().size() <= 32){
         ui->artist->setText(t.getArtist());
     }else{

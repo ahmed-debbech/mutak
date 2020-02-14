@@ -30,6 +30,8 @@ private slots:
     void closeEvent (QCloseEvent *event);
     void on_refresh_button_clicked();
     void on_refresh_retriv_clicked();
+    void on_navPrev_clicked();
+
 private:
     void addToList();
     Ui::MainWindow *ui;
@@ -38,5 +40,6 @@ private:
     vector<Track> tracks;
     DatabaseAPI * dbapi;
     bool runningWeb;
+    QString currentPageDate;
 };
 #endif // MAINWINDOW_H

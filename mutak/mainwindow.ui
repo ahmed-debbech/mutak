@@ -30,7 +30,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -356,14 +356,43 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
           <item>
            <widget class="QPushButton" name="navPrev">
             <property name="styleSheet">
-             <string notr="true">#navPrev{
+             <string notr="true">color: white;
+background-color:  grey;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="dateName">
+            <property name="styleSheet">
+             <string notr="true">background-color: grey;
+color: white;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="navNext">
+            <property name="styleSheet">
+             <string notr="true">#navNext{
 	background-color: grey;
 	color: white;
-	font: bold 13px '://resources/fonts/Gotham-UltraItalic.otf';
+	font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
 }</string>
             </property>
             <property name="text">
-             <string>Yesterday</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -376,25 +405,11 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
              <string notr="true">#nav{
 	background-color: grey;
 	color: white;
-	font: bold 13px '://resources/fonts/Gotham-UltraItalic.otf';
+	font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
 }</string>
             </property>
             <property name="text">
-             <string>Agenda</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="navNext">
-            <property name="styleSheet">
-             <string notr="true">#navNext{
-	background-color: grey;
-	color: white;
-	font: bold 13px '://resources/fonts/Gotham-UltraItalic.otf';
-}</string>
-            </property>
-            <property name="text">
-             <string>Today</string>
+             <string/>
             </property>
            </widget>
           </item>

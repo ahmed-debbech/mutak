@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     //preparing the customization of widgets
     this->setWindowTitle("Mutak");
+    ui->navNext->setDisabled(true);
     ui->wait_label->setHidden(true);
     ui->cautionImage->setPixmap(QPixmap("://resources/caution.png"));
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
@@ -30,6 +31,17 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
                                   "QListView::item:hover{background-image: #202020; background-color: #202020;padding: 0px; color: black;}");
     dbapi = new DatabaseAPI();
     runningWeb = false;
+
+    //get date and time of sys to name the file after it (if file doesnt exist)
+    QDateTime UTC(QDateTime::currentDateTimeUtc());
+    QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
+    int y,m,d;
+    local.date().getDate( &y, &m, &d);
+    this->currentPageDate = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
+    ui->navNext->setIcon(QPixmap("://resources/rightArrow.png"));
+    ui->navPrev->setIcon(QPixmap("://resources/leftArrow.png"));
+    ui->nav->setIcon(QPixmap("://resources/calendar.png"));
+    ui->dateName->setText("Today" + this->currentPageDate);
 
     //start authorization stuff..
     auth.setValues();
@@ -264,4 +276,8 @@ void MainWindow::on_loginButton_clicked(){
         ui->stackedWidget->setCurrentIndex(2);
     }
     ui->loginButton->setEnabled(true);
+}
+
+void MainWindow::on_navPrev_clicked(){
+
 }
