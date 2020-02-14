@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->navNext->setIcon(QPixmap("://resources/rightArrow.png"));
     ui->navPrev->setIcon(QPixmap("://resources/leftArrow.png"));
     ui->nav->setIcon(QPixmap("://resources/calendar.png"));
-    ui->dateName->setText("Today" + this->currentPageDate);
+    ui->dateName->setText("Today " + this->currentPageDate);
 
     //start authorization stuff..
     auth.setValues();
@@ -158,7 +158,8 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
          tracks.push_back(Track(trackName,artistName,dur,playtimeConverted.toString(),l));
     }
    dbapi->sendToDB(tracks); //send to database to save
-    this->addToList();
+   vector<Track> t = dbapi->retriveFromDB(); //dataaaa
+    this->addToList(t);
 }
 void MainWindow::closeEvent (QCloseEvent *event){
     if(runningWeb == true){
@@ -173,8 +174,7 @@ void MainWindow::closeEvent (QCloseEvent *event){
         event->accept();
     }
 }
-void MainWindow::addToList(){
-    vector<Track> t = dbapi->retriveFromDB(); //dataaaa
+void MainWindow::addToList(vector <Track> t){
     vector <WidgetItem*> widitem;
     //list all the items in list
     for(unsigned int i=t.size(); (i>0); i--){
@@ -279,5 +279,16 @@ void MainWindow::on_loginButton_clicked(){
 }
 
 void MainWindow::on_navPrev_clicked(){
-
+    QDate prev;
+    prev = prev.addDays(-1);
+    std::cout << prev.toString().toStdString() <<std::endl;
+    int y,m,d;
+    prev.getDate( &y, &m, &d);
+    QString date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
+    vector <Track> t = dbapi->retriveFromDB(date+".mu");
+    if(t.empty() == false){
+        this->addToList(t);
+    }else{
+        std::cout << "No tracks yet" <<std::endl;
+    }
 }

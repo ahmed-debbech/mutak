@@ -24,7 +24,7 @@ public:
     //input/output from DB,it uses the private methodes below
     void sendToDB(vector <Track> & t);
     vector<Track> retriveFromDB();
-
+    vector<Track> retriveFromDB(QString fileName);
  private:
     void writeToOldDayFile(QString day, Track & t); // this private method is needed when it is necessary to write to past day files.
     void writeToFile( Track & t);

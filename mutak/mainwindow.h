@@ -33,7 +33,7 @@ private slots:
     void on_navPrev_clicked();
 
 private:
-    void addToList();
+    void addToList(vector <Track> t);
     Ui::MainWindow *ui;
     Authorizer auth;
     User * user;

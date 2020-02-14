@@ -369,7 +369,8 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
            <widget class="QLineEdit" name="dateName">
             <property name="styleSheet">
              <string notr="true">background-color: grey;
-color: white;</string>
+color: white;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
             </property>
             <property name="text">
              <string/>

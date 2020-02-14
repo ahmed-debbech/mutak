@@ -120,6 +120,56 @@ void DatabaseAPI :: writeToOldDayFile(QString day, Track & t){
         pastFile.close();
     }
 }
+vector <Track> DatabaseAPI :: retriveFromDB(QString f){
+    vector<Track> t;
+    f = userDirName + f;
+    QFile file(f);
+    if(file.exists() == false){
+        throw QString("No Tracks found for this day.");
+    }else{
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
+            while(!file.atEnd()){
+                QByteArray arr;
+                do{
+                    arr = userFiles.readLine();
+                }while(arr.contains("user:") == true);
+                   int y=0;
+                   QString name,artist,dur,play,id;
+                   do{
+                       name += arr[y];
+                       y++;
+                   }while(arr[y] != '|');
+                   y++;
+                   do{
+                       artist += arr[y];
+                       y++;
+                   }while(arr[y] != '|');
+                   y++;
+                   do{
+                       dur += arr[y];
+                       y++;
+                   }while(arr[y] != '|');
+                   y++;
+                   do{
+                       play += arr[y];
+                       y++;
+                   }while(arr[y] != '%');
+                   y++;
+                   do{
+                       id += arr[y];
+                       y++;
+                   }while(arr[y] != '\n');
+                   Track tr(name,artist,dur.toDouble(),play,id);
+                   t.push_back(tr);
+            }
+        }else{
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("Something went wrong in database! Please restart the application."), QMessageBox::Ok);
+        }
+        userFiles.close();
+    }
+    return t;
+}
 vector<Track> DatabaseAPI :: retriveFromDB(){
     vector<Track> t;
     if(userFiles.open(QIODevice::ReadOnly | QIODevice::Text)){
