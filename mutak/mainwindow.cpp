@@ -37,11 +37,12 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
     int y,m,d;
     local.date().getDate( &y, &m, &d);
-    this->currentPageDate = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
+    this->currentPageDate = local;
+    QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
     ui->navNext->setIcon(QPixmap("://resources/rightArrow.png"));
     ui->navPrev->setIcon(QPixmap("://resources/leftArrow.png"));
     ui->nav->setIcon(QPixmap("://resources/calendar.png"));
-    ui->dateName->setText("Today " + this->currentPageDate);
+    ui->dateName->setText(h);
 
     //start authorization stuff..
     auth.setValues();
@@ -175,6 +176,8 @@ void MainWindow::closeEvent (QCloseEvent *event){
     }
 }
 void MainWindow::addToList(vector <Track> t){
+    ui->listWidget->clear();
+
     vector <WidgetItem*> widitem;
     //list all the items in list
     for(unsigned int i=t.size(); (i>0); i--){
@@ -279,16 +282,21 @@ void MainWindow::on_loginButton_clicked(){
 }
 
 void MainWindow::on_navPrev_clicked(){
-    QDate prev;
-    prev = prev.addDays(-1);
-    std::cout << prev.toString().toStdString() <<std::endl;
+    this->currentPageDate = this->currentPageDate.addDays(-1);
     int y,m,d;
-    prev.getDate( &y, &m, &d);
+    currentPageDate.date().getDate( &y, &m, &d);
     QString date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
-    vector <Track> t = dbapi->retriveFromDB(date+".mu");
-    if(t.empty() == false){
-        this->addToList(t);
-    }else{
-        std::cout << "No tracks yet" <<std::endl;
+    ui->dateName->setText(date);
+
+    try{
+        vector <Track> t = dbapi->retriveFromDB(date+".mu");
+        if(t.empty() == false){
+            ui->listWidget->clear();
+            this->addToList(t);
+        }else{
+            std::cout << "No tracks yet" <<std::endl;
+        }
+    }catch(QString s){
+         std::cout << "No tracks yet" <<std::endl;
     }
 }

@@ -8,6 +8,7 @@
 #include "track.h"
 #include "databaseapi.h"
 #include <QCloseEvent>
+#include <QDateTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -40,6 +41,6 @@ private:
     vector<Track> tracks;
     DatabaseAPI * dbapi;
     bool runningWeb;
-    QString currentPageDate;
+    QDateTime currentPageDate;
 };
 #endif // MAINWINDOW_H

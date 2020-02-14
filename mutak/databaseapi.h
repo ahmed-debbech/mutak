@@ -26,6 +26,7 @@ public:
     vector<Track> retriveFromDB();
     vector<Track> retriveFromDB(QString fileName);
  private:
+    vector <Track> readFromFile(QFile *userFiles);
     void writeToOldDayFile(QString day, Track & t); // this private method is needed when it is necessary to write to past day files.
     void writeToFile( Track & t);
     bool checkForExistance(Track & t);

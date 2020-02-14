@@ -122,46 +122,13 @@ void DatabaseAPI :: writeToOldDayFile(QString day, Track & t){
 }
 vector <Track> DatabaseAPI :: retriveFromDB(QString f){
     vector<Track> t;
-    f = userDirName + f;
-    QFile file(f);
+    QString ff = userDirName + f;
+   QFile file(ff);
     if(file.exists() == false){
         throw QString("No Tracks found for this day.");
     }else{
-        if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
-            while(!file.atEnd()){
-                QByteArray arr;
-                do{
-                    arr = userFiles.readLine();
-                }while(arr.contains("user:") == true);
-                   int y=0;
-                   QString name,artist,dur,play,id;
-                   do{
-                       name += arr[y];
-                       y++;
-                   }while(arr[y] != '|');
-                   y++;
-                   do{
-                       artist += arr[y];
-                       y++;
-                   }while(arr[y] != '|');
-                   y++;
-                   do{
-                       dur += arr[y];
-                       y++;
-                   }while(arr[y] != '|');
-                   y++;
-                   do{
-                       play += arr[y];
-                       y++;
-                   }while(arr[y] != '%');
-                   y++;
-                   do{
-                       id += arr[y];
-                       y++;
-                   }while(arr[y] != '\n');
-                   Track tr(name,artist,dur.toDouble(),play,id);
-                   t.push_back(tr);
-            }
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text) == true){
+           t = readFromFile(&file);
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("Something went wrong in database! Please restart the application."), QMessageBox::Ok);
@@ -173,48 +140,53 @@ vector <Track> DatabaseAPI :: retriveFromDB(QString f){
 vector<Track> DatabaseAPI :: retriveFromDB(){
     vector<Track> t;
     if(userFiles.open(QIODevice::ReadOnly | QIODevice::Text)){
-        while(!userFiles.atEnd()){
-            QByteArray arr;
-            do{
-                arr = userFiles.readLine();
-            }while(arr.contains("user:") == true);
-               int y=0;
-               QString name,artist,dur,play,id;
-               do{
-                   name += arr[y];
-                   y++;
-               }while(arr[y] != '|');
-               y++;
-               do{
-                   artist += arr[y];
-                   y++;
-               }while(arr[y] != '|');
-               y++;
-               do{
-                   dur += arr[y];
-                   y++;
-               }while(arr[y] != '|');
-               y++;
-               do{
-                   play += arr[y];
-                   y++;
-               }while(arr[y] != '%');
-               y++;
-               do{
-                   id += arr[y];
-                   y++;
-               }while(arr[y] != '\n');
-               Track tr(name,artist,dur.toDouble(),play,id);
-               t.push_back(tr);
-        }
+        t = readFromFile(&userFiles);
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Error"),
         QObject::tr("Something went wrong in database! Please restart the application."), QMessageBox::Ok);
     }
-    userFiles.close();
     return t;
 }
 //=====================PRV METHODES ============================
+vector <Track> DatabaseAPI :: readFromFile(QFile *userFiles){
+    vector<Track> t;
+    while(!userFiles->atEnd()){
+        QByteArray arr;
+        do{
+            arr = userFiles->readLine();
+        }while(arr.contains("user:") == true);
+           int y=0;
+           QString name,artist,dur,play,id;
+           do{
+               name += arr[y];
+               y++;
+           }while(arr[y] != '|');
+           y++;
+           do{
+               artist += arr[y];
+               y++;
+           }while(arr[y] != '|');
+           y++;
+           do{
+               dur += arr[y];
+               y++;
+           }while(arr[y] != '|');
+           y++;
+           do{
+               play += arr[y];
+               y++;
+           }while(arr[y] != '%');
+           y++;
+           do{
+               id += arr[y];
+               y++;
+           }while(arr[y] != '\n');
+           Track tr(name,artist,dur.toDouble(),play,id);
+           t.push_back(tr);
+    }
+    userFiles->close();
+    return t;
+}
 void DatabaseAPI :: writeToFile(Track & t){
     if(userFiles.open(QIODevice::Append | QIODevice::Text)){
         QTextStream tofile(&userFiles);
