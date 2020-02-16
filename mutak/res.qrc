@@ -23,5 +23,6 @@
         <file>resources/rightArrow.png</file>
         <file>resources/leftArrow.png</file>
         <file>resources/calendar.png</file>
+        <file>resources/tick.png</file>
     </qresource>
 </RCC>

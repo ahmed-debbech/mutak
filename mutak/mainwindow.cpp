@@ -42,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->navNext->setIcon(QPixmap("://resources/rightArrow.png"));
     ui->navPrev->setIcon(QPixmap("://resources/leftArrow.png"));
     ui->nav->setIcon(QPixmap("://resources/calendar.png"));
+    ui->confirm->setIcon(QPixmap("://resources/tick.png"));
     ui->dateName->setText(h);
 
     //start authorization stuff..
@@ -177,6 +178,9 @@ void MainWindow::closeEvent (QCloseEvent *event){
 }
 void MainWindow::addToList(vector <Track> t){
     ui->listWidget->clear();
+    ui->confirm->setEnabled(false);
+    ui->navPrev->setEnabled(false);
+    ui->navNext->setEnabled(false);
 
     vector <WidgetItem*> widitem;
     //list all the items in list
@@ -227,6 +231,9 @@ void MainWindow::addToList(vector <Track> t){
     }else{
         ui->countText->setText("No Tracks");
     }
+    ui->confirm->setEnabled(true);
+    ui->navPrev->setEnabled(true);
+    ui->navNext->setEnabled(true);
 }
 //=================================SIGNALS=======================================
 void MainWindow :: isGranted(){
@@ -287,9 +294,11 @@ void MainWindow::on_navPrev_clicked(){
     currentPageDate.date().getDate( &y, &m, &d);
     QString date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
     ui->dateName->setText(date);
+}
 
+void MainWindow::on_confirm_clicked(){
     try{
-        vector <Track> t = dbapi->retriveFromDB(date+".mu");
+        vector <Track> t = dbapi->retriveFromDB(ui->dateName->text()+".mu");
         if(t.empty() == false){
             ui->listWidget->clear();
             this->addToList(t);

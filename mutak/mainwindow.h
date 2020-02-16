@@ -32,6 +32,7 @@ private slots:
     void on_refresh_button_clicked();
     void on_refresh_retriv_clicked();
     void on_navPrev_clicked();
+    void on_confirm_clicked();
 
 private:
     void addToList(vector <Track> t);

@@ -354,6 +354,18 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
+           <widget class="QPushButton" name="confirm">
+            <property name="styleSheet">
+             <string notr="true">color: white;
+background-color:  grey;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="navPrev">
             <property name="styleSheet">
              <string notr="true">color: white;
