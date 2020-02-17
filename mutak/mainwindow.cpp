@@ -234,7 +234,14 @@ void MainWindow::addToList(vector <Track> t){
     }
     ui->confirm->setEnabled(true);
     ui->navPrev->setEnabled(true);
-    ui->navNext->setEnabled(true);
+    int y,m,d;
+    local.date().getDate( &y, &m, &d);
+    QString date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
+    if(date == ui->dateName->text()){
+        ui->navNext->setEnabled(false);
+    }else{
+        ui->navNext->setEnabled(true);
+    }
 }
 //=================================SIGNALS=======================================
 void MainWindow :: isGranted(){
