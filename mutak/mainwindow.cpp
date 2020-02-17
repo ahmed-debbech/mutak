@@ -161,6 +161,7 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
     }
    dbapi->sendToDB(tracks); //send to database to save
    vector<Track> t = dbapi->retriveFromDB(); //dataaaa
+   std::cout << "ttt" <<std::endl;
     this->addToList(t);
 }
 void MainWindow::closeEvent (QCloseEvent *event){
@@ -295,7 +296,13 @@ void MainWindow::on_navPrev_clicked(){
     QString date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
     ui->dateName->setText(date);
 }
-
+void MainWindow::on_navNext_clicked(){
+    this->currentPageDate = this->currentPageDate.addDays(1);
+    int y,m,d;
+    currentPageDate.date().getDate( &y, &m, &d);
+    QString date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
+    ui->dateName->setText(date);
+}
 void MainWindow::on_confirm_clicked(){
     try{
         vector <Track> t = dbapi->retriveFromDB(ui->dateName->text()+".mu");
@@ -303,9 +310,9 @@ void MainWindow::on_confirm_clicked(){
             ui->listWidget->clear();
             this->addToList(t);
         }else{
-            std::cout << "No tracks yet" <<std::endl;
+            ui->countText->setText("No Tracks for that day");
         }
     }catch(QString s){
-         std::cout << "No tracks yet" <<std::endl;
+        ui->countText->setText("No Tracks for that day");
     }
 }
