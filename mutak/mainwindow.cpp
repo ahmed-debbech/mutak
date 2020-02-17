@@ -302,13 +302,35 @@ void MainWindow::on_navPrev_clicked(){
     currentPageDate.date().getDate( &y, &m, &d);
     QString date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
     ui->dateName->setText(date);
+
+    //check when to disable and enable the navNext button
+    QDateTime UTC(QDateTime::currentDateTimeUtc());
+    QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
+    local.date().getDate( &y, &m, &d);
+    date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
+    if(date == ui->dateName->text()){
+        ui->navNext->setEnabled(false);
+    }else{
+        ui->navNext->setEnabled(true);
+    }
 }
 void MainWindow::on_navNext_clicked(){
-    this->currentPageDate = this->currentPageDate.addDays(1);
+    //check when to disable and enable the navNext button
+    QDateTime UTC(QDateTime::currentDateTimeUtc());
+    QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
     int y,m,d;
-    currentPageDate.date().getDate( &y, &m, &d);
-    QString date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
-    ui->dateName->setText(date);
+    QString date;
+    local.date().getDate( &y, &m, &d);
+    date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
+    if(date == ui->dateName->text()){
+        ui->navNext->setEnabled(false);
+    }else{
+        this->currentPageDate = this->currentPageDate.addDays(1);
+        currentPageDate.date().getDate( &y, &m, &d);
+        date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
+        ui->dateName->setText(date);
+        ui->navNext->setEnabled(true);
+    }
 }
 void MainWindow::on_confirm_clicked(){
     try{
