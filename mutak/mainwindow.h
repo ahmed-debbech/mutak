@@ -36,6 +36,8 @@ private slots:
     void on_navNext_clicked();
     void on_nav_clicked();
 
+    void on_calendarWidget_selectionChanged();
+
 private:
     void addToList(vector <Track> t);
     Ui::MainWindow *ui;

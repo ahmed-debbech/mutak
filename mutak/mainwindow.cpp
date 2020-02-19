@@ -38,6 +38,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
     int y,m,d;
     local.date().getDate( &y, &m, &d);
+    QDate q; q.setDate(y,m,d);
+    ui->calendarWidget->setMaximumDate(q);
     this->currentPageDate = local;
     QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
     ui->navNext->setIcon(QPixmap("://resources/rightArrow.png"));
@@ -334,16 +336,14 @@ void MainWindow::on_navNext_clicked(){
     }
 }
 void MainWindow::on_confirm_clicked(){
+    ui->calendarWidget->setHidden(true);
     try{
         vector <Track> t = dbapi->retriveFromDB(ui->dateName->text()+".mu");
-        if(t.empty() == false){
-            ui->listWidget->clear();
-            this->addToList(t);
-        }else{
-            ui->countText->setText("No Tracks for that day");
-        }
+        ui->listWidget->clear();
+        this->addToList(t);
     }catch(QString s){
-        ui->countText->setText("No Tracks for that day");
+        ui->listWidget->clear();
+        ui->countText->setText("No Tracks for " + ui->dateName->text());
     }
 }
 
@@ -353,4 +353,12 @@ void MainWindow::on_nav_clicked(){
     }else{
         ui->calendarWidget->setHidden(true);
     }
+}
+
+void MainWindow::on_calendarWidget_selectionChanged(){
+    QDate d = ui->calendarWidget->selectedDate();
+    int y,m,day;
+    d.getDate(&y, &m, &day);
+    QString g = QString::number(day) + "-" + QString::number(m) + "-" + QString::number(y);
+    ui->dateName->setText(g);
 }
