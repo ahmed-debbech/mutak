@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     //preparing the customization of widgets
     this->setWindowTitle("Mutak");
+    ui->calendarWidget->setHidden(true);
     ui->navNext->setDisabled(true);
     ui->wait_label->setHidden(true);
     ui->cautionImage->setPixmap(QPixmap("://resources/caution.png"));
@@ -343,5 +344,13 @@ void MainWindow::on_confirm_clicked(){
         }
     }catch(QString s){
         ui->countText->setText("No Tracks for that day");
+    }
+}
+
+void MainWindow::on_nav_clicked(){
+    if(ui->calendarWidget->isHidden() == true){
+        ui->calendarWidget->setHidden(false);
+    }else{
+        ui->calendarWidget->setHidden(true);
     }
 }

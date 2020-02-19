@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>581</width>
+    <width>582</width>
     <height>734</height>
    </rect>
   </property>
@@ -348,6 +348,30 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
          <widget class="QListWidget" name="listWidget">
           <property name="styleSheet">
            <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCalendarWidget" name="calendarWidget">
+          <property name="styleSheet">
+           <string notr="true">background-color: white;
+selection-background-color: #1db954;
+color: black;</string>
+          </property>
+          <property name="firstDayOfWeek">
+           <enum>Qt::Monday</enum>
+          </property>
+          <property name="gridVisible">
+           <bool>false</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QCalendarWidget::SingleSelection</enum>
+          </property>
+          <property name="navigationBarVisible">
+           <bool>true</bool>
+          </property>
+          <property name="dateEditEnabled">
+           <bool>true</bool>
           </property>
          </widget>
         </item>

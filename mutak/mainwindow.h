@@ -34,6 +34,8 @@ private slots:
     void on_navPrev_clicked();
     void on_confirm_clicked();
     void on_navNext_clicked();
+    void on_nav_clicked();
+
 private:
     void addToList(vector <Track> t);
     Ui::MainWindow *ui;
