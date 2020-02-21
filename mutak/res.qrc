@@ -24,5 +24,7 @@
         <file>resources/leftArrow.png</file>
         <file>resources/calendar.png</file>
         <file>resources/tick.png</file>
+        <file>resources/about.png</file>
+        <file>resources/help.png</file>
     </qresource>
 </RCC>
