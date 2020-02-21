@@ -30,7 +30,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -80,6 +80,19 @@
            </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -463,6 +476,9 @@ color: black;</string>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QPushButton" name="confirm">
+            <property name="toolTip">
+             <string>Submit date</string>
+            </property>
             <property name="styleSheet">
              <string notr="true">color: white;
 background-color:  grey;
@@ -475,6 +491,9 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
           </item>
           <item>
            <widget class="QPushButton" name="navPrev">
+            <property name="toolTip">
+             <string>One day back</string>
+            </property>
             <property name="styleSheet">
              <string notr="true">color: white;
 background-color:  grey;
@@ -487,6 +506,9 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
           </item>
           <item>
            <widget class="QLineEdit" name="dateName">
+            <property name="toolTip">
+             <string>Date counter</string>
+            </property>
             <property name="styleSheet">
              <string notr="true">background-color: grey;
 color: white;
@@ -505,6 +527,9 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
           </item>
           <item>
            <widget class="QPushButton" name="navNext">
+            <property name="toolTip">
+             <string>One day ahead</string>
+            </property>
             <property name="styleSheet">
              <string notr="true">#navNext{
 	background-color: grey;
@@ -521,6 +546,9 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
            <widget class="QPushButton" name="nav">
             <property name="enabled">
              <bool>true</bool>
+            </property>
+            <property name="toolTip">
+             <string>Calendar</string>
             </property>
             <property name="styleSheet">
              <string notr="true">#nav{
