@@ -30,7 +30,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -254,8 +254,8 @@ font: 14pt '://resources/fonts/Gotham-UltraItalic.otf';
            <widget class="QLabel" name="copyright">
             <property name="font">
              <font>
-              <family>://resources/fonts/Gotham-XLight.otf</family>
-              <pointsize>10</pointsize>
+              <family>://resources/fonts/GothamMedium.ttf</family>
+              <pointsize>9</pointsize>
               <weight>50</weight>
               <italic>false</italic>
               <bold>false</bold>
@@ -269,7 +269,7 @@ font: 14pt '://resources/fonts/Gotham-UltraItalic.otf';
             </property>
             <property name="styleSheet">
              <string notr="true">color: white;
-font: 10pt '://resources/fonts/Gotham-XLight.otf';
+font: 9pt '://resources/fonts/GothamMedium.ttf';
 </string>
             </property>
             <property name="text">
@@ -672,9 +672,22 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
         <item>
          <widget class="QLabel" name="description">
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:20pt; font-weight:600; font-style:italic; color:#ffffff;&quot;&gt;Mutak&lt;/span&gt;&lt;span style=&quot; font-size:16pt; color:#ffffff;&quot;&gt; is a short for (Music Tracker),&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#ffffff;&quot;&gt;this is a Desktop App made to store all &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#ffffff;&quot;&gt;the tracks as an history that the user listened&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#ffffff;&quot;&gt;to over the days on Spotify.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#ffffff;&quot;&gt;This solution was found because&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#ffffff;&quot;&gt;Spotify itself doesn't provide a proper&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#ffffff;&quot;&gt;way to see the detailed history of all the tracks&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#ffffff;&quot;&gt;you listened to.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; font-style:italic; color:#b9b9b9;&quot;&gt;Mutak&lt;/span&gt;&lt;span style=&quot; font-size:12pt; color:#b9b9b9;&quot;&gt; is a short for (Music Tracker),&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#b9b9b9;&quot;&gt;this is a Desktop App made to store all &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#b9b9b9;&quot;&gt;the tracks as an history that the user listened to over the days on Spotify.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#b9b9b9;&quot;&gt;This solution was found because Spotify itself doesn't provide a proper &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#b9b9b9;&quot;&gt;way to see the detailed history of all the tracks you listened to.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <widget class="QLabel" name="about">
@@ -682,7 +695,89 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
            <string notr="true">font: bold 18pt  '://resources/fonts/Gotham-UltraItalic.otf';</string>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#b9b9b9;&quot;&gt;Developer &amp;amp; Designer&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;Ahmed Debbech&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Contact &amp;amp; Support at: &lt;/span&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;debbech.ahmed@gmail.com&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#b9b9b9;&quot;&gt;Version 1.0.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Developer &amp;amp; Designer&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;Ahmed Debbech&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Contact &amp;amp; Support at: &lt;/span&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;debbech.ahmed@gmail.com&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Twitter: @AhmedDebb&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Version 1.0.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="styleSheet">
+           <string notr="true">color: #1db954;
+font: bold 14pt  '://resources/fonts/Gotham-UltraItalic.otf';
+text-align: center</string>
+          </property>
+          <property name="text">
+           <string>COPYRIGHT NOTICE &amp; LEGAL STUFF:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPlainTextEdit" name="plainTextEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="plainText">
+           <string>Copyright © 2020 - All Rights Reserved -  Ahmed Debbech
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_8">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>33</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="gobackAbout">
+          <property name="styleSheet">
+           <string notr="true">#gobackAbout{
+color: white;
+background-color:  #1db954;
+border-radius: 25px;
+  padding: 20px;
+  width: 60px;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
+ }
+#gobackAbout:hover {
+	background-color: #3AE476;
+ }
+#gobackAbout:pressed{
+	background-color: #2BB85D;
+}</string>
+          </property>
+          <property name="text">
+           <string>Go back</string>
           </property>
          </widget>
         </item>

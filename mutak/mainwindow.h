@@ -35,7 +35,8 @@ private slots:
     void on_confirm_clicked();
     void on_navNext_clicked();
     void on_nav_clicked();
-
+    void on_aboutButton_clicked();
+    void on_gobackAbout_clicked();
     void on_calendarWidget_selectionChanged();
 
 private:

@@ -367,3 +367,9 @@ void MainWindow::on_calendarWidget_selectionChanged(){
     QString g = QString::number(day) + "-" + QString::number(m) + "-" + QString::number(y);
     ui->dateName->setText(g);
 }
+void MainWindow :: on_aboutButton_clicked(){
+    ui->stackedWidget->setCurrentIndex(3);
+}
+void MainWindow :: on_gobackAbout_clicked(){
+    ui->stackedWidget->setCurrentIndex(0);
+}
