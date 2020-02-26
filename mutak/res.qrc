@@ -26,5 +26,7 @@
         <file>resources/tick.png</file>
         <file>resources/about.png</file>
         <file>resources/help.png</file>
+        <file>resources/linkedin.png</file>
+        <file>resources/twitter.png</file>
     </qresource>
 </RCC>

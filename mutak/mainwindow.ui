@@ -695,9 +695,27 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
            <string notr="true">font: bold 18pt  '://resources/fonts/Gotham-UltraItalic.otf';</string>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Developer &amp;amp; Designer&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;Ahmed Debbech&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Contact &amp;amp; Support at: &lt;/span&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;debbech.ahmed@gmail.com&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Twitter: @AhmedDebb&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Version 1.0.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Developer &amp;amp; Designer&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;Ahmed Debbech&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Contact &amp;amp; Support at: &lt;/span&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;debbech.ahmed@gmail.com&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Version 1.0.0-alpha1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QPushButton" name="twitter">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="linkedin">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <spacer name="verticalSpacer_6">

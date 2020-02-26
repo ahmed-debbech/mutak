@@ -27,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->navNext->setDisabled(true);
     ui->wait_label->setHidden(true);
     ui->logo->setPixmap(QPixmap("://resources/spotifyico.png"));
+    ui->twitter->setIcon(QPixmap("://resources/twitter.png"));
+    ui->linkedin->setIcon(QPixmap("://resources/linkedin.png"));
     ui->cautionImage->setPixmap(QPixmap("://resources/caution.png"));
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
     ui->listWidget->setStyleSheet("QListView::item:selected {background-image: #1db954; background-color: #1db954;padding: 0px;color: black;}\n"
@@ -372,4 +374,12 @@ void MainWindow :: on_aboutButton_clicked(){
 }
 void MainWindow :: on_gobackAbout_clicked(){
     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_twitter_clicked(){
+     QDesktopServices::openUrl(QUrl("https://twitter.com/AhmedDebb", QUrl::TolerantMode));
+}
+
+void MainWindow::on_linkedin_clicked(){
+    QDesktopServices::openUrl(QUrl("https://www.linkedin.com/in/ahmed-debbech-90b834179/", QUrl::TolerantMode));
 }

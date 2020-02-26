@@ -39,6 +39,10 @@ private slots:
     void on_gobackAbout_clicked();
     void on_calendarWidget_selectionChanged();
 
+    void on_twitter_clicked();
+
+    void on_linkedin_clicked();
+
 private:
     void addToList(vector <Track> t);
     Ui::MainWindow *ui;
