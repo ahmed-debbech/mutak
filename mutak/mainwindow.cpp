@@ -26,11 +26,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->calendarWidget->setHidden(true);
     ui->navNext->setDisabled(true);
     ui->wait_label->setHidden(true);
-    ui->logo->setPixmap(QPixmap("://resources/spotifyico.png"));
-    ui->twitter->setIcon(QPixmap("://resources/twitter.png"));
-    ui->linkedin->setIcon(QPixmap("://resources/linkedin.png"));
-    ui->github->setIcon(QPixmap("://resources/github.png"));
-    ui->cautionImage->setPixmap(QPixmap("://resources/caution.png"));
+
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
     ui->listWidget->setStyleSheet("QListView::item:selected {background-image: #1db954; background-color: #1db954;padding: 0px;color: black;}\n"
                                   "QListView::item:hover{background-image: #202020; background-color: #202020;padding: 0px; color: black;}");
@@ -48,6 +44,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
 
     //setting icon to buttons in UI
+    ui->logo->setPixmap(QPixmap("://resources/spotifyico.png"));
+    ui->twitter->setIcon(QPixmap("://resources/twitter.png"));
+    ui->linkedin->setIcon(QPixmap("://resources/linkedin.png"));
+    ui->github->setIcon(QPixmap("://resources/github.png"));
+    ui->backFromSettings->setIcon(QPixmap("://resources/leftArrow.png"));
+    ui->cautionImage->setPixmap(QPixmap("://resources/caution.png"));
+
     ui->helpButton->setIcon(QPixmap("://resources/help.png"));
     ui->aboutButton->setIcon(QPixmap("://resources/about.png"));
     ui->navNext->setIcon(QPixmap("://resources/rightArrow.png"));
@@ -301,6 +304,9 @@ void MainWindow::on_refresh_button_clicked(){
         QObject::tr("Could not retrive data.\nPlease check your connection and try again"), QMessageBox::Ok);
         ui->refresh_button->setEnabled(true);
     }
+}
+void MainWindow::on_settings_button_clicked(){
+ ui->stackedWidget->setCurrentIndex(4);
 }
 void MainWindow:: on_refresh_retriv_clicked(){
     this->on_loginButton_clicked();

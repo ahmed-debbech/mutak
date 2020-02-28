@@ -17,11 +17,13 @@ User::User(const QJsonObject & data, QString t, QString r){
 }
 void User::printOnUI(Ui_MainWindow *mw){
     mw->disp_name->setText(name);
+    mw->nameSettings->setText(name);
     mw->photo->setPixmap(QPixmap("://resources/unloaded-profile.png"));
     //load photo
     //we run a thread that retrives the image
     retrivePhotosThread rpt(imageRef);
     rpt.run(mw->photo);
+    rpt.run(mw->photoSettings);
 }
 User :: ~User(){
 
