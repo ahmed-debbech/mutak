@@ -40,7 +40,7 @@ private slots:
     void on_calendarWidget_selectionChanged();
 
     void on_twitter_clicked();
-
+    void on_github_clicked();
     void on_linkedin_clicked();
 
 private:

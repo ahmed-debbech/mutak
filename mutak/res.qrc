@@ -28,5 +28,6 @@
         <file>resources/help.png</file>
         <file>resources/linkedin.png</file>
         <file>resources/twitter.png</file>
+        <file>resources/github.png</file>
     </qresource>
 </RCC>

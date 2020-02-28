@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->logo->setPixmap(QPixmap("://resources/spotifyico.png"));
     ui->twitter->setIcon(QPixmap("://resources/twitter.png"));
     ui->linkedin->setIcon(QPixmap("://resources/linkedin.png"));
+    ui->github->setIcon(QPixmap("://resources/github.png"));
     ui->cautionImage->setPixmap(QPixmap("://resources/caution.png"));
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
     ui->listWidget->setStyleSheet("QListView::item:selected {background-image: #1db954; background-color: #1db954;padding: 0px;color: black;}\n"
@@ -382,4 +383,7 @@ void MainWindow::on_twitter_clicked(){
 
 void MainWindow::on_linkedin_clicked(){
     QDesktopServices::openUrl(QUrl("https://www.linkedin.com/in/ahmed-debbech-90b834179/", QUrl::TolerantMode));
+}
+void MainWindow::on_github_clicked(){
+     QDesktopServices::openUrl(QUrl("https://github.com/ahmed-debbech/mutak", QUrl::TolerantMode));
 }
