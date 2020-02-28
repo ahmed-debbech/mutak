@@ -283,9 +283,18 @@ void MainWindow :: isGranted(){
 //=================================SLOTS ========================================
 void MainWindow::on_refresh_button_clicked(){
     ui->refresh_button->setEnabled(false);
+
+    //get date and time of sys to name the file after it (if file doesnt exist)
+    QDateTime UTC(QDateTime::currentDateTimeUtc());
+    QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
+    int y,m,d;
+    local.date().getDate( &y, &m, &d);
+    QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
+    ui->dateName->setText(h);
+
     if(this->checkForInternet() == true){
         ui->listWidget->clear();
-        QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"));
+        QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=70"));
         this->dataToTracksObjects(root);
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Error"),
