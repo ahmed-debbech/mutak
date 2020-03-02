@@ -39,6 +39,7 @@ private slots:
     void on_gobackAbout_clicked();
     void on_calendarWidget_selectionChanged();
     void on_settings_button_clicked();
+    void on_backFromSettings_clicked();
 
     void on_twitter_clicked();
     void on_github_clicked();

@@ -45,9 +45,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     //setting icon to buttons in UI
     ui->logo->setPixmap(QPixmap("://resources/spotifyico.png"));
-    ui->twitter->setIcon(QPixmap("://resources/twitter.png"));
-    ui->linkedin->setIcon(QPixmap("://resources/linkedin.png"));
-    ui->github->setIcon(QPixmap("://resources/github.png"));
     ui->backFromSettings->setIcon(QPixmap("://resources/leftArrow.png"));
     ui->cautionImage->setPixmap(QPixmap("://resources/caution.png"));
 
@@ -58,6 +55,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->nav->setIcon(QPixmap("://resources/calendar.png"));
     ui->confirm->setIcon(QPixmap("://resources/tick.png"));
     ui->dateName->setText(h);
+
+  //initialize the about section window
+    ui->twitter->setIcon(QPixmap("://resources/twitter.png"));
+    ui->linkedin->setIcon(QPixmap("://resources/linkedin.png"));
+    ui->github->setIcon(QPixmap("://resources/github.png"));
+ //end init about section
+
 
     //start authorization stuff..
     auth.setValues();
@@ -95,8 +99,8 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     timer.start(8000);  // use miliseconds
     loop.exec();
     /* If the timer ended before the reply from the net then there's no internet if not then
-     * the response came before the timer times out eventually there's internet*/
-    if(timer.isActive() == true){ //check if the timer still running
+     * the response came before the timer timed out eventually there's internet*/
+    if(timer.isActive() == true){ //check if the timer is still running
         timer.stop();
         if (reply->bytesAvailable()){
             if(root.contains("error") == true){
@@ -240,7 +244,7 @@ void MainWindow::addToList(vector <Track> t){
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
     int count = ui->listWidget->count();
     if(count != 0){
-        ui->countText->setText("You've listened to " + QString::number(count)+ " tracks" + " on " +  local.date().toString());
+        ui->countText->setText("You've listened to " + QString::number(count)+ " tracks" + " on " +   ui->dateName->text());
     }else{
         ui->countText->setText("No Tracks");
     }
@@ -386,17 +390,4 @@ void MainWindow::on_calendarWidget_selectionChanged(){
 void MainWindow :: on_aboutButton_clicked(){
     ui->stackedWidget->setCurrentIndex(3);
 }
-void MainWindow :: on_gobackAbout_clicked(){
-    ui->stackedWidget->setCurrentIndex(0);
-}
 
-void MainWindow::on_twitter_clicked(){
-     QDesktopServices::openUrl(QUrl("https://twitter.com/AhmedDebb", QUrl::TolerantMode));
-}
-
-void MainWindow::on_linkedin_clicked(){
-    QDesktopServices::openUrl(QUrl("https://www.linkedin.com/in/ahmed-debbech-90b834179/", QUrl::TolerantMode));
-}
-void MainWindow::on_github_clicked(){
-     QDesktopServices::openUrl(QUrl("https://github.com/ahmed-debbech/mutak", QUrl::TolerantMode));
-}
