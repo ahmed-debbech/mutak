@@ -176,9 +176,10 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
 
          tracks.push_back(Track(trackName,artistName,dur,playtimeConverted.toString(),l));
     }
-   dbapi->sendToDB(tracks); //send to database to save
-   vector<Track> t = dbapi->retriveFromDB(); //dataaaa
+   if(dbapi->sendToDB(tracks) == true){//send to database to save
+    vector<Track> t = dbapi->retriveFromDB(); //dataaaa
     this->addToList(t);
+   }
 }
 void MainWindow::closeEvent (QCloseEvent *event){
     if(runningWeb == true){

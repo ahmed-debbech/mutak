@@ -40,10 +40,12 @@ private slots:
     void on_calendarWidget_selectionChanged();
     void on_settings_button_clicked();
     void on_backFromSettings_clicked();
-
+    void on_logout_button_clicked();
     void on_twitter_clicked();
     void on_github_clicked();
     void on_linkedin_clicked();
+    void on_delete_history_clicked();
+
 
 private:
     void addToList(vector <Track> t);

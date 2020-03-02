@@ -16,13 +16,16 @@ class DatabaseAPI{
     QString filePathToday;
     QString userDirName;
 public:
+    //getters and setters
+    QDir getUserDir(){return userDir;}
+
     //initialization of folders and files depending in user id
     DatabaseAPI();
     void prepareUserDir(QString id);
     void prepareUserFiles(QString userID);
 
     //input/output from DB,it uses the private methodes below
-    void sendToDB(vector <Track> & t);
+    bool sendToDB(vector <Track> & t);
     vector<Track> retriveFromDB();
     vector<Track> retriveFromDB(QString fileName);
  private:

@@ -879,6 +879,49 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
           </item>
          </layout>
         </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="styleSheet">
+             <string notr="true">color: white;
+font: bold 14px '://resources/fonts/GothamLight.ttf';
+</string>
+            </property>
+            <property name="text">
+             <string>Delete the local database history of this user (No Undo):</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delete_history">
+            <property name="styleSheet">
+             <string notr="true">#delete_history{
+	background-color: grey;
+	color: white;
+	font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
+}</string>
+            </property>
+            <property name="text">
+             <string>Delete</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_9">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
        </layout>
       </widget>
      </widget>
