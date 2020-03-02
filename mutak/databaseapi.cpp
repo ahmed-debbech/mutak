@@ -46,7 +46,7 @@ void DatabaseAPI :: prepareUserFiles(QString userID){
             out << "user:" << userID <<"\n";
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("Something went wrong in the database! Please restart the application."), QMessageBox::Ok);
+            QObject::tr("Something went wrong in the database while preparing files!\n Please restart the application."), QMessageBox::Ok);
         }
     }
     userFiles.close();
@@ -102,7 +102,7 @@ void DatabaseAPI :: writeToOldDayFile(QString day, Track & t){
             found = false;
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("Something went wrong in database! Please restart the application."), QMessageBox::Ok);
+            QObject::tr("Something went wrong in database while writing!\n Please restart the application."), QMessageBox::Ok);
             found = false;
         }
     }
@@ -115,7 +115,7 @@ void DatabaseAPI :: writeToOldDayFile(QString day, Track & t){
             tofile << t.getName() << "|" << t.getArtist() << "|" << t.getDuration() << "|" << t.getPlayDate() << "%" << t.getID() << "\n";
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("Something went wrong in database! Please restart the application."), QMessageBox::Ok);
+            QObject::tr("Something went wrong in database while writing!\n Please restart the application."), QMessageBox::Ok);
         }
         pastFile.close();
     }
@@ -131,7 +131,7 @@ vector <Track> DatabaseAPI :: retriveFromDB(QString f){
            t = readFromFile(&file);
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("Something went wrong in database! Please restart the application."), QMessageBox::Ok);
+            QObject::tr("Something went wrong in database while retriving data!\n Please restart the application."), QMessageBox::Ok);
         }
         userFiles.close();
     }
@@ -143,7 +143,7 @@ vector<Track> DatabaseAPI :: retriveFromDB(){
         t = readFromFile(&userFiles);
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr("Something went wrong in database! Please restart the application."), QMessageBox::Ok);
+        QObject::tr("Something went wrong in database while retriving data!\n Please restart the application."), QMessageBox::Ok);
     }
     return t;
 }
@@ -193,7 +193,7 @@ void DatabaseAPI :: writeToFile(Track & t){
         tofile << t.getName() << "|" << t.getArtist() << "|" << t.getDuration() << "|" << t.getPlayDate() << "%" << t.getID() << "\n";
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr("Something went wrong in database! Please restart the application."), QMessageBox::Ok);
+        QObject::tr("Something went wrong in database while writing!\n Please restart the application."), QMessageBox::Ok);
     }
     userFiles.close();
 }
@@ -224,7 +224,7 @@ bool DatabaseAPI :: checkForExistance(Track & t){
             found = false;
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("Something went wrong in database! Please restart the application."), QMessageBox::Ok);
+            QObject::tr("Something went wrong in database while creating files! Please restart the application."), QMessageBox::Ok);
             found = false;
         }
     }

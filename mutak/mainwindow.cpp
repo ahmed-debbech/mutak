@@ -83,9 +83,8 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
 
     connect(reply, &QNetworkReply::finished, [&root, reply, this]() { //this is a lambda fun
         if (reply->error() != QNetworkReply::NoError) {
-            QMessageBox::critical(nullptr, QObject::tr("Info"),
-            QObject::tr("An error occured while retriving data!"), QMessageBox::Ok);
-            ui->stackedWidget->setCurrentIndex(2);
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("An error occured while retriving data from server!"), QMessageBox::Ok);
         }else{
             QByteArray data = reply->readAll();
             QJsonDocument document = QJsonDocument::fromJson(data);
@@ -104,7 +103,7 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
                 auth.getAuthObject()->refreshAccessToken();
                 user->setToken(auth.getAuthObject()->token());
                 QMessageBox::critical(nullptr, QObject::tr("Error"),
-                QObject::tr("An error occured while retriving data!"), QMessageBox::Ok);
+                QObject::tr("An error occured while retriving data from server!"), QMessageBox::Ok);
             }else{
                 return root;
             }
@@ -175,13 +174,12 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
     }
    dbapi->sendToDB(tracks); //send to database to save
    vector<Track> t = dbapi->retriveFromDB(); //dataaaa
-   std::cout << "ttt" <<std::endl;
     this->addToList(t);
 }
 void MainWindow::closeEvent (QCloseEvent *event){
     if(runningWeb == true){
         QMessageBox::StandardButton resBtn = QMessageBox::critical(nullptr, QObject::tr("Warning"),
-        QObject::tr("Are you sure you want to exit?\n Mutak is retriving data."), QMessageBox::Yes);
+        QObject::tr("Are you sure you want to exit?\n Mutak is still retriving data."),QMessageBox::Yes | QMessageBox::No);
         if (resBtn != QMessageBox::Yes) {
             event->ignore();
         } else {
@@ -231,7 +229,7 @@ void MainWindow::addToList(vector <Track> t){
             ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("An error occured in retriving photos."), QMessageBox::Ok);
+            QObject::tr("Something went wrong while retriving tracks photos."), QMessageBox::Ok);
         }
     }
     runningWeb = false;
@@ -297,11 +295,11 @@ void MainWindow::on_refresh_button_clicked(){
 
     if(this->checkForInternet() == true){
         ui->listWidget->clear();
-        QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=70"));
+        QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"));
         this->dataToTracksObjects(root);
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr("Could not retrive data.\nPlease check your connection and try again"), QMessageBox::Ok);
+        QObject::tr("Could not retrive data due to interruption.\nPlease check your internet connection and try again"), QMessageBox::Ok);
         ui->refresh_button->setEnabled(true);
     }
 }
