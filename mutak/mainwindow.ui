@@ -722,6 +722,17 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="website">
+            <property name="styleSheet">
+             <string notr="true">font: bold 12pt  '://resources/fonts/Gotham-UltraItalic.otf';
+color: white;</string>
+            </property>
+            <property name="text">
+             <string>Official Website</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
@@ -766,7 +777,15 @@ text-align: center</string>
           <property name="plainText">
            <string>Copyright © 2020 - All Rights Reserved -  Ahmed Debbech
 
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Notice ******************************
+Copyright © 1995-2020 The QT Company
+
+Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
+
+This version of the GNU Lesser General Public License incorporates the terms and conditions of version 3 of the GNU General Public License, supplemented by the additional permissions listed below.
+************************************</string>
           </property>
          </widget>
         </item>

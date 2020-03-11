@@ -45,7 +45,7 @@ private slots:
     void on_github_clicked();
     void on_linkedin_clicked();
     void on_delete_history_clicked();
-
+    void on_website_clicked();
 
 private:
     void addToList(vector <Track> t);
