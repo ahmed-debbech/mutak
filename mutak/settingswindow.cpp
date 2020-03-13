@@ -40,3 +40,6 @@ void MainWindow::on_delete_history_clicked(){
 void MainWindow :: on_aboutsettings_clicked(){
     this->on_aboutButton_clicked();
 }
+void MainWindow :: on_helpsettings_clicked(){
+    this->on_helpButton_clicked();
+}

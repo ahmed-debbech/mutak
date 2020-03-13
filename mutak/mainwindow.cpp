@@ -405,4 +405,9 @@ void MainWindow :: on_aboutButton_clicked(){
     this->windowsCursor.currentWindowIndex = 3;
     ui->stackedWidget->setCurrentIndex(3);
 }
+void MainWindow :: on_helpButton_clicked(){
+    this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
+    this->windowsCursor.currentWindowIndex = 5;
+    ui->stackedWidget->setCurrentIndex(5);
+}
 

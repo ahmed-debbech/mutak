@@ -47,6 +47,9 @@ private slots:
     void on_delete_history_clicked();
     void on_website_clicked();
     void on_aboutsettings_clicked();
+    void on_helpsettings_clicked();
+    void on_helpButton_clicked();
+    void on_gobackHelp_clicked();
 private:
     struct RecentlyShowedWindows{
         int currentWindowIndex;

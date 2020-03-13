@@ -20,6 +20,7 @@ SOURCES += \
     aboutwindow.cpp \
     authorizer.cpp \
     databaseapi.cpp \
+    helpwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     retrivephotosthread.cpp \

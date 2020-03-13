@@ -993,6 +993,58 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="page_6">
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="styleSheet">
+           <string notr="true">color: #1db954;
+font: bold 26px '://resources/fonts/Gotham-Bold.otf';
+</string>
+          </property>
+          <property name="text">
+           <string>This is how to use Mutak</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_10">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="gobackHelp">
+          <property name="styleSheet">
+           <string notr="true">#gobackHelp{
+color: white;
+background-color:  #1db954;
+border-radius: 25px;
+  padding: 20px;
+  width: 60px;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
+ }
+#gobackHelp:hover {
+	background-color: #3AE476;
+ }
+#gobackHelp:pressed{
+	background-color: #2BB85D;
+}</string>
+          </property>
+          <property name="text">
+           <string>Go Back</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
