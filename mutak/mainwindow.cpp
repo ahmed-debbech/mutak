@@ -22,8 +22,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->setupUi(this); // init all GUI
 
     //init window cursors;
-    this->rsw.currentWindowIndex = 0;
-    this->rsw.previousWindowIndex = -1;
+    this->windowsCursor.currentWindowIndex = 0;
+    this->windowsCursor.previousWindowIndex = -1;
 
     //preparing the customization of widgets
     this->setWindowTitle("Mutak");
@@ -274,8 +274,8 @@ void MainWindow :: isGranted(){
         if(root.empty() == false){
             //passing to the next interface after login
             ui->wait_label->setHidden(true);
-            this->rsw.previousWindowIndex = 0;
-            this->rsw.currentWindowIndex = 1;
+            this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
+            this->windowsCursor.currentWindowIndex = 1;
             ui->stackedWidget->setCurrentIndex(1);
 
             this->user = new User(root, Token, refToken);
@@ -288,7 +288,8 @@ void MainWindow :: isGranted(){
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("Could not retrive account data."), QMessageBox::Ok);
-            this->rsw.currentWindowIndex = 0;
+            this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
+            this->windowsCursor.currentWindowIndex = 0;
             ui->stackedWidget->setCurrentIndex(0);
         }
     }
@@ -316,8 +317,8 @@ void MainWindow::on_refresh_button_clicked(){
     }
 }
 void MainWindow::on_settings_button_clicked(){
-    this->rsw.currentWindowIndex = 1;
-    this->rsw.currentWindowIndex = 4;
+    this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
+    this->windowsCursor.currentWindowIndex = 4;
  ui->stackedWidget->setCurrentIndex(4);
 }
 void MainWindow:: on_refresh_retriv_clicked(){
@@ -329,8 +330,8 @@ void MainWindow::on_loginButton_clicked(){
     if (this->checkForInternet() == true){
             auth.getAuthObject()->grant();
     }else{
-        this->rsw.currentWindowIndex = 2;
-        this->rsw.previousWindowIndex = 1;
+        this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
+        this->windowsCursor.currentWindowIndex = 2;
         ui->stackedWidget->setCurrentIndex(2);
     }
     ui->loginButton->setEnabled(true);
@@ -400,8 +401,8 @@ void MainWindow::on_calendarWidget_selectionChanged(){
     ui->dateName->setText(g);
 }
 void MainWindow :: on_aboutButton_clicked(){
-    this->rsw.currentWindowIndex = 3;
-    this->rsw.previousWindowIndex = 0;
+    this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
+    this->windowsCursor.currentWindowIndex = 3;
     ui->stackedWidget->setCurrentIndex(3);
 }
 

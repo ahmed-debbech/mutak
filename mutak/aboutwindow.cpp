@@ -8,8 +8,8 @@
 
 
 void MainWindow :: on_gobackAbout_clicked(){
-       ui->stackedWidget->setCurrentIndex(this->rsw.previousWindowIndex);
-       this->rsw.currentWindowIndex = this->rsw.previousWindowIndex;
+       ui->stackedWidget->setCurrentIndex(this->windowsCursor.previousWindowIndex);
+       this->windowsCursor.currentWindowIndex = this->windowsCursor.previousWindowIndex;
 }
 
 void MainWindow::on_twitter_clicked(){
