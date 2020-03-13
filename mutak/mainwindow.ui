@@ -941,6 +941,56 @@ font: bold 14px '://resources/fonts/GothamLight.ttf';
           </property>
          </spacer>
         </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <widget class="QPushButton" name="helpsettings">
+            <property name="styleSheet">
+             <string notr="true">#helpsettings{
+color: white;
+background-color:  #1db954;
+border-radius: 25px;
+  padding: 20px;
+  width: 60px;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
+ }
+#helpsettings:hover {
+	background-color: #3AE476;
+ }
+#helpsettings:pressed{
+	background-color: #2BB85D;
+}</string>
+            </property>
+            <property name="text">
+             <string>Help</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="aboutsettings">
+            <property name="styleSheet">
+             <string notr="true">#aboutsettings{
+color: white;
+background-color:  #1db954;
+border-radius: 25px;
+  padding: 20px;
+  width: 60px;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
+ }
+#aboutsettings:hover {
+	background-color: #3AE476;
+ }
+#aboutsettings:pressed{
+	background-color: #2BB85D;
+}</string>
+            </property>
+            <property name="text">
+             <string>About</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
        </layout>
       </widget>
      </widget>

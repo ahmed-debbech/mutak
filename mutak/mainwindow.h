@@ -46,8 +46,15 @@ private slots:
     void on_linkedin_clicked();
     void on_delete_history_clicked();
     void on_website_clicked();
-
+    void on_aboutsettings_clicked();
+    void on_helpsettings_clicked();
 private:
+    struct RecentlyShowedWindows{
+        int currentWindowIndex;
+        int previousWindowIndex;
+    };
+    typedef RecentlyShowedWindows recentlyShowedWindows;
+    recentlyShowedWindows rsw;
     void addToList(vector <Track> t);
     Ui::MainWindow *ui;
     Authorizer auth;

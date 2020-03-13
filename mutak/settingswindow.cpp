@@ -14,11 +14,15 @@
 #include "ui_mainwindow.h"
 
 void MainWindow::on_backFromSettings_clicked(){
+    this->rsw.currentWindowIndex = 1;
+    this->rsw.previousWindowIndex = 4;
     ui->stackedWidget->setCurrentIndex(1);
 }
 void MainWindow::on_logout_button_clicked(){
     if(runningWeb == false){
      delete user;
+        this->rsw.currentWindowIndex = 0;
+        this->rsw.previousWindowIndex = 4;
     ui->stackedWidget->setCurrentIndex(0); // back to login window
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Warning"),
@@ -32,4 +36,7 @@ void MainWindow::on_delete_history_clicked(){
     if (resBtn == QMessageBox::Yes) {
      q.removeRecursively();
     }
+}
+void MainWindow :: on_helpsettings_clicked(){
+
 }
