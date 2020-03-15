@@ -50,6 +50,7 @@ private slots:
     void on_helpsettings_clicked();
     void on_helpButton_clicked();
     void on_gobackHelp_clicked();
+    void delete_threads(retrivePhotosThread * i);
 private:
     struct RecentlyShowedWindows{
         int currentWindowIndex;
@@ -64,6 +65,8 @@ private:
     vector<Track> tracks;
     DatabaseAPI * dbapi;
     bool runningWeb;
+    int stopOnClose;
     QDateTime currentPageDate;
+    vector<retrivePhotosThread *> runningThreads;
 };
 #endif // MAINWINDOW_H

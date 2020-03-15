@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
                                   "QListView::item:hover{background-image: #202020; background-color: #202020;padding: 0px; color: black;}");
     dbapi = new DatabaseAPI();
     runningWeb = false;
-
+    stopOnClose = false;
     //get date and time of sys to name the file after it (if file doesnt exist)
     QDateTime UTC(QDateTime::currentDateTimeUtc());
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
@@ -192,6 +192,12 @@ void MainWindow::closeEvent (QCloseEvent *event){
         if (resBtn != QMessageBox::Yes) {
             event->ignore();
         } else {
+            stopOnClose = true;
+            if(runningThreads.size() > 0){
+                for(int i=0; i<=runningThreads.size()-1; i++){
+                    delete runningThreads[i];
+                }
+            }
             event->accept();
         }
     }else{
@@ -226,16 +232,22 @@ void MainWindow::addToList(vector <Track> t){
         if(theresInternet == true){
             runningWeb = true;
             QString link = t[i-1].getID();
-
+            qDebug() << stopOnClose;
+            if(stopOnClose == false){
             //request the image of each track
             QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+link));
             root = (root.value("tracks").toArray().at(0)).toObject();
             root = root.value("album").toObject();
             QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
-           retrivePhotosThread rpt (download);
-            rpt.run(widitem[t.size()-i]);
+           retrivePhotosThread * rpt  = new retrivePhotosThread(download, widitem[t.size()-i]);
+           runningThreads.push_back(rpt);
+           connect(rpt, SIGNAL(finished()), this, SLOT(delete_threads(rpt)));
+           rpt->start();
             ui->countText->setText("Please Wait... Downloading photos");
             ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
+            }else{
+                break;
+            }
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("Something went wrong while retriving tracks photos."), QMessageBox::Ok);
@@ -279,7 +291,7 @@ void MainWindow :: isGranted(){
             ui->stackedWidget->setCurrentIndex(1);
 
             this->user = new User(root, Token, refToken);
-            this->user->printOnUI(this->getUi());
+            //this->user->printOnUI(this->getUi());
 
             //check if the folder of user exists
             dbapi->prepareUserDir(root.value("id").toString());
@@ -295,6 +307,10 @@ void MainWindow :: isGranted(){
     }
 }
 //=================================SLOTS ========================================
+void MainWindow :: delete_threads(retrivePhotosThread * i){
+    disconnect(i, SIGNAL(finished()), this, SLOT(delete_threads()));
+    delete i;
+}
 void MainWindow::on_refresh_button_clicked(){
     ui->refresh_button->setEnabled(false);
 

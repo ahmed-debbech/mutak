@@ -12,7 +12,7 @@
 class photoDownloader : public QObject{
  Q_OBJECT
  public:
-  explicit photoDownloader(QUrl imageUrl, QObject *parent = 0);
+  explicit photoDownloader(QUrl imageUrl, QObject *parent = nullptr);
   virtual ~photoDownloader();
   QByteArray downloadedData() const;
 
@@ -26,11 +26,15 @@ class photoDownloader : public QObject{
 
 class retrivePhotosThread : public QThread{
     photoDownloader * pd;
+    QString downloadLink;
+    WidgetItem * currentItem;
+    QByteArray downData;
 public:
-    retrivePhotosThread(QString t);
+    retrivePhotosThread(QString t, WidgetItem * i);
+    retrivePhotosThread(QString q);
     ~retrivePhotosThread();
-    virtual void run(WidgetItem *i);
-    virtual void run(QLabel * q);
+    virtual void run();
+    QByteArray downloadedData(){return downData;}
 };
 
 #endif // RETRIVEPHOTOSTHREAD_H

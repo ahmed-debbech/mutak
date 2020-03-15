@@ -6,6 +6,7 @@
 #include <QBrush>
 #include <QPainter>
 #include <QBitmap>
+#include <iostream>
 
 User::User(const QJsonObject & data, QString t, QString r){
    id = data.value("id").toString();
@@ -22,8 +23,11 @@ void User::printOnUI(Ui_MainWindow *mw){
     //load photo
     //we run a thread that retrives the image
     retrivePhotosThread rpt(imageRef);
-    rpt.run(mw->photo);
-    rpt.run(mw->photoSettings);
+    rpt.start();
+    QPixmap pix;
+    pix.loadFromData(rpt.downloadedData());
+    pix = pix.scaled(64,64,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+    mw->photo->setPixmap(pix);
 }
 User :: ~User(){
 

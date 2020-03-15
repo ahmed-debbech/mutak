@@ -25,22 +25,28 @@ QByteArray photoDownloader::downloadedData() const {
 //end of implementation ================================
 
 //Implementation of thread class =========================
-retrivePhotosThread::retrivePhotosThread(QString t){
-    pd = new photoDownloader(t);
+retrivePhotosThread::retrivePhotosThread(QString t, WidgetItem * i){
+    downloadLink = t;
+    currentItem = i;
+}
+retrivePhotosThread::retrivePhotosThread( QString q){
+    currentItem = nullptr;
+    downloadLink = q;
 }
 retrivePhotosThread:: ~retrivePhotosThread(){
     delete pd;
 }
-void retrivePhotosThread :: run(WidgetItem * i){
-    Ui::WidgetItem * w = i->getUi();
-    QPixmap pix;
-    pix.loadFromData(pd->downloadedData());
-    w->photo->setPixmap(pix);
-}
-void retrivePhotosThread :: run(QLabel * q){
-    QPixmap pix;
-    pix.loadFromData(pd->downloadedData());
-    pix = pix.scaled(64,64,Qt::KeepAspectRatio,Qt::SmoothTransformation);
-    q->setPixmap(pix);
+void retrivePhotosThread :: run(){
+    if(currentItem != nullptr){
+            pd = new photoDownloader(downloadLink);
+            downData = pd->downloadedData();
+        Ui::WidgetItem * w = currentItem->getUi();
+        QPixmap pix;
+        pix.loadFromData(downData);
+        w->photo->setPixmap(pix);
+    }else{
+        pd = new photoDownloader(downloadLink);
+        downData = pd->downloadedData();
+    }
 }
 // end of implementation =================================
