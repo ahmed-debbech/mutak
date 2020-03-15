@@ -291,7 +291,7 @@ void MainWindow :: isGranted(){
             ui->stackedWidget->setCurrentIndex(1);
 
             this->user = new User(root, Token, refToken);
-            //this->user->printOnUI(this->getUi());
+            this->user->printOnUI(this->getUi());
 
             //check if the folder of user exists
             dbapi->prepareUserDir(root.value("id").toString());

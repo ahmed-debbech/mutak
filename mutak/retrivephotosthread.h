@@ -29,12 +29,12 @@ class retrivePhotosThread : public QThread{
     QString downloadLink;
     WidgetItem * currentItem;
     QByteArray downData;
+    QLabel * photo;
 public:
     retrivePhotosThread(QString t, WidgetItem * i);
-    retrivePhotosThread(QString q);
+    retrivePhotosThread(QString q, QLabel * p);
     ~retrivePhotosThread();
     virtual void run();
-    QByteArray downloadedData(){return downData;}
 };
 
 #endif // RETRIVEPHOTOSTHREAD_H

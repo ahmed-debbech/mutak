@@ -20,14 +20,15 @@ void User::printOnUI(Ui_MainWindow *mw){
     mw->disp_name->setText(name);
     mw->nameSettings->setText(name);
     mw->photo->setPixmap(QPixmap("://resources/unloaded-profile.png"));
+    mw->photoSettings->setPixmap(QPixmap("://resources/unloaded-profile.png"));
     //load photo
     //we run a thread that retrives the image
-    retrivePhotosThread rpt(imageRef);
-    rpt.start();
-    QPixmap pix;
-    pix.loadFromData(rpt.downloadedData());
-    pix = pix.scaled(64,64,Qt::KeepAspectRatio,Qt::SmoothTransformation);
-    mw->photo->setPixmap(pix);
+    retrivePhotosThread *rpt = new retrivePhotosThread(imageRef,mw->photo);
+    connect(rpt, SIGNAL(finished()), this, SLOT(delete_threads(rpt)));
+    rpt->start();
+    rpt = new retrivePhotosThread(imageRef,mw->photoSettings);
+    connect(rpt, SIGNAL(finished()), this, SLOT(delete_threads(rpt)));
+    rpt->start();
 }
 User :: ~User(){
 

@@ -29,9 +29,10 @@ retrivePhotosThread::retrivePhotosThread(QString t, WidgetItem * i){
     downloadLink = t;
     currentItem = i;
 }
-retrivePhotosThread::retrivePhotosThread( QString q){
+retrivePhotosThread::retrivePhotosThread( QString q, QLabel * p){
     currentItem = nullptr;
     downloadLink = q;
+    photo = p;
 }
 retrivePhotosThread:: ~retrivePhotosThread(){
     delete pd;
@@ -47,6 +48,10 @@ void retrivePhotosThread :: run(){
     }else{
         pd = new photoDownloader(downloadLink);
         downData = pd->downloadedData();
+        QPixmap pix;
+        pix.loadFromData(pd->downloadedData());
+        pix = pix.scaled(64,64,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+        photo->setPixmap(pix);
     }
 }
 // end of implementation =================================

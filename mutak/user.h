@@ -16,6 +16,8 @@ class User : public QObject{
     QString token;
     QString refToken;
     QByteArray photo;
+private slots:
+    void delete_threads(retrivePhotosThread * i){delete i;}
 public:
     User(const QJsonObject & data, QString token, QString ref);
     void setId(QString i){ id = i;}
