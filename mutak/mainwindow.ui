@@ -369,7 +369,7 @@ font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
               </property>
               <property name="styleSheet">
                <string notr="true">color: white;
-font: bold 18px '://resources/fonts/Gotham-UltraItalic.otf';
+font: bold 26px '://resources/fonts/Gotham-UltraItalic.otf';
 </string>
               </property>
               <property name="text">

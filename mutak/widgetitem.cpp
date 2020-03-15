@@ -16,7 +16,7 @@ WidgetItem::WidgetItem(Track & t, QWidget *parent) :
         ui->name->setText(l);
         ui->name->setToolTip(t.getName());
     }
-    ui->name->setStyleSheet("color: #1db954;\nfont: bold 9pt  '://resources/fonts/Gotham-MediumItalic.ttf';");
+    ui->name->setStyleSheet("color: #1db954;\nfont: bold 9pt  '://resources/fonts/Gotham-Bold.otf';");
     if(t.getArtist().size() <= 32){
         ui->artist->setText(t.getArtist());
     }else{
@@ -24,6 +24,7 @@ WidgetItem::WidgetItem(Track & t, QWidget *parent) :
         QStringRef substr(&n, 0, 29);
         QString l = substr.toString() + "...";
         ui->artist->setText(l);
+        ui->artist->setStyleSheet("color: white;\n font: bold 12pt  '://resources/fonts/Gotham-Thin.otf';");
         ui->artist->setToolTip(t.getArtist());
     }
     ui->duration->setText(this->convertToMin(static_cast<int>(t.getDuration())));
