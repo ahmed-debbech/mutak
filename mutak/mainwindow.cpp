@@ -20,6 +20,10 @@
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this); // init all GUI
+
+    //set icon
+    this->setWindowIcon(QIcon("://resources/spotifyico.png"));
+
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(on_refresh_button_clicked()));
     //init window cursors;
@@ -49,7 +53,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
 
     //setting icon to buttons in UI
-    ui->logo->setPixmap(QPixmap("://resources/spotifyico.png"));
+    QPixmap pix("://resources/spotifyico.png");
+    pix = pix.scaled(128,128,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+    ui->logo->setPixmap(pix);
     ui->backFromSettings->setIcon(QPixmap("://resources/leftArrow.png"));
     ui->cautionImage->setPixmap(QPixmap("://resources/caution.png"));
 

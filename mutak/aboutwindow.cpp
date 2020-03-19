@@ -23,5 +23,5 @@ void MainWindow::on_github_clicked(){
      QDesktopServices::openUrl(QUrl("https://github.com/ahmed-debbech/mutak", QUrl::TolerantMode));
 }
 void MainWindow :: on_website_clicked(){
-    QDesktopServices::openUrl(QUrl("https://themutak.000webhostapp.com/", QUrl::TolerantMode));
+    QDesktopServices::openUrl(QUrl("http://www.mutak.site/", QUrl::TolerantMode));
 }
