@@ -20,7 +20,8 @@
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this); // init all GUI
-
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(on_refresh_button_clicked()));
     //init window cursors;
     this->windowsCursor.currentWindowIndex = 0;
     this->windowsCursor.previousWindowIndex = -1;
@@ -78,6 +79,7 @@ MainWindow::~MainWindow(){
     delete ui;
     delete user;
     delete dbapi;
+    delete timer;
 }
 
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
@@ -313,7 +315,7 @@ void MainWindow :: delete_threads(retrivePhotosThread * i){
 }
 void MainWindow::on_refresh_button_clicked(){
     ui->refresh_button->setEnabled(false);
-
+    timer->start(60000);
     //get date and time of sys to name the file after it (if file doesnt exist)
     QDateTime UTC(QDateTime::currentDateTimeUtc());
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();

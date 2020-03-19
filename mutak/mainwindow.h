@@ -66,6 +66,7 @@ private:
     DatabaseAPI * dbapi;
     bool runningWeb;
     int stopOnClose;
+    QTimer * timer;
     QDateTime currentPageDate;
     vector<retrivePhotosThread *> runningThreads;
 };
