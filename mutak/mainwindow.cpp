@@ -315,7 +315,7 @@ void MainWindow :: delete_threads(retrivePhotosThread * i){
 }
 void MainWindow::on_refresh_button_clicked(){
     ui->refresh_button->setEnabled(false);
-    timer->start(60000);
+    timer->start(1500000);
     //get date and time of sys to name the file after it (if file doesnt exist)
     QDateTime UTC(QDateTime::currentDateTimeUtc());
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();

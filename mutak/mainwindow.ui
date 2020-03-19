@@ -1008,6 +1008,31 @@ font: bold 26px '://resources/fonts/Gotham-Bold.otf';
          </widget>
         </item>
         <item>
+         <spacer name="verticalSpacer_11">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="styleSheet">
+           <string notr="true">color: white;
+font: bold 14px '://resources/fonts/GothamLight.ttf';
+</string>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;1 - Login first and you'll be redirected to a webpage where you&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;should give permission to Mutak.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;2 - After Login you can press Refresh to get your recently played songs.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;3 - You can also use the navigation bar in the left&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;corner bellow to navigate between days.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;4 - You can also navigate through th calendar and &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;select the date and then press the confirm button.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer_10">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
