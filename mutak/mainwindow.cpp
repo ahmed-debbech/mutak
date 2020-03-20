@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     local.date().getDate( &y, &m, &d);
     QDate q; q.setDate(y,m,d);
     ui->calendarWidget->setMaximumDate(q);
-    this->currentPageDate = local;
+    this->currentPageDate = local.date();
     QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
 
     //setting icon to buttons in UI
@@ -364,7 +364,7 @@ void MainWindow::on_loginButton_clicked(){
 void MainWindow::on_navPrev_clicked(){
     this->currentPageDate = this->currentPageDate.addDays(-1);
     int y,m,d;
-    currentPageDate.date().getDate( &y, &m, &d);
+    currentPageDate.getDate( &y, &m, &d);
     QString date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
     ui->dateName->setText(date);
 
@@ -391,7 +391,7 @@ void MainWindow::on_navNext_clicked(){
         ui->navNext->setEnabled(false);
     }else{
         this->currentPageDate = this->currentPageDate.addDays(1);
-        currentPageDate.date().getDate( &y, &m, &d);
+        currentPageDate.getDate( &y, &m, &d);
         date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
         ui->dateName->setText(date);
         ui->navNext->setEnabled(true);
@@ -423,6 +423,7 @@ void MainWindow::on_calendarWidget_selectionChanged(){
     d.getDate(&y, &m, &day);
     QString g = QString::number(day) + "-" + QString::number(m) + "-" + QString::number(y);
     ui->dateName->setText(g);
+    this->currentPageDate = d;
 }
 void MainWindow :: on_aboutButton_clicked(){
     this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();

@@ -67,7 +67,7 @@ private:
     bool runningWeb;
     int stopOnClose;
     QTimer * timer;
-    QDateTime currentPageDate;
+    QDate currentPageDate;
     vector<retrivePhotosThread *> runningThreads;
 };
 #endif // MAINWINDOW_H
