@@ -25,7 +25,6 @@ void MainWindow::on_logout_button_clicked(){
         this->windowsCursor.currentWindowIndex = 0;
     ui->stackedWidget->setCurrentIndex(0); // back to login window
     disconnect(timer, SIGNAL(timeout()), this, SLOT(on_refresh_button_clicked()));
-    delete user;
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Warning"),
         QObject::tr("Please wait until Mutak is done using internet and try again."), QMessageBox::Ok);

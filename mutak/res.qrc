@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>resources/spotifyico.png</file>
         <file>resources/fonts/Gotham-Black.otf</file>
         <file>resources/fonts/GothamBoldItalic.ttf</file>
         <file>resources/fonts/GothamBook.ttf</file>
@@ -29,5 +28,6 @@
         <file>resources/linkedin.png</file>
         <file>resources/twitter.png</file>
         <file>resources/github.png</file>
+        <file>resources/spotifyico.png</file>
     </qresource>
 </RCC>
