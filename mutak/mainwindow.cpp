@@ -135,6 +135,7 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
 bool MainWindow::checkForInternet(){
     QNetworkAccessManager nam;
     QNetworkRequest req(QUrl("https://www.google.com"));
+
     QNetworkReply* reply = nam.get(req);
     QEventLoop loop;
     QTimer timer;    // timer for time out when no response
