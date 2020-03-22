@@ -148,21 +148,48 @@ bool MainWindow::checkForInternet(){
     if(timer.isActive() == true){ //check if the timer still running
         timer.stop();
         if (reply->bytesAvailable()){
+            QString oo = reply->errorString();
+            QByteArray ba = oo.toLocal8Bit();
+              const char *ff = ba.data();
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr(ff), QMessageBox::Ok);
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("thers conx"), QMessageBox::Ok);
                 return true;
-        }else{
-            disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
-            disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
-            reply->abort();
+        }else{//
+            if(reply->error() == QNetworkReply::NoError){
+                QString oo = reply->errorString();
+                QByteArray ba = oo.toLocal8Bit();
+                  const char *ff = ba.data();
+                QMessageBox::critical(nullptr, QObject::tr("Error"),
+                QObject::tr(ff), QMessageBox::Ok);
+                QMessageBox::critical(nullptr, QObject::tr("Error"),
+                QObject::tr("noo errors"), QMessageBox::Ok);
+            }else{
+                disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+                disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+                QString oo = reply->errorString();
+                QByteArray ba = oo.toLocal8Bit();
+                  const char *ff = ba.data();
+                QMessageBox::critical(nullptr, QObject::tr("Error"),
+                QObject::tr(ff), QMessageBox::Ok);
+                reply->abort();
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("thers error"), QMessageBox::Ok);
+            }
         }
     }else{
         disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
         disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
         reply->abort();
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+        QObject::tr("timer aborted"), QMessageBox::Ok);
         return false;
     }
+    QMessageBox::critical(nullptr, QObject::tr("Error"),
+    QObject::tr("last return"), QMessageBox::Ok);
     return false;
 }
-
 void MainWindow :: dataToTracksObjects(QJsonObject &data){
     QJsonObject jb = data, r = data;
     QJsonArray arr;
@@ -289,7 +316,8 @@ void MainWindow :: isGranted(){
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
         QString Token = auth.getAuthObject()->token();
         QString refToken = auth.getAuthObject()->refreshToken();
-
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+        QObject::tr("granted with token"), QMessageBox::Ok);
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me"));
         if(root.empty() == false){
             //passing to the next interface after login
@@ -312,6 +340,9 @@ void MainWindow :: isGranted(){
             this->windowsCursor.currentWindowIndex = 0;
             ui->stackedWidget->setCurrentIndex(0);
         }
+    }else{
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+        QObject::tr("not gtanted"), QMessageBox::Ok);
     }
 }
 //=================================SLOTS ========================================
@@ -352,6 +383,8 @@ void MainWindow::on_loginButton_clicked(){
     ui->wait_label->setHidden(false);
     ui->loginButton->setEnabled(false);
     if (this->checkForInternet() == true){
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+        QObject::tr("thers conx"), QMessageBox::Ok);
             auth.getAuthObject()->grant();
     }else{
         this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();

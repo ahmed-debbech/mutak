@@ -50,7 +50,48 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     res.qrc
 
+LIBS += -LOpenSSL-Win32 -llibcrypto -llibssl
+
 DISTFILES += \
     .gitignore \
-    resources/spotifyico.png
+    resources/spotifyico.png \
+    OpenSSL-Win32/CA.pl \
+    OpenSSL-Win32/PEM/ca-cert.srl \
+    OpenSSL-Win32/PEM/ca-key.pem \
+    OpenSSL-Win32/PEM/ca-req.pem \
+    OpenSSL-Win32/PEM/cert.pem \
+    OpenSSL-Win32/PEM/client.pem \
+    OpenSSL-Win32/PEM/demoSRP/srp_verifier.txt \
+    OpenSSL-Win32/PEM/demoSRP/srp_verifier.txt.attr \
+    OpenSSL-Win32/PEM/dh1024.pem \
+    OpenSSL-Win32/PEM/dh2048.pem \
+    OpenSSL-Win32/PEM/dh4096.pem \
+    OpenSSL-Win32/PEM/dsa-ca.pem \
+    OpenSSL-Win32/PEM/dsa-pca.pem \
+    OpenSSL-Win32/PEM/dsa1024.pem \
+    OpenSSL-Win32/PEM/dsa512.pem \
+    OpenSSL-Win32/PEM/dsap.pem \
+    OpenSSL-Win32/PEM/pca-cert.srl \
+    OpenSSL-Win32/PEM/pca-key.pem \
+    OpenSSL-Win32/PEM/pca-req.pem \
+    OpenSSL-Win32/PEM/privkey.pem \
+    OpenSSL-Win32/PEM/req.pem \
+    OpenSSL-Win32/PEM/rsa8192.pem \
+    OpenSSL-Win32/PEM/s1024key.pem \
+    OpenSSL-Win32/PEM/s1024req.pem \
+    OpenSSL-Win32/PEM/s512-key.pem \
+    OpenSSL-Win32/PEM/s512-req.pem \
+    OpenSSL-Win32/PEM/server.pem \
+    OpenSSL-Win32/PEM/server.srl \
+    OpenSSL-Win32/PEM/server2.pem \
+    OpenSSL-Win32/PEM/testCA.pem \
+    OpenSSL-Win32/capi.dll \
+    OpenSSL-Win32/dasync.dll \
+    OpenSSL-Win32/libcrypto-1_1-x64.dll \
+    OpenSSL-Win32/libssl-1_1-x64.dll \
+    OpenSSL-Win32/openssl.exe \
+    OpenSSL-Win32/ossltest.dll \
+    OpenSSL-Win32/padlock.dll \
+    OpenSSL-Win32/progs.pl \
+    OpenSSL-Win32/tsget.pl \
 
