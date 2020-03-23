@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->calendarWidget->setHidden(true);
     ui->navNext->setDisabled(true);
     ui->wait_label->setHidden(true);
+    ui->wait_label2->setHidden(true);
 
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
     ui->listWidget->setStyleSheet("QListView::item:selected {background-image: #1db954; background-color: #1db954;padding: 0px;color: black;}\n"
@@ -134,12 +135,11 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     return root;
 }
 
-bool MainWindow::checkForInternet(){
+void MainWindow::checkForInternet(){
     QNetworkAccessManager nam;
     QNetworkRequest req(QUrl("https://www.google.com"));
     if(QSslSocket::supportsSsl() == false){
-        throw exceptionError(100, "Could not initialize a secure tunnel over SSL (ERROR_CODE_100)");
-        return false;
+        throw exceptionError(100, "Could not initialize a secure tunnel over SSL ERROR_CODE_100");
     }
     QNetworkReply* reply = nam.get(req);
     QEventLoop loop;
@@ -154,32 +154,21 @@ bool MainWindow::checkForInternet(){
     if(timer.isActive() == true){ //check if the timer still running
         timer.stop();
         if (reply->bytesAvailable()){
-            QString oo = reply->errorString();
-            QByteArray ba = oo.toLocal8Bit();
-              const char *ff = ba.data();
-            QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr(ff), QMessageBox::Ok);
-            QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("thers conx"), QMessageBox::Ok);
-                return true;
+                return; // there's internet connection
         }else{
                 disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
                 disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
                 reply->abort();
                 QMessageBox::critical(nullptr, QObject::tr("Error"),
                 QObject::tr("thers error"), QMessageBox::Ok);
-                throw exceptionError(101, "Empty response retrived, no bytes available (ERROR_CODE_101)");
+                throw exceptionError(101, "Connection interrupted with empty response ERROR_CODE_101");
         }
     }else{
         disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
         disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
         reply->abort();
-        throw exceptionError(100, "Timemout after no response, timer aborted (ERROR_CODE_102)");
-        return false;
+        throw exceptionError(100, "Timemout after no response, timer aborted ERROR_CODE_102");
     }
-    QMessageBox::critical(nullptr, QObject::tr("Error"),
-    QObject::tr("last return"), QMessageBox::Ok);
-    return false;
 }
 void MainWindow :: dataToTracksObjects(QJsonObject &data){
     QJsonObject jb = data, r = data;
@@ -254,7 +243,13 @@ void MainWindow::addToList(vector <Track> t){
     //then retrive each photo for each track and update the item
     bool theresInternet = true;
     for(unsigned int i=t.size(); (theresInternet == true) && (i>0); i--){
-         theresInternet = this->checkForInternet();
+         try{
+            this->checkForInternet();
+         }catch(exceptionError & e){
+            theresInternet = false;
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr(e.getErrorMsg()), QMessageBox::Ok);
+         }
         if(theresInternet == true){
             runningWeb = true;
             QString link = t[i-1].getID();
@@ -274,9 +269,6 @@ void MainWindow::addToList(vector <Track> t){
             }else{
                 break;
             }
-        }else{
-            QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("Something went wrong while retriving tracks photos."), QMessageBox::Ok);
         }
     }
     runningWeb = false;
@@ -307,8 +299,7 @@ void MainWindow :: isGranted(){
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
         QString Token = auth.getAuthObject()->token();
         QString refToken = auth.getAuthObject()->refreshToken();
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr("granted with token"), QMessageBox::Ok);
+
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me"));
         if(root.empty() == false){
             //passing to the next interface after login
@@ -331,9 +322,6 @@ void MainWindow :: isGranted(){
             this->windowsCursor.currentWindowIndex = 0;
             ui->stackedWidget->setCurrentIndex(0);
         }
-    }else{
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr("not gtanted"), QMessageBox::Ok);
     }
 }
 //=================================SLOTS ========================================
@@ -352,13 +340,14 @@ void MainWindow::on_refresh_button_clicked(){
     QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
     ui->dateName->setText(h);
 
-    if(this->checkForInternet() == true){
+    try{
+        this->checkForInternet();
         ui->listWidget->clear();
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"));
         this->dataToTracksObjects(root);
-    }else{
+    }catch(exceptionError & e){
         QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr("Could not retrive data due to interruption.\nPlease check your internet connection and try again"), QMessageBox::Ok);
+        QObject::tr(e.getErrorMsg()), QMessageBox::Ok);
         ui->refresh_button->setEnabled(true);
     }
 }
@@ -368,7 +357,9 @@ void MainWindow::on_settings_button_clicked(){
  ui->stackedWidget->setCurrentIndex(4);
 }
 void MainWindow:: on_refresh_retriv_clicked(){
+    ui->wait_label2->setHidden(false);
     this->on_loginButton_clicked();
+    ui->wait_label2->setHidden(true);
 }
 void MainWindow::on_loginButton_clicked(){
     ui->wait_label->setHidden(false);

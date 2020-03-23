@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     Ui::MainWindow * getUi(){ return ui;}
-    bool checkForInternet();
+    void checkForInternet();
     QJsonObject  getFromEndPoint(const QUrl&);
     void dataToTracksObjects(QJsonObject &);
     ~MainWindow();
