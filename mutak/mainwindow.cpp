@@ -375,7 +375,7 @@ void MainWindow::on_loginButton_clicked(){
     ui->loginButton->setEnabled(false);
     try{
         this->checkForInternet();
-        //auth.getAuthObject()->grant();
+        auth.getAuthObject()->grant();
     }catch(exceptionError & e){
         this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
         this->windowsCursor.currentWindowIndex = 2;

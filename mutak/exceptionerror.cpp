@@ -1,7 +1,7 @@
 #include "exceptionerror.h"
 #include <iostream>
 
-exceptionError::exceptionError(int errorCode, char * errorMsg){
+exceptionError::exceptionError(int errorCode, QString errorMsg){
     this->errorMsg = errorMsg;
     this->errorCode = errorCode;
 }
@@ -9,5 +9,8 @@ int exceptionError::getErrorCode(){
     return this->errorCode;
 }
 char * exceptionError::getErrorMsg(){
-    return this->getErrorMsg();
+    char * buff;
+    QByteArray ba = errorMsg.toLocal8Bit();
+     buff = ba.data();
+    return buff;
 }
