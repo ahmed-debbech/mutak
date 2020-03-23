@@ -18,6 +18,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "authorizer.h"
+#include "exceptionerror.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this); // init all GUI
@@ -137,8 +138,7 @@ bool MainWindow::checkForInternet(){
     QNetworkAccessManager nam;
     QNetworkRequest req(QUrl("https://www.google.com"));
     if(QSslSocket::supportsSsl() == false){
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr("no ssl"), QMessageBox::Ok);
+        throw exceptionError(100, "Could not initialize a secure tunnel over SSL (ERROR_CODE_100)");
         return false;
     }
     QNetworkReply* reply = nam.get(req);
@@ -147,7 +147,7 @@ bool MainWindow::checkForInternet(){
     timer.setSingleShot(true);
     connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
     connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
-    timer.start(8000);  // use miliseconds
+    timer.start(10000);  // use miliseconds
     loop.exec();
     /* If the timer ended before the reply from the net then there's no internet if not then
      * the response came before the timer times out eventually there's internet*/
@@ -162,34 +162,19 @@ bool MainWindow::checkForInternet(){
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("thers conx"), QMessageBox::Ok);
                 return true;
-        }else{//
-            if(reply->error() == QNetworkReply::NoError){
-                QString oo = reply->errorString();
-                QByteArray ba = oo.toLocal8Bit();
-                  const char *ff = ba.data();
-                QMessageBox::critical(nullptr, QObject::tr("Error"),
-                QObject::tr(ff), QMessageBox::Ok);
-                QMessageBox::critical(nullptr, QObject::tr("Error"),
-                QObject::tr("noo errors"), QMessageBox::Ok);
-            }else{
+        }else{
                 disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
                 disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
-                QString oo = reply->errorString();
-                QByteArray ba = oo.toLocal8Bit();
-                  const char *ff = ba.data();
-                QMessageBox::critical(nullptr, QObject::tr("Error"),
-                QObject::tr(ff), QMessageBox::Ok);
                 reply->abort();
-            QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("thers error"), QMessageBox::Ok);
-            }
+                QMessageBox::critical(nullptr, QObject::tr("Error"),
+                QObject::tr("thers error"), QMessageBox::Ok);
+                throw exceptionError(101, "Empty response retrived, no bytes available (ERROR_CODE_101)");
         }
     }else{
         disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
         disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
         reply->abort();
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr("timer aborted"), QMessageBox::Ok);
+        throw exceptionError(100, "Timemout after no response, timer aborted (ERROR_CODE_102)");
         return false;
     }
     QMessageBox::critical(nullptr, QObject::tr("Error"),
@@ -388,14 +373,15 @@ void MainWindow:: on_refresh_retriv_clicked(){
 void MainWindow::on_loginButton_clicked(){
     ui->wait_label->setHidden(false);
     ui->loginButton->setEnabled(false);
-    if (this->checkForInternet() == true){
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr("thers conx"), QMessageBox::Ok);
-            auth.getAuthObject()->grant();
-    }else{
+    try{
+        this->checkForInternet();
+        //auth.getAuthObject()->grant();
+    }catch(exceptionError & e){
         this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
         this->windowsCursor.currentWindowIndex = 2;
         ui->stackedWidget->setCurrentIndex(2);
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+        QObject::tr(e.getErrorMsg()), QMessageBox::Ok);
     }
     ui->loginButton->setEnabled(true);
 }

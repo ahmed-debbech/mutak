@@ -19,6 +19,7 @@ SOURCES += \
     aboutwindow.cpp \
     authorizer.cpp \
     databaseapi.cpp \
+    exceptionerror.cpp \
     helpwindow.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -31,6 +32,7 @@ SOURCES += \
 HEADERS += \
     authorizer.h \
     databaseapi.h \
+    exceptionerror.h \
     mainwindow.h \
     retrivephotosthread.h \
     track.h \
@@ -49,18 +51,20 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     res.qrc
 
-LIBS += -L/OpenSSL-Win32/libcrypto-1_1.lib
-LIBS += -L/OpenSSL-Win32/libssl-1_1.lib
+#LIBS += -L/OpenSSL-Win32/libcrypto-1_1.lib
+#LIBS += -L/OpenSSL-Win32/libssl-1_1.lib
 
 DISTFILES += \
     .gitignore \
-    resources/spotifyico.png \
     OpenSSL-Win32/CA.pl \
     OpenSSL-Win32/PEM/ca-cert.srl \
     OpenSSL-Win32/PEM/ca-key.pem \
     OpenSSL-Win32/PEM/ca-req.pem \
     OpenSSL-Win32/PEM/cert.pem \
     OpenSSL-Win32/PEM/client.pem \
+    OpenSSL-Win32/PEM/demoCA/cacert.pem \
+    OpenSSL-Win32/PEM/demoCA/index.txt \
+    OpenSSL-Win32/PEM/demoCA/private/cakey.pem \
     OpenSSL-Win32/PEM/demoSRP/srp_verifier.txt \
     OpenSSL-Win32/PEM/demoSRP/srp_verifier.txt.attr \
     OpenSSL-Win32/PEM/dh1024.pem \
@@ -89,9 +93,11 @@ DISTFILES += \
     OpenSSL-Win32/dasync.dll \
     OpenSSL-Win32/libcrypto-1_1.dll \
     OpenSSL-Win32/libssl-1_1.dll \
+    OpenSSL-Win32/openssl.cfg \
     OpenSSL-Win32/openssl.exe \
     OpenSSL-Win32/ossltest.dll \
     OpenSSL-Win32/padlock.dll \
     OpenSSL-Win32/progs.pl \
     OpenSSL-Win32/tsget.pl \
+    resources/spotifyico.png
 
