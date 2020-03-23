@@ -1,9 +1,8 @@
 QT       += core gui network networkauth
-
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 
-CONFIG += c++11
+CONFIG += c++11 openssl-linked
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -50,7 +49,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     res.qrc
 
-LIBS += -LOpenSSL-Win32 -llibcrypto -llibssl
+LIBS += -L/OpenSSL-Win32/libcrypto-1_1.lib
+LIBS += -L/OpenSSL-Win32/libssl-1_1.lib
 
 DISTFILES += \
     .gitignore \
@@ -87,8 +87,8 @@ DISTFILES += \
     OpenSSL-Win32/PEM/testCA.pem \
     OpenSSL-Win32/capi.dll \
     OpenSSL-Win32/dasync.dll \
-    OpenSSL-Win32/libcrypto-1_1-x64.dll \
-    OpenSSL-Win32/libssl-1_1-x64.dll \
+    OpenSSL-Win32/libcrypto-1_1.dll \
+    OpenSSL-Win32/libssl-1_1.dll \
     OpenSSL-Win32/openssl.exe \
     OpenSSL-Win32/ossltest.dll \
     OpenSSL-Win32/padlock.dll \

@@ -1003,7 +1003,7 @@ font: bold 26px '://resources/fonts/Gotham-Bold.otf';
 </string>
           </property>
           <property name="text">
-           <string>This is how to use Mutak</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;This is how to use Mutak&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -1028,7 +1028,7 @@ font: bold 14px '://resources/fonts/GothamLight.ttf';
 </string>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;1 - Login first and you'll be redirected to a webpage where you&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;should give permission to Mutak.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;2 - After Login you can press Refresh to get your recently played songs.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;3 - You can also use the navigation bar in the left&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;corner bellow to navigate between days.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;4 - You can also navigate through th calendar and &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;select the date and then press the confirm button.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;1 - Login first and you'll be redirected to a webpage where you&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;should give the permissions to Mutak.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;2 - After Login you can press Refresh to get your recently played songs.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;3 - You can also use the navigation bar in the left&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;corner bellow to navigate between days.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;4 - A well as you can also navigate through the calendar and &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;select the date and then press the confirm button to go&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;to the histroy of that specefic day.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;NOTE: The list of tracks gives you the UNIQUE tracks that you listened&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;to in a specefic day. Which means there's no redundant tracks.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;For more information please visit:&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#1db954;&quot;&gt;l&lt;/span&gt;&lt;a href=&quot;http://mutak.site/faq.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1db954;&quot;&gt;http://mutak.site/faq.html&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>

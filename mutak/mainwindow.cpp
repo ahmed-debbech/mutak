@@ -10,6 +10,7 @@
 #include <QDateTime>
 #include <QTimeZone>
 #include <QScrollBar>
+#include <QSslSocket>
 
 #include "retrivephotosthread.h"
 #include "widgetitem.h"
@@ -135,7 +136,11 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
 bool MainWindow::checkForInternet(){
     QNetworkAccessManager nam;
     QNetworkRequest req(QUrl("https://www.google.com"));
-
+    if(QSslSocket::supportsSsl() == false){
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+        QObject::tr("no ssl"), QMessageBox::Ok);
+        return false;
+    }
     QNetworkReply* reply = nam.get(req);
     QEventLoop loop;
     QTimer timer;    // timer for time out when no response
