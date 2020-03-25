@@ -20,7 +20,7 @@ void MainWindow::on_backFromSettings_clicked(){
 }
 void MainWindow::on_logout_button_clicked(){
     if(runningWeb == false){
-     delete user;
+        delete user;
         this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
         this->windowsCursor.currentWindowIndex = 0;
     ui->stackedWidget->setCurrentIndex(0); // back to login window

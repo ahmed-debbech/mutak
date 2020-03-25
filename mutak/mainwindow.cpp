@@ -11,6 +11,7 @@
 #include <QTimeZone>
 #include <QScrollBar>
 #include <QSslSocket>
+#include <QLibrary>
 
 #include "retrivephotosthread.h"
 #include "widgetitem.h"
@@ -76,7 +77,27 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->github->setIcon(QPixmap("://resources/github.png"));
  //end init about section
 
-
+    //Load OpenSSL Library ---------------------
+        QLibrary libcrypto("OpenSSL-Win32/libcrypto-1_1.dll");
+        QLibrary libssl("OpenSSL-Win32/libssl-1_1.dll");
+        if(libcrypto.isLibrary(libcrypto.fileName()) == true){
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("yes this is a library"), QMessageBox::Ok);
+        }
+        libcrypto.load();
+        if(libcrypto.isLoaded() == true){
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("lybcrypto"), QMessageBox::Ok);
+        }else{
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr(libcrypto.errorString().toStdString().c_str()), QMessageBox::Ok);
+        }
+        libssl.load();
+        if(libssl.isLoaded() == true){
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("sssssl"), QMessageBox::Ok);
+        }
+    //Done loading ------------------------
     //start authorization stuff..
     auth.setValues();
     auth.connectToBrowser();
@@ -138,6 +159,10 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
 void MainWindow::checkForInternet(){
     QNetworkAccessManager nam;
     QNetworkRequest req(QUrl("https://www.google.com"));
+    std::cout << QSslSocket::sslLibraryVersionString().toStdString() << std::endl;
+    QByteArray q = QSslSocket::sslLibraryVersionString().toLocal8Bit();
+    char * c = q.data();
+    QMessageBox::critical(nullptr, QObject::tr("Error"), QObject::tr(c), QMessageBox::Ok);
     if(QSslSocket::supportsSsl() == false){
         throw exceptionError(100, "Could not initialize a secure tunnel over SSL ERROR_CODE_100");
     }
