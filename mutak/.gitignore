@@ -74,4 +74,4 @@ Thumbs.db
 #Debug Folders
 build-mutak-Desktop-Debug/
 build-mutak-Desktop_Qt_5_13_1_MinGW_64_bit-Debug/
-OpenSSL-Win32/
+openssl-1.1.1d-win64-mingw/
