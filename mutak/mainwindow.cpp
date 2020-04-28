@@ -78,7 +78,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
  //end init about section
 
     //Load OpenSSL Library ---------------------
-        QLibrary libcrypto("OpenSSL-Win32/libcrypto-1_1.dll");
+       /* QLibrary libcrypto("OpenSSL-Win32/libcrypto-1_1.dll");
         QLibrary libssl("OpenSSL-Win32/libssl-1_1.dll");
         if(libcrypto.isLibrary(libcrypto.fileName()) == true){
             QMessageBox::critical(nullptr, QObject::tr("Error"),
@@ -96,7 +96,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
         if(libssl.isLoaded() == true){
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("sssssl"), QMessageBox::Ok);
-        }
+        }*/
     //Done loading ------------------------
     //start authorization stuff..
     auth.setValues();
@@ -163,9 +163,12 @@ void MainWindow::checkForInternet(){
     QByteArray q = QSslSocket::sslLibraryVersionString().toLocal8Bit();
     char * c = q.data();
     QMessageBox::critical(nullptr, QObject::tr("Error"), QObject::tr(c), QMessageBox::Ok);
-    if(QSslSocket::supportsSsl() == false){
+    std::cout << QSslSocket::sslLibraryBuildVersionString().toStdString() <<std::endl;
+
+    return;
+    /*if(QSslSocket::supportsSsl() == false){
         throw exceptionError(100, "Could not initialize a secure tunnel over SSL ERROR_CODE_100");
-    }
+    }*/
     QNetworkReply* reply = nam.get(req);
     QEventLoop loop;
     QTimer timer;    // timer for time out when no response
@@ -184,8 +187,6 @@ void MainWindow::checkForInternet(){
                 disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
                 disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
                 reply->abort();
-                QMessageBox::critical(nullptr, QObject::tr("Error"),
-                QObject::tr("thers error"), QMessageBox::Ok);
                 throw exceptionError(101, "Connection interrupted with empty response ERROR_CODE_101");
         }
     }else{
