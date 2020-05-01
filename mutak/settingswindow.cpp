@@ -33,7 +33,7 @@ void MainWindow::on_logout_button_clicked(){
 void MainWindow::on_delete_history_clicked(){
     QDir q = dbapi->getUserDir();
     QMessageBox::StandardButton resBtn = QMessageBox::critical(nullptr, QObject::tr("Warning"),
-    QObject::tr("Are you sure you want to delete this user's saved history? \n NO UNDO!!"),QMessageBox::Yes | QMessageBox::No);
+    QObject::tr("Are you sure you want to delete this user's saved history? \n All saved tracks will be lost (NO UNDO!!)"),QMessageBox::Yes | QMessageBox::No);
     if (resBtn == QMessageBox::Yes) {
      q.removeRecursively();
     }

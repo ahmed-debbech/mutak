@@ -11,8 +11,8 @@ DatabaseAPI::DatabaseAPI(){
 
 }
 void DatabaseAPI :: prepareUserDir(QString id){
-    QString s = QStandardPaths::locate(QStandardPaths::AppDataLocation,
-                                       QString(), QStandardPaths::LocateDirectory);
+    QString s = QStandardPaths::locate(QStandardPaths::AppDataLocation, QString(), QStandardPaths::LocateDirectory);
+    std::cout<< s.toStdString() <<std::endl;
     userDir.setPath(s);
     if(userDir.exists() == true){
         if(userDir.cd(id)== false){
