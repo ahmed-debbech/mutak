@@ -584,6 +584,9 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
               <bold>true</bold>
              </font>
             </property>
+            <property name="toolTip">
+             <string>The number of tracks retrived is restricted by 50 tracks from Spotify servers.</string>
+            </property>
             <property name="styleSheet">
              <string notr="true">color: white;</string>
             </property>
