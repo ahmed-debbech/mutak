@@ -1,4 +1,4 @@
-#include "databaseapi.h"
+﻿#include "databaseapi.h"
 #include <iostream>
 #include <QMessageBox>
 #include <QDateTime>
@@ -11,9 +11,8 @@ DatabaseAPI::DatabaseAPI(){
 
 }
 void DatabaseAPI :: prepareUserDir(QString id){
-    QString s = QStandardPaths::locate(QStandardPaths::AppDataLocation, QString(), QStandardPaths::LocateDirectory);
-    std::cout<< s.toStdString() <<std::endl;
-    userDir.setPath(s);
+    QStringList locations = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
+    userDir.setPath(locations[0]);
     if(userDir.exists() == true){
         if(userDir.cd(id)== false){
             userDir.mkdir(id);
@@ -25,8 +24,10 @@ void DatabaseAPI :: prepareUserDir(QString id){
         userDir.cd("db");
         userDirName = userDir.path() + "/";
     }else{
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr("Could not find the correct directory of Mutak"), QMessageBox::Ok);
+        userDir.setPath(locations[0]);
+        userDir.cdUp();
+        userDir.mkdir("mutak");
+        prepareUserDir(id);
     }
 }
 void DatabaseAPI :: prepareUserFiles(QString userID){
