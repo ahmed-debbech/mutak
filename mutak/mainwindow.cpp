@@ -39,7 +39,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->navNext->setDisabled(true);
     ui->wait_label->setHidden(true);
     ui->wait_label2->setHidden(true);
-    ui->countText->setToolTip("The number of tracks is sometimes limited by 50 due to Spotify API restrictions.");
 
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
     ui->listWidget->setStyleSheet("QListView::item:selected {background-image: #1db954; background-color: #1db954;padding: 0px;color: black;}\n"

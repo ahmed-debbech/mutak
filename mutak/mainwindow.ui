@@ -476,13 +476,26 @@ color: black;</string>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QPushButton" name="confirm">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>20</height>
+             </size>
+            </property>
             <property name="toolTip">
              <string>Submit date</string>
             </property>
             <property name="styleSheet">
-             <string notr="true">color: white;
-background-color:  grey;
-font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
+             <string notr="true">#confirm {
+color: white;
+background-color:  #787878;
+border-radius: 10px;
+padding: 20px;
+width: 10px;
+ }
+#confirm:hover {
+	background-color: #999999;
+ }</string>
             </property>
             <property name="text">
              <string/>
@@ -491,13 +504,54 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
           </item>
           <item>
            <widget class="QPushButton" name="navPrev">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>20</height>
+             </size>
+            </property>
             <property name="toolTip">
              <string>One day back</string>
             </property>
             <property name="styleSheet">
-             <string notr="true">color: white;
-background-color:  grey;
-font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
+             <string notr="true">#navPrev {
+color: white;
+background-color:  #787878;
+border-radius: 10px;
+padding: 20px;
+width: 10px;
+ }
+#navPrev:hover {
+	background-color: #999999;
+ }</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="navNext">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>One day ahead</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#navNext {
+color: white;
+background-color:  #787878;
+border-radius: 10px;
+padding: 20px;
+width: 10px;
+ }
+#navNext:hover {
+	background-color: #999999;
+ }</string>
             </property>
             <property name="text">
              <string/>
@@ -506,13 +560,24 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
           </item>
           <item>
            <widget class="QLineEdit" name="dateName">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>20</height>
+             </size>
+            </property>
             <property name="toolTip">
              <string>Date counter</string>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: grey;
+             <string notr="true">#dateName {
 color: white;
-font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
+font: bold 10px '://resources/fonts/Gotham-UltraItalic.otf';
+background-color:  #787878;
+border-radius: 10px;
+padding: 5px;
+width: 60px;
+ }</string>
             </property>
             <property name="text">
              <string/>
@@ -526,36 +591,30 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="navNext">
-            <property name="toolTip">
-             <string>One day ahead</string>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">#navNext{
-	background-color: grey;
-	color: white;
-	font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
-}</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="nav">
             <property name="enabled">
              <bool>true</bool>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>20</height>
+             </size>
             </property>
             <property name="toolTip">
              <string>Calendar</string>
             </property>
             <property name="styleSheet">
-             <string notr="true">#nav{
-	background-color: grey;
-	color: white;
-	font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
-}</string>
+             <string notr="true">#nav {
+color: white;
+background-color:  #787878;
+border-radius: 10px;
+padding: 20px;
+width: 10px;
+ }
+#nav:hover {
+	background-color: #999999;
+ }</string>
             </property>
             <property name="text">
              <string/>
@@ -585,7 +644,7 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';</string>
              </font>
             </property>
             <property name="toolTip">
-             <string/>
+             <string>The number of tracks is sometimes limited by 50 due to Spotify API restrictions.</string>
             </property>
             <property name="statusTip">
              <string/>
