@@ -576,7 +576,7 @@ font: bold 10px '://resources/fonts/Gotham-UltraItalic.otf';
 background-color:  #787878;
 border-radius: 10px;
 padding: 5px;
-width: 60px;
+width: 70px;
  }</string>
             </property>
             <property name="text">
@@ -618,6 +618,32 @@ width: 10px;
             </property>
             <property name="text">
              <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="today">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#today {
+color: white;
+font: bold 10px '://resources/fonts/Gotham-UltraItalic.otf';
+background-color:  #787878;
+border-radius: 10px;
+padding: 20px;
+width: 35px;
+ }
+#today:hover {
+	background-color: #999999;
+ }</string>
+            </property>
+            <property name="text">
+             <string>Today</string>
             </property>
            </widget>
           </item>
@@ -987,29 +1013,6 @@ font: bold 18px '://resources/fonts/Gotham-UltraItalic.otf';
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="logout_button">
-            <property name="styleSheet">
-             <string notr="true">#logout_button{
-color: white;
-background-color:  #1db954;
-border-radius: 25px;
-  padding: 20px;
-  width: 60px;
-font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
- }
-#logout_button:hover {
-	background-color: #3AE476;
- }
-#logout_button:pressed{
-	background-color: #2BB85D;
-}</string>
-            </property>
-            <property name="text">
-             <string>Log Out</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="backFromSettings">
             <property name="styleSheet">
              <string notr="true">#backFromSettings{
@@ -1029,6 +1032,29 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
             </property>
             <property name="text">
              <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="logout_button">
+            <property name="styleSheet">
+             <string notr="true">#logout_button{
+color: white;
+background-color:  #1db954;
+border-radius: 25px;
+  padding: 20px;
+  width: 60px;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
+ }
+#logout_button:hover {
+	background-color: #3AE476;
+ }
+#logout_button:pressed{
+	background-color: #2BB85D;
+}</string>
+            </property>
+            <property name="text">
+             <string>Log Out</string>
             </property>
            </widget>
           </item>

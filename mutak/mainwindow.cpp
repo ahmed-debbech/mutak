@@ -432,6 +432,9 @@ void MainWindow::on_nav_clicked(){
         ui->calendarWidget->setHidden(true);
     }
 }
+void MainWindow::on_today_clicked(){
+    on_refresh_button_clicked();
+}
 
 void MainWindow::on_calendarWidget_selectionChanged(){
     QDate d = ui->calendarWidget->selectedDate();
