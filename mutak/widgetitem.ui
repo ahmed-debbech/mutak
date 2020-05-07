@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>492</width>
+    <width>488</width>
     <height>93</height>
    </rect>
   </property>
@@ -26,7 +26,7 @@
    <item>
     <widget class="QLabel" name="photo">
      <property name="toolTip">
-      <string>Song's artwork</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Song's artwork&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
       <string>Photo</string>
@@ -51,7 +51,7 @@
      <item>
       <widget class="QLabel" name="artist">
        <property name="toolTip">
-        <string>Artist name</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Artist name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">color: white;</string>
@@ -68,7 +68,7 @@
      <item>
       <widget class="QLabel" name="duration">
        <property name="toolTip">
-        <string>Duration</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Duration&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">color: white;</string>
@@ -81,7 +81,7 @@
      <item>
       <widget class="QLabel" name="playedat">
        <property name="toolTip">
-        <string>Played at</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt; Played At&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">color: white;</string>
