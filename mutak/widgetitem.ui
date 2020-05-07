@@ -25,6 +25,9 @@
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QLabel" name="photo">
+     <property name="toolTip">
+      <string>Song's artwork</string>
+     </property>
      <property name="text">
       <string>Photo</string>
      </property>
@@ -34,6 +37,9 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLabel" name="name">
+       <property name="toolTip">
+        <string>Song name</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">color: white;</string>
        </property>
@@ -44,6 +50,9 @@
      </item>
      <item>
       <widget class="QLabel" name="artist">
+       <property name="toolTip">
+        <string>Artist name</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">color: white;</string>
        </property>
@@ -58,6 +67,9 @@
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <widget class="QLabel" name="duration">
+       <property name="toolTip">
+        <string>Duration</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">color: white;</string>
        </property>
@@ -68,6 +80,9 @@
      </item>
      <item>
       <widget class="QLabel" name="playedat">
+       <property name="toolTip">
+        <string>Played at</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">color: white;</string>
        </property>
@@ -80,6 +95,9 @@
    </item>
    <item>
     <widget class="QPushButton" name="playButton">
+     <property name="toolTip">
+      <string>Play this song</string>
+     </property>
      <property name="styleSheet">
       <string notr="true">#playButton {
 color: white;
