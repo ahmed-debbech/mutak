@@ -631,7 +631,7 @@ width: 10px;
             </property>
             <property name="styleSheet">
              <string notr="true">#today {
-color: white;
+color: black;
 font: bold 10px '://resources/fonts/Gotham-UltraItalic.otf';
 background-color:  #787878;
 border-radius: 10px;
@@ -670,7 +670,7 @@ width: 35px;
              </font>
             </property>
             <property name="toolTip">
-             <string>The number of tracks is sometimes limited by 50 due to Spotify API restrictions.</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#1db954;&quot;&gt;The number of tracks is sometimes limited by 50 due to Spotify API restrictions.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="statusTip">
              <string/>

@@ -29,5 +29,6 @@
         <file>resources/twitter.png</file>
         <file>resources/github.png</file>
         <file>resources/spotifyico.png</file>
+        <file>resources/play_button.png</file>
     </qresource>
 </RCC>

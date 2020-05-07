@@ -55,22 +55,6 @@
     </layout>
    </item>
    <item>
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>64</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <widget class="QLabel" name="duration">
@@ -93,6 +77,30 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="playButton">
+     <property name="styleSheet">
+      <string notr="true">#playButton {
+color: white;
+background-color:  #191414;
+border-radius: 25px;
+border: none;
+  padding: 20px;
+  width: 10px;
+  height: 20px;
+ }
+#playButton:hover {
+	background-color: #3AE476;
+ }
+#playButton:pressed{
+	background-color: #2BB85D;
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

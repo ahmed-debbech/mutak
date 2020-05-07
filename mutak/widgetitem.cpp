@@ -6,6 +6,7 @@ WidgetItem::WidgetItem(Track & t, QWidget *parent) :
     ui(new Ui::WidgetItem)
 {
     ui->setupUi(this);
+    ui->playButton->setIcon(QPixmap("://resources/play_button.png"));
     ui->photo->setPixmap(QPixmap("://resources/unloaded.png"));
     if(t.getName().size() <= 32){
         ui->name->setText(t.getName());
