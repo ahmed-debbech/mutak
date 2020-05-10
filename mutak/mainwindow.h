@@ -70,6 +70,7 @@ private:
     int stopOnClose;
     QTimer * timer;
     QDate currentPageDate;
+    vector <WidgetItem*> widitem;
     vector<retrivePhotosThread *> runningThreads;
 };
 #endif // MAINWINDOW_H

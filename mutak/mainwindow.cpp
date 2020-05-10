@@ -221,12 +221,19 @@ void MainWindow::closeEvent (QCloseEvent *event){
 }
 void MainWindow::addToList(vector <Track> t){
     stopOnClose = false;
+    //this is memory enhancment: we clear the old widget pointers to avoid memory leaks
+    if(this->widitem.size() > 0){
+        for (int i=0; i<=this->widitem.size()-1; i++) {
+           delete widitem[i];
+        }
+    }
+    this->widitem.clear();
     ui->listWidget->clear();
+    //end of memory enhancment
     ui->confirm->setEnabled(false);
     ui->navPrev->setEnabled(false);
     ui->navNext->setEnabled(false);
 
-    vector <WidgetItem*> widitem;
     //list all the items in list
     for(unsigned int i=t.size(); (i>0); i--){
          WidgetItem *theWidgetItem = nullptr;
