@@ -17,6 +17,8 @@ public:
     explicit WidgetItem( Track &t,QWidget *parent = nullptr);
     ~WidgetItem();
     Ui::WidgetItem * getUi(){ return ui;}
+private slots:
+    void on_playButton_clicked();
 private:
     QString convertToMin(int millsec);
     Ui::WidgetItem *ui;

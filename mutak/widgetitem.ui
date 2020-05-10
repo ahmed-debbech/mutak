@@ -94,6 +94,16 @@
     </layout>
    </item>
    <item>
+    <widget class="QLabel" name="id_track">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QPushButton" name="playButton">
      <property name="toolTip">
       <string>Play this song</string>

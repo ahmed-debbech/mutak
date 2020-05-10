@@ -1,5 +1,8 @@
 #include "widgetitem.h"
 #include "ui_widgetitem.h"
+#include <iostream>
+#include <QDesktopServices>
+#include <QUrl>
 
 WidgetItem::WidgetItem(Track & t, QWidget *parent) :
     QWidget(parent),
@@ -8,6 +11,7 @@ WidgetItem::WidgetItem(Track & t, QWidget *parent) :
     ui->setupUi(this);
     ui->playButton->setIcon(QPixmap("://resources/play_button.png"));
     ui->photo->setPixmap(QPixmap("://resources/unloaded.png"));
+    ui->id_track->setHidden(true);
     if(t.getName().size() <= 32){
         ui->name->setText(t.getName());
     }else{
@@ -30,7 +34,13 @@ WidgetItem::WidgetItem(Track & t, QWidget *parent) :
     }
     ui->duration->setText(this->convertToMin(static_cast<int>(t.getDuration())));
     ui->playedat->setText(t.getPlayDate());
-
+    ui->id_track->setText(t.getID());
+}
+void WidgetItem::on_playButton_clicked(){
+    QString url;
+    url = "https://open.spotify.com/track/";
+    url = url + ui->id_track->text();
+    QDesktopServices::openUrl(QUrl(url, QUrl::TolerantMode));
 }
 QString WidgetItem :: convertToMin(int millsec){
     QTime time(0,0,0);
