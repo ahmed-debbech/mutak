@@ -153,11 +153,30 @@
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">color: white;
-font: bold 36pt  '://resources/fonts/Gotham-UltraItalic.otf';</string>
+           <string notr="true">
+color: white;
+font-style: '://resources/fonts/Gotham-Black.otf';
+font-family: 'Gotham';
+font-size: 36px;</string>
           </property>
           <property name="text">
            <string>Welcome to Mutak</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="styleSheet">
+           <string notr="true">#label_6{
+color: white;
+font-style: '://resources/fonts/Gotham-Thin.otf';
+font-family: 'Gotham';
+font-size: 15px;
+qproperty-alignment: AlignCenter;
+}</string>
+          </property>
+          <property name="text">
+           <string>What if you never miss a song's name you litened to on Spotify?</string>
           </property>
          </widget>
         </item>
@@ -883,7 +902,7 @@ font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
            <string notr="true">font: bold 18pt  '://resources/fonts/Gotham-UltraItalic.otf';</string>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Developer &amp;amp; Designer&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;Ahmed Debbech&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Contact &amp;amp; Support at: &lt;/span&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;debbech.ahmed@gmail.com&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Version 1.0.0-beta2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Developer &amp;amp; Designer&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;Ahmed Debbech&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Contact &amp;amp; Support at: &lt;/span&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;debbech.ahmed@gmail.com&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;VersionName: 1.0.0-beta3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -1087,6 +1106,19 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
          </layout>
         </item>
         <item>
+         <spacer name="verticalSpacer_9">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
            <widget class="QLabel" name="label_3">
@@ -1096,18 +1128,24 @@ font: bold 14px '://resources/fonts/GothamLight.ttf';
 </string>
             </property>
             <property name="text">
-             <string>Delete the local database history of this user (No Undo):</string>
+             <string>Delete the local database history of this user:</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="delete_history">
             <property name="styleSheet">
-             <string notr="true">#delete_history{
-	background-color: grey;
-	color: white;
+             <string notr="true">#delete_history {
+color: white;
+background-color:  #787878;
 	font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
-}</string>
+border-radius: 10px;
+padding: 20px;
+width: 10px;
+ }
+#delete_history:hover {
+	background-color: #999999;
+ }</string>
             </property>
             <property name="text">
              <string>Delete</string>
@@ -1117,7 +1155,7 @@ font: bold 14px '://resources/fonts/GothamLight.ttf';
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer_9">
+         <spacer name="verticalSpacer_12">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>

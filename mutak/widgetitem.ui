@@ -41,7 +41,11 @@
         <string>Song name</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: white;</string>
+        <string notr="true">color: white;
+font-style: '://resources/fonts/Gotham-Thin.otf';
+font-family: 'Gotham';
+font-size: 15px;
+</string>
        </property>
        <property name="text">
         <string>name</string>
@@ -54,7 +58,11 @@
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Artist name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: white;</string>
+        <string notr="true">color: white;
+font-style: '://resources/fonts/Gotham-Thin.otf';
+font-family: 'Gotham';
+font-size: 15px;
+</string>
        </property>
        <property name="text">
         <string>artist</string>
@@ -71,7 +79,11 @@
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Duration&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: white;</string>
+        <string notr="true">color: white;
+font-style: '://resources/fonts/Gotham-Thin.otf';
+font-family: 'Gotham';
+font-size: 12px;
+</string>
        </property>
        <property name="text">
         <string>duration</string>
@@ -84,7 +96,11 @@
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt; Played At&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: white;</string>
+        <string notr="true">color: white;
+font-style: '://resources/fonts/Gotham-Thin.otf';
+font-family: 'Gotham';
+font-size: 12px;
+</string>
        </property>
        <property name="text">
         <string>played at</string>
