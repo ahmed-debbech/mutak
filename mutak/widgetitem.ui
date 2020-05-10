@@ -111,12 +111,13 @@
      <property name="styleSheet">
       <string notr="true">#playButton {
 color: white;
-background-color:  #191414;
+background-color:  #393939;
 border-radius: 25px;
 border: none;
   padding: 20px;
   width: 10px;
   height: 20px;
+opacity: 0.7;
  }
 #playButton:hover {
 	background-color: #3AE476;
