@@ -391,6 +391,29 @@ font: bold 26px '://resources/fonts/Gotham-UltraItalic.otf';
              </spacer>
             </item>
             <item>
+             <widget class="QPushButton" name="stop_button">
+              <property name="styleSheet">
+               <string notr="true">#stop_button {
+color: white;
+background-color:  #F62D2D;
+border-radius: 25px;
+  padding: 20px;
+  width: 60px;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
+ }
+#stop_button:hover {
+	background-color: #FF6666;
+ }
+#stop_button:pressed{
+	background-color: #E21717;
+}</string>
+              </property>
+              <property name="text">
+               <string>Stop</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="refresh_button">
               <property name="styleSheet">
                <string notr="true">#refresh_button {

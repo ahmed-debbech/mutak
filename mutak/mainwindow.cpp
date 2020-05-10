@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->navNext->setDisabled(true);
     ui->wait_label->setHidden(true);
     ui->wait_label2->setHidden(true);
+    ui->stop_button->setHidden(true);
 
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
     ui->listWidget->setStyleSheet("QListView::item:selected {background-image: #1db954; background-color: #1db954;padding: 0px;color: black;}\n"
@@ -219,6 +220,7 @@ void MainWindow::closeEvent (QCloseEvent *event){
     }
 }
 void MainWindow::addToList(vector <Track> t){
+    stopOnClose = false;
     ui->listWidget->clear();
     ui->confirm->setEnabled(false);
     ui->navPrev->setEnabled(false);
@@ -271,7 +273,8 @@ void MainWindow::addToList(vector <Track> t){
         }
     }
     runningWeb = false;
-    ui->refresh_button->setEnabled(true);
+    ui->refresh_button->setHidden(false);
+    ui->stop_button->setHidden(true);
     ui->listWidget->setCursor(QCursor(Qt::ArrowCursor));
     //get the local date and time in sys
     QDateTime UTC(QDateTime::currentDateTimeUtc());
@@ -329,8 +332,17 @@ void MainWindow :: delete_threads(retrivePhotosThread * i){
     disconnect(i, SIGNAL(finished()), this, SLOT(delete_threads()));
     delete i;
 }
+void MainWindow::on_stop_button_clicked(){
+    stopOnClose = true;
+    /*if(runningThreads.size() > 0){
+        for(int i=0; i<=runningThreads.size()-1; i++){
+            delete runningThreads[i];
+        }
+    }*/
+}
 void MainWindow::on_refresh_button_clicked(){
-    ui->refresh_button->setEnabled(false);
+    ui->refresh_button->setHidden(true);
+    ui->stop_button->setHidden(false);
     timer->start(1500000);
     //get date and time of sys to name the file after it (if file doesnt exist)
     QDateTime UTC(QDateTime::currentDateTimeUtc());
@@ -348,7 +360,8 @@ void MainWindow::on_refresh_button_clicked(){
     }catch(exceptionError & e){
         QMessageBox::critical(nullptr, QObject::tr("Error"),
         QObject::tr(e.getErrorMsg()), QMessageBox::Ok);
-        ui->refresh_button->setEnabled(true);
+        ui->refresh_button->setHidden(false);
+        ui->stop_button->setHidden(true);
     }
 }
 void MainWindow::on_settings_button_clicked(){
@@ -415,6 +428,8 @@ void MainWindow::on_navNext_clicked(){
 }
 void MainWindow::on_confirm_clicked(){
     ui->calendarWidget->setHidden(true);
+    ui->refresh_button->setHidden(true);
+    ui->stop_button->setHidden(false);
     try{
         vector <Track> t = dbapi->retriveFromDB(ui->dateName->text()+".mu");
         ui->listWidget->clear();

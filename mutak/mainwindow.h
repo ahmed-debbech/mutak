@@ -30,6 +30,7 @@ private slots:
     void isGranted();
     void closeEvent (QCloseEvent *event);
     void on_refresh_button_clicked();
+    void on_stop_button_clicked();
     void on_refresh_retriv_clicked();
     void on_today_clicked();
     void on_navPrev_clicked();
