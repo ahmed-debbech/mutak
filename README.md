@@ -1,4 +1,8 @@
-# Mutak : a Music Tracker for Spotify
+<p align="center"> <img src="mutak/resources/spotifyico.png" width="100"> </p>
+
+<h1 align="center">Mutak : a Music Tracker for Spotify</h1>
+
+**Visit official website: [mutak.site](https://bit.ly/2WUHah8)**
 ### What is this?
 Mutak is a Windows desktop app and an Open Source project based on QT framework. \
 Have you ever loved song during its play on a specific playlist but you just missed its name after a while because you didn't press the heart button? \
@@ -27,14 +31,16 @@ Mutak binary is provided by an installer for Windows.
 **Keep in mind that tracks that appear on the list are played at in the day of the current system date and there is no redundant tracks; if you listen to a song more than once a day it will be listed one time which is the time you first played it that day.**
 * Navigate through the grey buttons to an early specific day to see the tracks of that day.
 * Use the calendar button to make the navigation through days simpler and clearer.
-### I Have an idea!!
+### Do you Have an idea?
 Mutak is an open source project, and contributions of any kind are welcome and appreciated.
 Please to report, suggest, ask or to give ideas there are two choices either you open an issue on Github or send an e-mail to debbech.ahmed@gmail.com
+### Want to be a contributor?
+We accept Pull request on Github ONLY. \
 ### Contributors
 * Mohamed Amine Ayadi : Designing the logo
 ### Original Author
-**Ahmed Debbech**
+**Ahmed Debbech** \
 [Twitter](https://www.twitter.com/AhmedDebb) or [Email](debbech.ahmed@gmail.com)
 ### Legal stuff
-This work is distributed under MIT License.
-
+This work is distributed under [MIT](https://opensource.org/licenses/MIT) License. \
+Copyright © 2020 - Ahmed Debbech
