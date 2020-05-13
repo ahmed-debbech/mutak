@@ -1,4 +1,3 @@
-<img align="center" width="100" height="100" src="https://imgur.com/67IUsMp">
 # Mutak : a Music Tracker for Spotify
 ### What is this?
 Mutak is a Windows desktop app and an Open Source project based on QT framework. \
