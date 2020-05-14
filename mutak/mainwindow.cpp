@@ -235,47 +235,49 @@ void MainWindow::addToList(vector <Track> t){
     ui->navNext->setEnabled(false);
 
     //list all the items in list
-    for(unsigned int i=t.size(); (i>0); i--){
-         WidgetItem *theWidgetItem = nullptr;
-        //prepare the item and fill it with data
-        theWidgetItem = new WidgetItem(t[i-1]);
-        QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
-        ui->listWidget->addItem(lwi);
-        lwi->setSizeHint (theWidgetItem->sizeHint());
-        widitem.push_back(theWidgetItem); // we store the widget in individual vector to use it back
-        ui->listWidget->setItemWidget(lwi, theWidgetItem);
-        ui->countText->setText("Please Wait...");
-        ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
-    }
-
-    //then retrive each photo for each track and update the item
-    bool theresInternet = true;
-    for(unsigned int i=t.size(); (theresInternet == true) && (i>0); i--){
-         try{
-            this->checkForInternet();
-         }catch(exceptionError & e){
-            theresInternet = false;
-            QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr(e.getErrorMsg()), QMessageBox::Ok);
-         }
-        if(theresInternet == true){
-            runningWeb = true;
-            QString link = t[i-1].getID();
-            qDebug() << stopOnClose;
-            if(stopOnClose == false){
-            //request the image of each track
-            QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+link));
-            root = (root.value("tracks").toArray().at(0)).toObject();
-            root = root.value("album").toObject();
-            QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
-           retrivePhotosThread * rpt  = new retrivePhotosThread(download, widitem[t.size()-i]);
-           runningThreads.push_back(rpt);
-           connect(rpt, SIGNAL(finished()), this, SLOT(delete_threads(rpt)));
-           rpt->start();
-            ui->countText->setText("Please Wait... Downloading photos");
+    if(t.size() > 0){
+        for(unsigned int i=t.size(); (i>0); i--){
+             WidgetItem *theWidgetItem = nullptr;
+            //prepare the item and fill it with data
+            theWidgetItem = new WidgetItem(t[i-1]);
+            QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
+            ui->listWidget->addItem(lwi);
+            lwi->setSizeHint (theWidgetItem->sizeHint());
+            widitem.push_back(theWidgetItem); // we store the widget in individual vector to use it back
+            ui->listWidget->setItemWidget(lwi, theWidgetItem);
+            ui->countText->setText("Please Wait...");
             ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
-            }else{
-                break;
+        }
+
+        //then retrive each photo for each track and update the item
+        bool theresInternet = true;
+        for(unsigned int i=t.size(); (theresInternet == true) && (i>0); i--){
+             try{
+                this->checkForInternet();
+             }catch(exceptionError & e){
+                theresInternet = false;
+                QMessageBox::critical(nullptr, QObject::tr("Error"),
+                QObject::tr(e.getErrorMsg()), QMessageBox::Ok);
+             }
+            if(theresInternet == true){
+                runningWeb = true;
+                QString link = t[i-1].getID();
+                qDebug() << stopOnClose;
+                if(stopOnClose == false){
+                //request the image of each track
+                QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+link));
+                root = (root.value("tracks").toArray().at(0)).toObject();
+                root = root.value("album").toObject();
+                QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
+               retrivePhotosThread * rpt  = new retrivePhotosThread(download, widitem[t.size()-i]);
+               runningThreads.push_back(rpt);
+               connect(rpt, SIGNAL(finished()), this, SLOT(delete_threads(rpt)));
+               rpt->start();
+                ui->countText->setText("Please Wait... Downloading photos");
+                ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
+                }else{
+                    break;
+                }
             }
         }
     }
@@ -439,9 +441,17 @@ void MainWindow::on_confirm_clicked(){
     ui->stop_button->setHidden(false);
     try{
         vector <Track> t = dbapi->retriveFromDB(ui->dateName->text()+".mu");
-        ui->listWidget->clear();
         this->addToList(t);
     }catch(QString s){
+        ui->refresh_button->setHidden(false);
+        ui->stop_button->setHidden(true);
+        //this is memory enhancment: we clear the old widget pointers to avoid memory leaks
+        if(this->widitem.size() > 0){
+            for (int i=0; i<=this->widitem.size()-1; i++) {
+               delete widitem[i];
+            }
+        }
+        this->widitem.clear();
         ui->listWidget->clear();
         ui->countText->setText("No Tracks for " + ui->dateName->text());
     }
