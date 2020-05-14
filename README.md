@@ -23,7 +23,7 @@ Mutak binary is provided by an installer for Windows.
 1) visit [mutak.site](https://bit.ly/2WUHah8) and Download the latest version.
 2) execute the installer.exe (if a window pops up that says "Windows protected your PC " click "Run anyway").
 3) After launching the installer follow the instructions by clicking next
-4) The installer will ask you to install Microsoft Visual Studio C++ click install (this is a critic part of the system and must be installed). if already installed click close.
+4) The installer will ask you to install Microsoft Visual Studio C++ click install (this is a critical part of the system and must be installed). if already installed click close.
 5) After installing launch Mutak and enjoy!
 ### How to use Mutak in a nutshell?
 * Log in to your Spotify account through your browser and after launching Mutak click Login and it will automatically recognize your account.
