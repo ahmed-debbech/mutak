@@ -171,6 +171,7 @@ void MainWindow::checkForInternet(){
     }
 }
 void MainWindow :: dataToTracksObjects(QJsonObject &data){
+
     QJsonObject jb = data, r = data;
     QJsonArray arr;
     for(int i=0; i <= 49; i++){

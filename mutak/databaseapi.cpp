@@ -140,6 +140,9 @@ vector <Track> DatabaseAPI :: retriveFromDB(QString f){
     }else{
         if(file.open(QIODevice::ReadOnly | QIODevice::Text) == true){
            t = readFromFile(&file);
+           if(t.size() < 1){
+            throw QString("No Tracks found for this day.");
+           }
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("Something went wrong in database while retriving data!\n Please restart the application."), QMessageBox::Ok);
@@ -153,6 +156,9 @@ vector<Track> DatabaseAPI :: retriveFromDB(){
     vector<Track> t;
     if(userFiles.open(QIODevice::ReadOnly | QIODevice::Text)){
         t = readFromFile(&userFiles);
+        if(t.size() < 1){
+         throw QString("No Tracks found for this day.");
+        }
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Error"),
         QObject::tr("Something went wrong in database while retriving data!\n Please restart the application."), QMessageBox::Ok);
@@ -168,6 +174,9 @@ vector <Track> DatabaseAPI :: readFromFile(QFile *userFiles){
         do{
             arr = userFiles->readLine();
         }while(arr.contains("user:") == true);
+            if(userFiles->atEnd()){
+                break;
+            }
            int y=0;
            QString name,artist,dur,play,id;
            do{
