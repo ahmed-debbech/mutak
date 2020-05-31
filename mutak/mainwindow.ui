@@ -30,7 +30,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -365,15 +365,56 @@ width: 70px;
               <widget class="QComboBox" name="searchBy">
                <property name="styleSheet">
                 <string notr="true">#searchBy {
-color: black;
+color: white;
 font: bold 10px '://resources/fonts/Gotham-UltraItalic.otf';
 background-color:  #787878;
 border-radius: 10px;
 padding: 10px;
+height: 10px;
  }
 #searchBy:hover {
 	background-color: #999999;
  }</string>
+               </property>
+               <item>
+                <property name="text">
+                 <string>Search By</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>By Artist</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>By Song</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string/>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="cancel_search">
+               <property name="styleSheet">
+                <string notr="true">#cancel_search {
+color: white;
+font: bold 10px '://resources/fonts/Gotham-UltraItalic.otf';
+background-color:  #787878;
+border-radius: 10px;
+padding: 10px;
+height: 10px;
+ }
+#cancel_search:hover {
+	background-color: #999999;
+ }</string>
+               </property>
+               <property name="text">
+                <string>Cancel</string>
                </property>
               </widget>
              </item>

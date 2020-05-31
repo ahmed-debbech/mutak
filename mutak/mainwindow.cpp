@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->wait_label->setHidden(true);
     ui->wait_label2->setHidden(true);
     ui->stop_button->setHidden(true);
+    ui->menuBar2->setHidden(true);
 
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
     ui->listWidget->setStyleSheet("QListView::item:selected {background-image: #1db954; background-color: #1db954;padding: 0px;color: black;}\n"
@@ -349,6 +350,10 @@ void MainWindow::on_stop_button_clicked(){
             delete runningThreads[i];
         }
     }*/
+}
+void MainWindow::on_search_button_clicked(){
+    ui->menuBar2->setHidden(false);
+    ui->menuBar1->setHidden(true);
 }
 void MainWindow::on_refresh_button_clicked(){
     ui->refresh_button->setHidden(true);

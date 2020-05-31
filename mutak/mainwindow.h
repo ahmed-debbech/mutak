@@ -50,6 +50,8 @@ private slots:
     void on_website_clicked();
     void on_aboutsettings_clicked();
     void on_helpsettings_clicked();
+    void on_search_button_clicked();
+    void on_cancel_search_clicked();
     void on_helpButton_clicked();
     void on_gobackHelp_clicked();
     void delete_threads(retrivePhotosThread * i);
