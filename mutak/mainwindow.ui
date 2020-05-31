@@ -30,7 +30,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -332,104 +332,160 @@ font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>24</width>
-                <height>10</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="photo">
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>image</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Preferred</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="disp_name">
-              <property name="font">
-               <font>
-                <family>://resources/fonts/Gotham-UltraItalic.otf</family>
-                <pointsize>-1</pointsize>
-                <weight>75</weight>
-                <italic>false</italic>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">color: white;
+           <widget class="QWidget" name="menuBar2" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout_12">
+             <item>
+              <widget class="QLabel" name="search_label">
+               <property name="styleSheet">
+                <string notr="true">color: white;
 font: bold 26px '://resources/fonts/Gotham-UltraItalic.otf';
 </string>
-              </property>
-              <property name="text">
-               <string>name</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit">
-              <property name="styleSheet">
-               <string notr="true">color: white;
+               </property>
+               <property name="text">
+                <string>Search:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="search_text">
+               <property name="styleSheet">
+                <string notr="true">color: white;
 background-color:  #787878;
 border-radius: 10px;
 padding: 5px;
-width: 70px;</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="placeholderText">
-               <string>Search...</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="stop_button">
-              <property name="styleSheet">
-               <string notr="true">#stop_button {
+width: 70px;
+</string>
+               </property>
+               <property name="placeholderText">
+                <string>Search...</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="searchBy">
+               <property name="styleSheet">
+                <string notr="true">#searchBy {
+color: black;
+font: bold 10px '://resources/fonts/Gotham-UltraItalic.otf';
+background-color:  #787878;
+border-radius: 10px;
+padding: 10px;
+ }
+#searchBy:hover {
+	background-color: #999999;
+ }</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="menuBar1" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>24</width>
+                 <height>10</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="photo">
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="text">
+                <string>image</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Preferred</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="disp_name">
+               <property name="font">
+                <font>
+                 <family>://resources/fonts/Gotham-UltraItalic.otf</family>
+                 <pointsize>-1</pointsize>
+                 <weight>75</weight>
+                 <italic>false</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: white;
+font: bold 26px '://resources/fonts/Gotham-UltraItalic.otf';
+</string>
+               </property>
+               <property name="text">
+                <string>name</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="search_button">
+               <property name="styleSheet">
+                <string notr="true">#search_button {
+color: white;
+background-color:  #1db954;
+border-radius: 25px;
+  padding: 20px;
+  width: 60px;
+font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
+ }
+#search_button:hover {
+	background-color: #3AE476;
+ }
+#search_button:pressed{
+	background-color: #2BB85D;
+}</string>
+               </property>
+               <property name="text">
+                <string>Search</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="stop_button">
+               <property name="styleSheet">
+                <string notr="true">#stop_button {
 color: white;
 background-color:  #F62D2D;
 border-radius: 25px;
@@ -443,16 +499,16 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
 #stop_button:pressed{
 	background-color: #E21717;
 }</string>
-              </property>
-              <property name="text">
-               <string>Stop</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="refresh_button">
-              <property name="styleSheet">
-               <string notr="true">#refresh_button {
+               </property>
+               <property name="text">
+                <string>Stop</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="refresh_button">
+               <property name="styleSheet">
+                <string notr="true">#refresh_button {
 color: white;
 background-color:  #1db954;
 border-radius: 25px;
@@ -466,16 +522,16 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
 #refresh_button:pressed{
 	background-color: #2BB85D;
 }</string>
-              </property>
-              <property name="text">
-               <string>Refresh</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="settings_button">
-              <property name="styleSheet">
-               <string notr="true">#settings_button {
+               </property>
+               <property name="text">
+                <string>Refresh</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="settings_button">
+               <property name="styleSheet">
+                <string notr="true">#settings_button {
 color: white;
 background-color:  #1db954;
 border-radius: 25px;
@@ -490,13 +546,14 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
 	background-color: #2BB85D;
 }
 </string>
-              </property>
-              <property name="text">
-               <string>Settings</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+               </property>
+               <property name="text">
+                <string>Settings</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
          </layout>
         </item>

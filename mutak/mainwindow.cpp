@@ -26,7 +26,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     //set icon
     this->setWindowIcon(QIcon("://resources/spotifyico.png"));
-
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(on_refresh_button_clicked()));
     //init window cursors;
@@ -246,6 +245,7 @@ void MainWindow::addToList(vector <Track> t){
             lwi->setSizeHint (theWidgetItem->sizeHint());
             widitem.push_back(theWidgetItem); // we store the widget in individual vector to use it back
             ui->listWidget->setItemWidget(lwi, theWidgetItem);
+
             ui->countText->setText("Please Wait...");
             ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
         }
