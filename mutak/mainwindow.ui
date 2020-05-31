@@ -410,6 +410,23 @@ font: bold 26px '://resources/fonts/Gotham-UltraItalic.otf';
              </spacer>
             </item>
             <item>
+             <widget class="QLineEdit" name="lineEdit">
+              <property name="styleSheet">
+               <string notr="true">color: white;
+background-color:  #787878;
+border-radius: 10px;
+padding: 5px;
+width: 70px;</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Search...</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="stop_button">
               <property name="styleSheet">
                <string notr="true">#stop_button {
@@ -902,7 +919,7 @@ font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
            <string notr="true">font: bold 18pt  '://resources/fonts/Gotham-UltraItalic.otf';</string>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Developer &amp;amp; Designer&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;Ahmed Debbech&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Contact &amp;amp; Support at: &lt;/span&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;debbech.ahmed@gmail.com&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;VersionName: 1.0.0-beta3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Developer &amp;amp; Designer&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;Ahmed Debbech&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;Contact &amp;amp; Support at: &lt;/span&gt;&lt;span style=&quot; font-size:16pt; color:#1db954;&quot;&gt;debbech.ahmed@gmail.com&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#b9b9b9;&quot;&gt;VersionName: 1.1.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
