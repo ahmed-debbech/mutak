@@ -32,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     this->windowsCursor.currentWindowIndex = 0;
     this->windowsCursor.previousWindowIndex = -1;
 
+    //set signal to slots init
+    connect(ui->search_text, &QLineEdit::textChanged, this, &MainWindow::refreshSearch);
+
     //preparing the customization of widgets
     this->setWindowTitle("Mutak");
     ui->calendarWidget->setHidden(true);
@@ -285,6 +288,7 @@ void MainWindow::addToList(vector <Track> t){
     }
     runningWeb = false;
     ui->refresh_button->setHidden(false);
+    ui->search_button->setDisabled(false);
     ui->stop_button->setHidden(true);
     ui->listWidget->setCursor(QCursor(Qt::ArrowCursor));
     //get the local date and time in sys
@@ -345,19 +349,12 @@ void MainWindow :: delete_threads(retrivePhotosThread * i){
 }
 void MainWindow::on_stop_button_clicked(){
     stopOnClose = true;
-    /*if(runningThreads.size() > 0){
-        for(int i=0; i<=runningThreads.size()-1; i++){
-            delete runningThreads[i];
-        }
-    }*/
 }
-void MainWindow::on_search_button_clicked(){
-    ui->menuBar2->setHidden(false);
-    ui->menuBar1->setHidden(true);
-}
+
 void MainWindow::on_refresh_button_clicked(){
     ui->refresh_button->setHidden(true);
     ui->stop_button->setHidden(false);
+    ui->search_button->setDisabled(true);
     timer->start(1500000);
     //get date and time of sys to name the file after it (if file doesnt exist)
     QDateTime UTC(QDateTime::currentDateTimeUtc());
@@ -377,6 +374,7 @@ void MainWindow::on_refresh_button_clicked(){
         QObject::tr(e.getErrorMsg()), QMessageBox::Ok);
         ui->refresh_button->setHidden(false);
         ui->stop_button->setHidden(true);
+        ui->search_button->setDisabled(false);
     }
 }
 void MainWindow::on_settings_button_clicked(){
@@ -445,6 +443,7 @@ void MainWindow::on_confirm_clicked(){
     ui->calendarWidget->setHidden(true);
     ui->refresh_button->setHidden(true);
     ui->stop_button->setHidden(false);
+    ui->search_button->setDisabled(true);
     try{
         vector <Track> t = dbapi->retriveFromDB(ui->dateName->text()+".mu");
         this->addToList(t);

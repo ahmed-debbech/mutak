@@ -23,6 +23,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     retrivephotosthread.cpp \
+    search.cpp \
     settingswindow.cpp \
     track.cpp \
     user.cpp \

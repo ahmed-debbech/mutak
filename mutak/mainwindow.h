@@ -26,6 +26,7 @@ public:
     void dataToTracksObjects(QJsonObject &);
     ~MainWindow();
 private slots:
+    void refreshSearch();
     void on_loginButton_clicked();
     void isGranted();
     void closeEvent (QCloseEvent *event);
