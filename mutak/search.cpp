@@ -16,7 +16,7 @@ void MainWindow::refreshSearch(){
     if(index == 0){
         //search by song name
             for(int i=0; i<=tracks.size()-1; i++){
-                if(ui->search_text->text().startsWith(tracks[i].getName()) == true){
+                if(tracks[i].getName().startsWith(ui->search_text->text()) == true){
                     t.push_back(tracks[i]);
                 }
             }

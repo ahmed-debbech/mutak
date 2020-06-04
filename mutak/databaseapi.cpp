@@ -167,7 +167,7 @@ vector<Track> DatabaseAPI :: retriveFromDB(){
     return t;
 }
 //=====================PRV METHODES ============================
-vector <Track> DatabaseAPI :: readFromFile(QFile *userFiles){
+vector <Track> DatabaseAPI :: readFromFile(QFile * userFiles){
     vector<Track> t;
     while(!userFiles->atEnd()){
         QByteArray arr;

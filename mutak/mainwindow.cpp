@@ -174,7 +174,6 @@ void MainWindow::checkForInternet(){
     }
 }
 void MainWindow :: dataToTracksObjects(QJsonObject &data){
-
     QJsonObject jb = data, r = data;
     QJsonArray arr;
     for(int i=0; i <= 49; i++){
@@ -200,8 +199,13 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
          tracks.push_back(Track(trackName,artistName,dur,playtimeConverted.toString(),l));
     }
    if(dbapi->sendToDB(tracks) == true){//send to database to save
-    vector<Track> t = dbapi->retriveFromDB(); //dataaaa
-    this->addToList(t);
+     try{
+         vector<Track> t = dbapi->retriveFromDB(); //dataaaa
+         this->addToList(t);
+       }catch(QString string){
+            ui->countText->setText(string);
+            throw exceptionError(200, "No tracks yet for today");
+       }
    }
 }
 void MainWindow::closeEvent (QCloseEvent *event){
@@ -363,7 +367,6 @@ void MainWindow::on_refresh_button_clicked(){
     local.date().getDate( &y, &m, &d);
     QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
     ui->dateName->setText(h);
-
     try{
         this->checkForInternet();
         ui->listWidget->clear();
