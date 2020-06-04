@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>582</width>
+    <width>624</width>
     <height>734</height>
    </rect>
   </property>
@@ -378,17 +378,12 @@ height: 10px;
                </property>
                <item>
                 <property name="text">
-                 <string>Search By</string>
+                 <string>By Song</string>
                 </property>
                </item>
                <item>
                 <property name="text">
                  <string>By Artist</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>By Song</string>
                 </property>
                </item>
               </widget>
