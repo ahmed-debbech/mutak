@@ -2,7 +2,7 @@
 #include <QString>
 
 Track :: Track(QString namesong, QString art, double dur,
-      QString played, QString link){
+      QDateTime played, QString link){
     name = namesong;
     artist = art;
     duration = dur;

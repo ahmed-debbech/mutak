@@ -60,7 +60,7 @@ bool DatabaseAPI :: sendToDB(vector <Track> &t){
             QDateTime UTC(QDateTime::currentDateTimeUtc());
             QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
 
-            QDateTime playtimeConverted = QDateTime::fromString(t[i-1].getPlayDate());
+            QDateTime playtimeConverted = QDateTime::fromString(t[i-1].getPlayDate().toString());
             if(playtimeConverted.date() == local.date()){
                 if(checkForExistance(t[i-1]) == false){
                     try{
@@ -123,7 +123,7 @@ void DatabaseAPI :: writeToOldDayFile(QString day, Track & t){
     if(found == false){
         if(pastFile.open(QIODevice::Append | QIODevice::Text)){
             QTextStream tofile(&pastFile);
-            tofile << t.getName() << "|" << t.getArtist() << "|" << t.getDuration() << "|" << t.getPlayDate() << "%" << t.getID() << "\n";
+            tofile << t.getName() << "|" << t.getArtist() << "|" << t.getDuration() << "|" << t.getPlayDate().toString() << "%" << t.getID() << "\n";
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("Something went wrong in database while writing!\n Please restart the application."), QMessageBox::Ok);
@@ -203,7 +203,9 @@ vector <Track> DatabaseAPI :: readFromFile(QFile * userFiles){
                id += arr[y];
                y++;
            }while(arr[y] != '\n');
-           Track tr(name,artist,dur.toDouble(),play,id);
+           QDateTime datePlay;
+           datePlay = QDateTime::fromString(play);
+           Track tr(name,artist,dur.toDouble(),datePlay,id);
            t.push_back(tr);
     }
     userFiles->close();
@@ -212,7 +214,7 @@ vector <Track> DatabaseAPI :: readFromFile(QFile * userFiles){
 void DatabaseAPI :: writeToFile(Track & t){
     if(userFiles.open(QIODevice::Append | QIODevice::Text)){
         QTextStream tofile(&userFiles);
-        tofile << t.getName() << "|" << t.getArtist() << "|" << t.getDuration() << "|" << t.getPlayDate() << "%" << t.getID() << "\n";
+        tofile << t.getName() << "|" << t.getArtist() << "|" << t.getDuration() << "|" << t.getPlayDate().toString() << "%" << t.getID() << "\n";
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Error"),
         QObject::tr("Something went wrong in database while writing!\n Please restart the application."), QMessageBox::Ok);

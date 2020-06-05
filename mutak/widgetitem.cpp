@@ -33,7 +33,7 @@ WidgetItem::WidgetItem(Track & t, QWidget *parent) :
         ui->artist->setToolTip(t.getArtist());
     }
     ui->duration->setText(this->convertToMin(static_cast<int>(t.getDuration())));
-    ui->playedat->setText(t.getPlayDate());
+    ui->playedat->setText(t.getPlayDate().toString());
     ui->id_track->setText(t.getID());
 }
 void WidgetItem::on_playButton_clicked(){

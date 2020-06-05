@@ -196,7 +196,7 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
         QStringRef substr(&link, 31, (link.size()-1) - 30);
         QString l = substr.toString();
 
-         tracks.push_back(Track(trackName,artistName,dur,playtimeConverted.toString(),l));
+         tracks.push_back(Track(trackName,artistName,dur,playtimeConverted,l));
     }
    if(dbapi->sendToDB(tracks) == true){//send to database to save
      try{
@@ -259,7 +259,7 @@ void MainWindow::addToList(vector <Track> t){
         }
 
         //then retrive each photo for each track and update the item
-        bool theresInternet = true;
+        /*bool theresInternet = true;
         for(unsigned int i=t.size(); (theresInternet == true) && (i>0); i--){
              try{
                 this->checkForInternet();
@@ -288,7 +288,7 @@ void MainWindow::addToList(vector <Track> t){
                     break;
                 }
             }
-        }
+        }*/
     }
     runningWeb = false;
     ui->refresh_button->setHidden(false);

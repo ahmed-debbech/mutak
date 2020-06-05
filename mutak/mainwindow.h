@@ -57,6 +57,8 @@ private slots:
     void on_gobackHelp_clicked();
     void delete_threads(retrivePhotosThread * i);
 private:
+
+    bool checkEqualDates(QDateTime textDate, QDate currentPageDate);
     struct RecentlyShowedWindows{
         int currentWindowIndex;
         int previousWindowIndex;

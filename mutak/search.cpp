@@ -10,20 +10,30 @@ void MainWindow::on_cancel_search_clicked(){
     ui->menuBar2->setHidden(true);
     ui->menuBar1->setHidden(false);
 }
+bool MainWindow::checkEqualDates(QDateTime textDate, QDate currentPageDate){
+    int y,m,d;
+    currentPageDate.getDate( &y, &m, &d);
+    QDate date = textDate.date();
+    if(currentPageDate == date){
+        return true;
+    }
+    return false;
+}
 void MainWindow::refreshSearch(){
     int index = ui->searchBy->currentIndex();
+    int y,d,m;
     vector <Track> t;
     if(index == 0){
         //search by song name
             for(int i=0; i<=tracks.size()-1; i++){
-                if(tracks[i].getName().startsWith(ui->search_text->text()) == true){
+                if((checkEqualDates(tracks[i].getPlayDate(), this->currentPageDate) == true) && (tracks[i].getName().startsWith(ui->search_text->text()) == true)){
                     t.push_back(tracks[i]);
                 }
             }
     }else{
         //search by artist name
         for(int i=0; i<=tracks.size()-1; i++){
-            if(tracks[i].getArtist() == ui->search_text->text()){
+            if((checkEqualDates(tracks[i].getPlayDate(), this->currentPageDate) == true) && (tracks[i].getArtist().startsWith(ui->search_text->text()) == true)){
                 t.push_back(tracks[i]);
             }
         }
