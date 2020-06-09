@@ -26,14 +26,14 @@ void MainWindow::refreshSearch(){
     if(index == 0){
         //search by song name
             for(int i=0; i<=tracks.size()-1; i++){
-                if((checkEqualDates(tracks[i].getPlayDate(), this->currentPageDate) == true) && (tracks[i].getName().startsWith(ui->search_text->text()) == true)){
+                if((checkEqualDates(tracks[i].getPlayDate(), this->currentPageDate) == true) && (tracks[i].getName().toLower().startsWith(ui->search_text->text().toLower()) == true)){
                     t.push_back(tracks[i]);
                 }
             }
     }else{
         //search by artist name
         for(int i=0; i<=tracks.size()-1; i++){
-            if((checkEqualDates(tracks[i].getPlayDate(), this->currentPageDate) == true) && (tracks[i].getArtist().startsWith(ui->search_text->text()) == true)){
+            if((checkEqualDates(tracks[i].getPlayDate(), this->currentPageDate) == true) && (tracks[i].getArtist().toLower().startsWith(ui->search_text->text().toLower()) == true)){
                 t.push_back(tracks[i]);
             }
         }
