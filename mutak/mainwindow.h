@@ -57,15 +57,17 @@ private slots:
     void on_gobackHelp_clicked();
     void delete_threads(retrivePhotosThread * i);
 private:
+    //private functions
+    //bool checkEqualDates(QDateTime textDate, QDate currentPageDate);
+    void showSearchResult(vector<WidgetItem*> t);
+    void addToList(vector <Track> t);
 
-    bool checkEqualDates(QDateTime textDate, QDate currentPageDate);
     struct RecentlyShowedWindows{
         int currentWindowIndex;
         int previousWindowIndex;
     };
     typedef RecentlyShowedWindows recentlyShowedWindows;
     recentlyShowedWindows windowsCursor;
-    void addToList(vector <Track> t);
     Ui::MainWindow *ui;
     Authorizer auth;
     User * user;

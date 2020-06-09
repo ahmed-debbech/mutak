@@ -589,6 +589,9 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
          </layout>
         </item>
         <item>
+         <widget class="QListWidget" name="search_list"/>
+        </item>
+        <item>
          <widget class="QListWidget" name="listWidget">
           <property name="styleSheet">
            <string notr="true"/>

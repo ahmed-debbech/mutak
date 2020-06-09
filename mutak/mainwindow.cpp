@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->wait_label2->setHidden(true);
     ui->stop_button->setHidden(true);
     ui->menuBar2->setHidden(true);
+    ui->search_list->setHidden(true);
 
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
     ui->listWidget->setStyleSheet("QListView::item:selected {background-image: #1db954; background-color: #1db954;padding: 0px;color: black;}\n"
@@ -259,7 +260,7 @@ void MainWindow::addToList(vector <Track> t){
         }
 
         //then retrive each photo for each track and update the item
-        /*bool theresInternet = true;
+        bool theresInternet = true;
         for(unsigned int i=t.size(); (theresInternet == true) && (i>0); i--){
              try{
                 this->checkForInternet();
@@ -288,7 +289,7 @@ void MainWindow::addToList(vector <Track> t){
                     break;
                 }
             }
-        }*/
+        }
     }
     runningWeb = false;
     ui->refresh_button->setHidden(false);
