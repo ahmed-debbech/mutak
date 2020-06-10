@@ -589,6 +589,21 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
          </layout>
         </item>
         <item>
+         <widget class="QLabel" name="search_tip">
+          <property name="styleSheet">
+           <string notr="true">color: white;
+font: bold 20px;
+text-align: center;</string>
+          </property>
+          <property name="text">
+           <string>Type in search bar for song/artist name</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QListWidget" name="search_list"/>
         </item>
         <item>
@@ -891,6 +906,9 @@ font: bold 20px;</string>
           <property name="text">
            <string>Could not retrive data please refresh again,
           check your internet connection</string>
+          </property>
+          <property name="margin">
+           <number>-1</number>
           </property>
          </widget>
         </item>
