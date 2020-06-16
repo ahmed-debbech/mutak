@@ -28,16 +28,17 @@ void MainWindow::on_cancel_search_clicked(){
 }*/
 void MainWindow::refreshSearch(){
     int index = ui->searchBy->currentIndex();
-    int y,d,m;
     vector <WidgetItem*> t;
     if(widitem.size() > 0){
         if(index == 0){
+            cout << "ttt";
             //search by song name
                 for(int i=0; i<=widitem.size()-1; i++){
                     Ui::WidgetItem * uiWid = widitem[i]->getUi();
                        if(ui->search_text->text() != ""){
                         if(uiWid->name->text().toLower().startsWith(ui->search_text->text().toLower())){
-                            t.push_back(widitem[i]);
+                            t.push_back(new WidgetItem(widitem[i]));
+                            cout << "rr";
                         }
                        }
                 }
@@ -47,7 +48,7 @@ void MainWindow::refreshSearch(){
                 Ui::WidgetItem * uiWid = widitem[i]->getUi();
                     if(ui->search_text->text() != ""){
                         if(uiWid->artist->text().toLower().startsWith(ui->search_text->text().toLower())){
-                            t.push_back(widitem[i]);
+                            t.push_back(new WidgetItem(widitem[i]));
                         }
                     }
             }
@@ -60,6 +61,7 @@ void MainWindow :: showSearchResult(vector<WidgetItem*> t){
         std::cout << "cleared" << std::endl;
     //end of memory enhancment
     if(t.size() > 0){
+        cout << "yooo" ;
         for(int i=0; i<=t.size()-1; i++){
             cout << "artist: " << t[i]->getUi()->name->text().toStdString() << "song: " << t[i]->getUi()->artist->text().toStdString()<<std::endl;
             QListWidgetItem * lwi = new QListWidgetItem(ui->search_list);

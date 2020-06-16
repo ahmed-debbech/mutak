@@ -15,6 +15,7 @@ class WidgetItem : public QWidget
 
 public:
     explicit WidgetItem( Track &t,QWidget *parent = nullptr);
+    WidgetItem(WidgetItem * item);
     ~WidgetItem();
     Ui::WidgetItem * getUi(){ return ui;}
 private slots:

@@ -36,6 +36,21 @@ WidgetItem::WidgetItem(Track & t, QWidget *parent) :
     ui->playedat->setText(t.getPlayDate().toString());
     ui->id_track->setText(t.getID());
 }
+WidgetItem :: WidgetItem(WidgetItem * item) : ui(new Ui::WidgetItem){
+    ui->setupUi(this);
+    ui->playButton->setIcon(QPixmap("://resources/play_button.png"));
+    const QPixmap* pixmap = item->getUi()->photo->pixmap();
+    QImage image( pixmap->toImage() );
+    ui->photo->setPixmap(QPixmap::fromImage(image));
+    ui->id_track->setHidden(true);
+    ui->name->setText(item->getUi()->name->text());
+
+    ui->name->setStyleSheet("color: #1db954;\nfont: bold 9pt  '://resources/fonts/Gotham-Bold.otf';");
+        ui->artist->setText(item->getUi()->artist->text());
+    ui->duration->setText(item->getUi()->duration->text());
+    ui->playedat->setText(item->getUi()->playedat->text());
+    ui->id_track->setText(item->getUi()->id_track->text());
+}
 void WidgetItem::on_playButton_clicked(){
     QString url;
     url = "https://open.spotify.com/track/";
