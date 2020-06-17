@@ -1236,10 +1236,13 @@ font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>40</height>
+            <height>10</height>
            </size>
           </property>
          </spacer>
@@ -1266,7 +1269,7 @@ color: white;
 background-color:  #787878;
 	font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
 border-radius: 10px;
-padding: 20px;
+padding: 10px;
 width: 10px;
  }
 #delete_history:hover {
@@ -1302,7 +1305,7 @@ color: white;
 background-color:  #787878;
 	font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
 border-radius: 10px;
-padding: 20px;
+padding: 10px;
 width: 10px;
  }
 #auto_refresh:hover {
