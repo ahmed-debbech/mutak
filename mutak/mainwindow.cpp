@@ -361,7 +361,7 @@ void MainWindow::on_refresh_button_clicked(){
     ui->refresh_button->setHidden(true);
     ui->stop_button->setHidden(false);
     ui->search_button->setDisabled(true);
-    timer->start(1500000);
+    timer->start(150000);
     //get date and time of sys to name the file after it (if file doesnt exist)
     QDateTime UTC(QDateTime::currentDateTimeUtc());
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();

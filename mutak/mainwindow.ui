@@ -1254,7 +1254,7 @@ font: bold 14px '://resources/fonts/GothamLight.ttf';
 </string>
             </property>
             <property name="text">
-             <string>Delete the local database history of this user:</string>
+             <string>Delete the local database history of this user</string>
             </property>
            </widget>
           </item>
@@ -1276,6 +1276,69 @@ width: 10px;
             <property name="text">
              <string>Delete</string>
             </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_13">
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="styleSheet">
+             <string notr="true">color: white;
+font: bold 14px '://resources/fonts/GothamLight.ttf';
+</string>
+            </property>
+            <property name="text">
+             <string>Time of auto refresh in background</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="auto_refresh">
+            <property name="styleSheet">
+             <string notr="true">#auto_refresh {
+color: white;
+background-color:  #787878;
+	font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
+border-radius: 10px;
+padding: 20px;
+width: 10px;
+ }
+#auto_refresh:hover {
+	background-color: #999999;
+ }</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>15min</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>30min</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>45min</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>1hr</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>2hrs</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Turn Off</string>
+             </property>
+            </item>
            </widget>
           </item>
          </layout>
