@@ -60,6 +60,7 @@ private:
     //private functions
     void showSearchResult(vector<WidgetItem*> t);
     void addToList(vector <Track> t);
+    long int convertToMS(int index);
 
     struct RecentlyShowedWindows{
         int currentWindowIndex;

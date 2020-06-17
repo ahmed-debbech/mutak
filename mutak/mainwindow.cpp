@@ -356,12 +356,32 @@ void MainWindow :: delete_threads(retrivePhotosThread * i){
 void MainWindow::on_stop_button_clicked(){
     stopOnClose = true;
 }
-
+long int MainWindow :: convertToMS(int index){
+    switch(index){
+        case 0: return 20000;
+        break;
+    case 1: return 30000;
+        break;
+    case 2: return 45000;
+        break;
+    case 3: return 60000;
+        break;
+    case 4: return 120000;
+        break;
+    case 5: disconnect(timer, SIGNAL(timeout()), this, SLOT(on_refresh_button_clicked())); return 0;
+        break;
+    }
+    return 0;
+}
 void MainWindow::on_refresh_button_clicked(){
     ui->refresh_button->setHidden(true);
     ui->stop_button->setHidden(false);
     ui->search_button->setDisabled(true);
-    timer->start(150000);
+    int time = convertToMS(ui->auto_refresh->currentIndex());
+    if(time != 0){
+        connect(timer, SIGNAL(timeout()), this, SLOT(on_refresh_button_clicked()));
+        timer->start(time);
+    }
     //get date and time of sys to name the file after it (if file doesnt exist)
     QDateTime UTC(QDateTime::currentDateTimeUtc());
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
