@@ -17,15 +17,6 @@ void MainWindow::on_cancel_search_clicked(){
     ui->listWidget->setHidden(false);
     ui->search_tip->setHidden(true);
 }
-/*bool MainWindow::checkEqualDates(QDateTime textDate, QDate currentPageDate){
-    int y,m,d;
-    currentPageDate.getDate( &y, &m, &d);
-    QDate date = textDate.date();
-    if(currentPageDate == date){
-        return true;
-    }
-    return false;
-}*/
 void MainWindow::refreshSearch(){
     int index = ui->searchBy->currentIndex();
     vector <WidgetItem*> t;
