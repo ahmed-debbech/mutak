@@ -58,7 +58,6 @@ private slots:
     void delete_threads(retrivePhotosThread * i);
 private:
     //private functions
-    //bool checkEqualDates(QDateTime textDate, QDate currentPageDate);
     void showSearchResult(vector<WidgetItem*> t);
     void addToList(vector <Track> t);
 
