@@ -7,9 +7,9 @@
 Mutak is a Windows desktop app and an Open Source project based on QT framework. \
 Have you ever loved song during its play on a specific playlist but you just missed its name after a while because you didn't press the heart button? \
 I came up with this solution for Spotify which provides a full & detailed history for each track/song
-you listened to marked by date and time.
-**We may be slow to push updates as i am an only developer working in this project.**
-**Updates are released only when i find time to work :) **
+you listened to marked by date and time. \
+**We may be slow to push updates as i am an only developer working in this project.** \
+**Updates are released only when i find time to work :)**
 ### We promise this: 
 ##### ->Simple
 All features in only one window, navigate in the stored history through clanedar.
