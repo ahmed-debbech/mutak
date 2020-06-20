@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     //set icon
     this->setWindowIcon(QIcon("://resources/spotifyico.png"));
     timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(on_refresh_button_clicked()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(auto_refresh()));
     //init window cursors;
     this->windowsCursor.currentWindowIndex = 0;
     this->windowsCursor.previousWindowIndex = -1;
@@ -358,30 +358,39 @@ void MainWindow::on_stop_button_clicked(){
 }
 long int MainWindow :: convertToMS(int index){
     switch(index){
-        case 0: return 20000;
+        case 0: timer->stop(); return 20000;
         break;
-    case 1: return 30000;
+    case 1: timer->stop(); return 30000;
         break;
-    case 2: return 45000;
+    case 2: timer->stop(); return 45000;
         break;
-    case 3: return 60000;
+    case 3: timer->stop(); return 60000;
         break;
-    case 4: return 120000;
+    case 4: timer->stop(); return 120000;
         break;
-    case 5: disconnect(timer, SIGNAL(timeout()), this, SLOT(on_refresh_button_clicked())); return 0;
+    case 5: cout << "thissssss" <<endl; return 0;
         break;
     }
     return 0;
+}
+void MainWindow::auto_refresh(){
+    try {
+        checkForInternet();
+        on_refresh_button_clicked();
+    } catch (exceptionError &er) {
+
+    }
 }
 void MainWindow::on_refresh_button_clicked(){
     ui->refresh_button->setHidden(true);
     ui->stop_button->setHidden(false);
     ui->search_button->setDisabled(true);
-    int time = convertToMS(ui->auto_refresh->currentIndex());
+    long int time = convertToMS(ui->auto_refresh->currentIndex());
     if(time != 0){
-        connect(timer, SIGNAL(timeout()), this, SLOT(on_refresh_button_clicked()));
         timer->start(time);
-    }
+   }else{
+         timer->stop();
+   }
     //get date and time of sys to name the file after it (if file doesnt exist)
     QDateTime UTC(QDateTime::currentDateTimeUtc());
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();

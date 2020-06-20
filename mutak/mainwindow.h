@@ -56,6 +56,7 @@ private slots:
     void on_helpButton_clicked();
     void on_gobackHelp_clicked();
     void delete_threads(retrivePhotosThread * i);
+    void auto_refresh();
 private:
     //private functions
     void showSearchResult(vector<WidgetItem*> t);
