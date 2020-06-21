@@ -175,6 +175,32 @@ void MainWindow::checkForInternet(){
         throw exceptionError(100, "Timemout after no response, timer aborted ERROR_CODE_102");
     }
 }
+vector<Track> MainWindow::sortByTime(vector<Track> t){
+    std::list<Track> l;
+    std::vector<Track> tr;
+    if(t.size() > 0){
+        for(unsigned int i =0; i<=t.size()-1; i++){
+            l.push_back(t[i]);
+        }
+    }
+    // we use selection sort algo
+    std::list<Track>:: iterator walk = l.begin();
+    std::list<Track>:: iterator hold;
+    Track swap;
+    while(walk != l.end()){
+        ++walk;
+        while(hold != l.end()){
+            if(hold->getPlayDate().time() < hold->getPlayDate().time()){
+                swap = *hold;
+                hold = walk;
+                *walk = swap;
+            }
+            ++hold;
+        }
+        ++walk;
+    }
+    return tr;
+}
 void MainWindow :: dataToTracksObjects(QJsonObject &data){
     QJsonObject jb = data, r = data;
     QJsonArray arr;
@@ -203,6 +229,7 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
    if(dbapi->sendToDB(tracks) == true){//send to database to save
      try{
          vector<Track> t = dbapi->retriveFromDB(); //dataaaa
+         t = this->sortByTime(t);
          this->addToList(t);
        }catch(QString string){
             ui->countText->setText(string);
@@ -358,17 +385,17 @@ void MainWindow::on_stop_button_clicked(){
 }
 long int MainWindow :: convertToMS(int index){
     switch(index){
-        case 0: timer->stop(); return 20000;
+        case 0: timer->stop(); return 900000; //15min
         break;
-    case 1: timer->stop(); return 30000;
+    case 1: timer->stop(); return 1800000; //30min
         break;
-    case 2: timer->stop(); return 45000;
+    case 2: timer->stop(); return 2700000; //45min
         break;
-    case 3: timer->stop(); return 60000;
+    case 3: timer->stop(); return 3600000; //1hr
         break;
-    case 4: timer->stop(); return 120000;
+    case 4: timer->stop(); return 7200000; //2hr
         break;
-    case 5: cout << "thissssss" <<endl; return 0;
+    case 5:  return 0;
         break;
     }
     return 0;

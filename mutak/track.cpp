@@ -9,3 +9,6 @@ Track :: Track(QString namesong, QString art, double dur,
     playedAt = played;
     linkID = link;
 }
+Track :: Track(){
+
+}

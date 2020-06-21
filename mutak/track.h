@@ -12,6 +12,7 @@ class Track{
 public:
     Track(QString namesong, QString artist, double duration,
           QDateTime playedAt, QString linkID);
+    Track();
     QString getName(){return name;}
     QString getArtist(){return artist;}
    double getDuration(){return duration;}

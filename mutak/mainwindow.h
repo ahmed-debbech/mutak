@@ -62,6 +62,7 @@ private:
     void showSearchResult(vector<WidgetItem*> t);
     void addToList(vector <Track> t);
     long int convertToMS(int index);
+    vector<Track>  sortByTime(vector<Track> t);
 
     struct RecentlyShowedWindows{
         int currentWindowIndex;
