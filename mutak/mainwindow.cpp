@@ -188,16 +188,20 @@ vector<Track> MainWindow::sortByTime(vector<Track> t){
     std::list<Track>:: iterator hold;
     Track swap;
     while(walk != l.end()){
-        ++walk;
+        std::list<Track>:: iterator holder = walk;
+        hold = holder++;
         while(hold != l.end()){
-            if(hold->getPlayDate().time() < hold->getPlayDate().time()){
+            if(walk->getPlayDate().time() > hold->getPlayDate().time()){
                 swap = *hold;
-                hold = walk;
+                *hold = *walk;
                 *walk = swap;
             }
-            ++hold;
+            hold++;
         }
-        ++walk;
+        walk++;
+    }
+    for( std::list<Track>:: iterator walk = l.begin(); walk != l.end(); walk++){
+       cout << walk->getName().toStdString() << endl;
     }
     return tr;
 }
