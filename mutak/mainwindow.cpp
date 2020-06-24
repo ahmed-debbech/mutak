@@ -200,8 +200,8 @@ vector<Track> MainWindow::sortByTime(vector<Track> t){
         }
         walk++;
     }
-    for( std::list<Track>:: iterator walk = l.begin(); walk != l.end(); walk++){
-       cout << walk->getName().toStdString() << endl;
+    for(std::list<Track>:: iterator walk = l.begin(); walk != l.end(); walk++){
+        tr.push_back(*walk);
     }
     return tr;
 }
