@@ -260,8 +260,40 @@ void MainWindow::closeEvent (QCloseEvent *event){
         event->accept();
     }
 }
-void MainWindow::addToList(vector <Track> t){
+void MainWindow::getArtworks(vector<Track> t){
     stopOnClose = false;
+    bool theresInternet = true;
+    for(unsigned int i=t.size(); (theresInternet == true) && (i>0); i--){
+         try{
+            this->checkForInternet();
+         }catch(exceptionError & e){
+            theresInternet = false;
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr(e.getErrorMsg()), QMessageBox::Ok);
+         }
+        if(theresInternet == true){
+            runningWeb = true;
+            QString link = t[i-1].getID();
+            qDebug() << stopOnClose;
+            if(stopOnClose == false){
+            //request the image of each track
+            QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+link));
+            root = (root.value("tracks").toArray().at(0)).toObject();
+            root = root.value("album").toObject();
+            QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
+           retrivePhotosThread * rpt  = new retrivePhotosThread(download, widitem[t.size()-i]);
+           runningThreads.push_back(rpt);
+           connect(rpt, SIGNAL(finished()), this, SLOT(delete_threads(rpt)));
+           rpt->start();
+            ui->countText->setText("Please Wait... Downloading photos");
+            ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
+            }else{
+                break;
+            }
+        }
+    }
+}
+void MainWindow::addToList(vector <Track> t){
     //this is memory enhancment: we clear the old widget pointers to avoid memory leaks
     if(this->widitem.size() > 0){
         for (int i=0; i<=this->widitem.size()-1; i++) {
@@ -292,42 +324,14 @@ void MainWindow::addToList(vector <Track> t){
         }
 
         //then retrive each photo for each track and update the item
-        bool theresInternet = true;
-        for(unsigned int i=t.size(); (theresInternet == true) && (i>0); i--){
-             try{
-                this->checkForInternet();
-             }catch(exceptionError & e){
-                theresInternet = false;
-                QMessageBox::critical(nullptr, QObject::tr("Error"),
-                QObject::tr(e.getErrorMsg()), QMessageBox::Ok);
-             }
-            if(theresInternet == true){
-                runningWeb = true;
-                QString link = t[i-1].getID();
-                qDebug() << stopOnClose;
-                if(stopOnClose == false){
-                //request the image of each track
-                QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+link));
-                root = (root.value("tracks").toArray().at(0)).toObject();
-                root = root.value("album").toObject();
-                QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
-               retrivePhotosThread * rpt  = new retrivePhotosThread(download, widitem[t.size()-i]);
-               runningThreads.push_back(rpt);
-               connect(rpt, SIGNAL(finished()), this, SLOT(delete_threads(rpt)));
-               rpt->start();
-                ui->countText->setText("Please Wait... Downloading photos");
-                ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
-                }else{
-                    break;
-                }
-            }
-        }
+        this->getArtworks(t);
     }
     runningWeb = false;
     ui->refresh_button->setHidden(false);
     ui->search_button->setDisabled(false);
     ui->stop_button->setHidden(true);
     ui->listWidget->setCursor(QCursor(Qt::ArrowCursor));
+
     //get the local date and time in sys
     QDateTime UTC(QDateTime::currentDateTimeUtc());
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
@@ -348,6 +352,9 @@ void MainWindow::addToList(vector <Track> t){
         ui->navNext->setEnabled(true);
     }
 }
+
+
+
 //=================================SIGNALS=======================================
 void MainWindow :: isGranted(){
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
