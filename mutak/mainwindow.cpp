@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     //set signal to slots init
     connect(ui->search_text, &QLineEdit::textChanged, this, &MainWindow::refreshSearch);
+    connect(ui->auto_refresh, &QComboBox::currentTextChanged, this, &MainWindow::changeValue);
 
     //preparing the customization of widgets
     this->setWindowTitle("Mutak");
@@ -233,7 +234,6 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
    if(dbapi->sendToDB(tracks) == true){//send to database to save
      try{
          vector<Track> t = dbapi->retriveFromDB(); //dataaaa
-         t = this->sortByTime(t);
          this->addToList(t);
        }catch(QString string){
             ui->countText->setText(string);
@@ -294,6 +294,7 @@ void MainWindow::getArtworks(vector<Track> t){
     }
 }
 void MainWindow::addToList(vector <Track> t){
+    t = this->sortByTime(t);
     //this is memory enhancment: we clear the old widget pointers to avoid memory leaks
     if(this->widitem.size() > 0){
         for (int i=0; i<=this->widitem.size()-1; i++) {
@@ -376,6 +377,7 @@ void MainWindow :: isGranted(){
             dbapi->prepareUserDir(root.value("id").toString());
             //check for files in the current sys date
             dbapi->prepareUserFiles(user->getId());
+            this->setAutoRefreshTime();
             on_refresh_button_clicked();
         }else{
             QMessageBox::critical(nullptr, QObject::tr("Error"),
@@ -393,6 +395,20 @@ void MainWindow :: delete_threads(retrivePhotosThread * i){
 }
 void MainWindow::on_stop_button_clicked(){
     stopOnClose = true;
+}
+void MainWindow::changeValue(){
+    QFile userSettingsFile;
+    userSettingsFile.setFileName(dbapi->getUserSettingsPath());
+    if(userSettingsFile.exists() == true){
+        if (userSettingsFile.open(QIODevice::WriteOnly | QIODevice::Text)){
+            QTextStream tofile(&userSettingsFile);
+            tofile << convertToMS(ui->auto_refresh->currentIndex());
+        }else{
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("Can not write auto-refresh value!"), QMessageBox::Ok);
+        }
+    }
+    userSettingsFile.close();
 }
 long int MainWindow :: convertToMS(int index){
     switch(index){

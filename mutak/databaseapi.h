@@ -13,12 +13,13 @@ using namespace std;
 class DatabaseAPI{
     QDir userDir;
     QFile userFiles;
+    QString settingsDir;
     QString filePathToday;
     QString userDirName;
 public:
     //getters and setters
     QDir getUserDir(){return userDir;}
-
+    QString getUserSettingsPath(){return settingsDir;}
     //initialization of folders and files depending in user id
     DatabaseAPI();
     void prepareUserDir(QString id);

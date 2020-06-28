@@ -18,6 +18,43 @@ void MainWindow::on_backFromSettings_clicked(){
     this->windowsCursor.currentWindowIndex = 1;
     ui->stackedWidget->setCurrentIndex(1);
 }
+void MainWindow::setAutoRefreshTime(){
+    QFile userSettingsFile;
+    userSettingsFile.setFileName(dbapi->getUserSettingsPath());
+    if(userSettingsFile.exists() == true){
+        if (userSettingsFile.open(QIODevice::ReadOnly | QIODevice::Text)){
+            if(!userSettingsFile.atEnd()){
+                  QByteArray arr = userSettingsFile.readLine();
+                  cout << arr.toStdString() << endl;
+                  long int y = arr.toInt();
+                  switch(y){
+                  case 900000:
+                    ui->auto_refresh->setCurrentIndex(0);
+                      break;
+                  case 1800000:
+                      ui->auto_refresh->setCurrentIndex(1);
+                      break;
+                case 2700000:
+                    ui->auto_refresh->setCurrentIndex(2);
+                  break;
+                  case 3600000: ui->auto_refresh->setCurrentIndex(3);
+                      break;
+                  case 7200000: ui->auto_refresh->setCurrentIndex(4);
+                      break;
+                   case 0:
+                      ui->auto_refresh->setCurrentIndex(5);
+                      break;
+                  }
+            }else{
+                cout << "enp;ty" << endl;
+            }
+        }else{
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("Can not read auto-refresh value!"), QMessageBox::Ok);
+        }
+    }
+    userSettingsFile.close();
+}
 void MainWindow::on_logout_button_clicked(){
     if(runningWeb == false){
         delete user;

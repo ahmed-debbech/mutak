@@ -26,6 +26,7 @@ public:
     void dataToTracksObjects(QJsonObject &);
     ~MainWindow();
 private slots:
+    void changeValue();
     void refreshSearch();
     void on_loginButton_clicked();
     void isGranted();
@@ -64,6 +65,7 @@ private:
     void addToList(vector <Track> t);
     long int convertToMS(int index);
     vector<Track>  sortByTime(vector<Track> t);
+    void setAutoRefreshTime();
 
     struct RecentlyShowedWindows{
         int currentWindowIndex;

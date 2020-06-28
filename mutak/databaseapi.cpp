@@ -18,6 +18,19 @@ void DatabaseAPI :: prepareUserDir(QString id){
             userDir.mkdir(id);
         }
         userDir.cd(id);
+        //create the settings file
+        settingsDir = userDir.path()+"/config.set";
+        QFile userSettingsFile;
+        userSettingsFile.setFileName(settingsDir);
+        if(userSettingsFile.exists() == false){
+            if (userSettingsFile.open(QIODevice::WriteOnly | QIODevice::Text)){
+                //file created
+            }else{
+                QMessageBox::critical(nullptr, QObject::tr("Error"),
+                QObject::tr("Something went wrong in the database while preparing files!\n Please restart the application."), QMessageBox::Ok);
+            }
+        }
+        userFiles.close();
         if(userDir.cd("db") == false){
             userDir.mkdir("db");
         }
