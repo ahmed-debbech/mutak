@@ -307,7 +307,7 @@ void MainWindow::addToList(vector <Track> t){
     ui->confirm->setEnabled(false);
     ui->navPrev->setEnabled(false);
     ui->navNext->setEnabled(false);
-
+   ui->today->setEnabled(false);
     //list all the items in list
     if(t.size() > 0){
         for(unsigned int i=t.size(); (i>0); i--){
@@ -344,6 +344,7 @@ void MainWindow::addToList(vector <Track> t){
     }
     ui->confirm->setEnabled(true);
     ui->navPrev->setEnabled(true);
+    ui->today->setEnabled(true);
     int y,m,d;
     local.date().getDate( &y, &m, &d);
     QString date = QString::number(d) + "-" + QString::number(m) + "-" + QString::number(y);
@@ -558,7 +559,14 @@ void MainWindow::on_nav_clicked(){
     }
 }
 void MainWindow::on_today_clicked(){
-    on_refresh_button_clicked();
+    //get date and time of sys to name the file after it (if file doesnt exist)
+    QDateTime UTC(QDateTime::currentDateTimeUtc());
+    QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
+    int y,m,d;
+    local.date().getDate( &y, &m, &d);
+    QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
+    ui->dateName->setText(h);
+    on_confirm_clicked();
 }
 
 void MainWindow::on_calendarWidget_selectionChanged(){
