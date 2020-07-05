@@ -23,13 +23,13 @@
 #include <QOAuthHttpServerReplyHandler>
 #include <QDesktopServices>
 #include <QObject>
-
+#include "api_keys.h"
 /**
  * This is the constructor of the Authorizer class and it initializes the client ID and client secret attributes.
  */
 Authorizer::Authorizer(){
-    clientID = "17003af1c95b4506b21dbf98110a6e6f";
-    clientSecret = "52291278398442e1961f84615d55a097";
+    clientID = ID;
+    clientSecret = SECRET;
 }
 /**
  * This method is part of Authorizer class, it sets the values for the QOAuth2AuthorizationCodeFlow object attribute

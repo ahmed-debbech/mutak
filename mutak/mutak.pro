@@ -30,6 +30,7 @@ SOURCES += \
     widgetitem.cpp
 
 HEADERS += \
+    api_keys.h \
     authorizer.h \
     databaseapi.h \
     exceptionerror.h \
