@@ -28,9 +28,21 @@
 #include <QString>
 #include <QDateTime>
 
+/** 
+ * Constructor for DatabaseAPI class
+*/
 DatabaseAPI::DatabaseAPI(){
 
 }
+/**
+ * Creates and initializes the user set of directories to store the user data.
+ * 
+ * It creates the folders in the AppDataLocation standard path for Windows and checks them if they already exist
+ * more specifically, It creates a folder with the user ID from spotify then it creates a folder called "db" which 
+ * will later store the database files under ".mu" files.
+ * This methode must be called before prepareUserFiles().
+ * @param QString id : the id of the user that will be used to create the directories
+*/
 void DatabaseAPI :: prepareUserDir(QString id){
     QStringList locations = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
     userDir.setPath(locations[0]);
@@ -64,6 +76,14 @@ void DatabaseAPI :: prepareUserDir(QString id){
         prepareUserDir(id);
     }
 }
+/**
+ * Creates and initializes the user set of files in the directories which are already created by prepareUserDir()
+ * 
+ * It creates and initializes the .mu file of the day which is located under {id}/db/dd-mm-yyyy.mu and it adds
+ * the "user:{ID}" tag to the very beginning of the file.
+ * This method must be called after prepareUserDir() is called.
+ * @param QString userID : the user id that is needed to create the files
+*/
 void DatabaseAPI :: prepareUserFiles(QString userID){
     //get date and time of sys to name the file after it (if file doesnt exist)
     QDateTime UTC(QDateTime::currentDateTimeUtc());
@@ -86,6 +106,15 @@ void DatabaseAPI :: prepareUserFiles(QString userID){
     }
     userFiles.close();
 }
+/**
+ * This is the main function that is called to send data to database and store it.
+ * 
+ * It get the array of tracks, it compares the timestamp of each one if the play date is as today 
+ * it calls writeToFile() implicitly to write the track on the file, else if the play date is of yesterday
+ * it calls writeToOldDayFile() implicitly to write the track on that files.
+ * @param vector <Track> &t : an array full of track objects data to store it in database
+ * @return it returns True if everything went file else False
+ */
 bool DatabaseAPI :: sendToDB(vector <Track> &t){
 
     userFiles.setFileName(filePathToday);
@@ -118,6 +147,15 @@ bool DatabaseAPI :: sendToDB(vector <Track> &t){
         }
         return true;
 }
+/**
+ * This method is used only when storing a track that is not in the same day as today"
+ * 
+ * exp today is: 06-07-2020 and the date of play date of a given track is 05-06-2020 then the track will be 
+ * stored in the files 05-07-2020.mu.
+ * @param QString day : the day (name of file.mu) where the song will be stored
+ * @param Track &t : the track oject that will be stored
+ * this function is called implicitly by sendToDB()
+*/
 void DatabaseAPI :: writeToOldDayFile(QString day, Track & t){
     QFile pastFile;
     pastFile.setFileName(userDirName + day);
@@ -165,6 +203,8 @@ void DatabaseAPI :: writeToOldDayFile(QString day, Track & t){
         pastFile.close();
     }
 }
+/** 
+ * This is the function that 
 vector <Track> DatabaseAPI :: retriveFromDB(QString f){
     vector<Track> t;
     QString ff = userDirName + f;
