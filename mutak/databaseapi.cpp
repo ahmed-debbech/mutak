@@ -40,6 +40,7 @@ DatabaseAPI::DatabaseAPI(){
  * It creates the folders in the AppDataLocation standard path for Windows and checks them if they already exist
  * more specifically, It creates a folder with the user ID from spotify then it creates a folder called "db" which 
  * will later store the database files under ".mu" files.
+ * The data base lives under: C:\Users\{user}}\AppData\Roaming\mutak\{spotifyUserID}\db
  * This methode must be called before prepareUserFiles().
  * @param QString id : the id of the user that will be used to create the directories
 */
@@ -204,7 +205,16 @@ void DatabaseAPI :: writeToOldDayFile(QString day, Track & t){
     }
 }
 /** 
- * This is the function that 
+ * This is the main function that retreives data from database of a specefic day.
+ * 
+ * This method gets a date, first checks if the files of that date exists 
+ * if not then the are no tracks for that day else it opens the file .mu and retrieves all the data
+ * This function is overloaded.
+ * @param QString : the date in format (dd-mm-yyyy) which is the same as the file name (dd-mm-yyyy.mu)
+ * @return returns std::vector<Track> full of all the tracks in the file
+ * @throw it throws QString if there are no tracks (file doesn't exist) or the files does exist but it is empty
+ * @throw it throws also an constant number "1" if an error is encountred while retreiving data from DB
+*/
 vector <Track> DatabaseAPI :: retriveFromDB(QString f){
     vector<Track> t;
     QString ff = userDirName + f;
@@ -226,6 +236,16 @@ vector <Track> DatabaseAPI :: retriveFromDB(QString f){
     }
     return t;
 }
+/**
+ * This is the main overloaded function that retreives data from database of today
+ * 
+ * This method use the private class attribute which is the current user file object that points
+ * to the file .mu of today. It works as the other retriveFromDB() function.
+ * @return returns std::vector<Track> full of all the tracks in the file
+ * @throw it throws QString if the file is empty
+ * @throw it throws also an constant number "1" if an error is encountred while retreiving data from DB
+ * @overload
+*/
 vector<Track> DatabaseAPI :: retriveFromDB(){
     vector<Track> t;
     if(userFiles.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -241,6 +261,16 @@ vector<Track> DatabaseAPI :: retriveFromDB(){
     return t;
 }
 //=====================PRV METHODES ============================
+/**
+ * This function is used as a core function of retriveFroDB() that reads structurally the content of the file.
+ * 
+ * It reads the data technically and structuraly as the rules set by the original author and it sends back the array full of data 
+ * to the caller function.
+ * It reads first the ID tag of the user at very beggining of the file, then it loops each line to fill a track object 
+ * and push it to the vector. Note that each line in the file represents a track entry in database.
+ * @param QFile * : a pointer to the file to read from.
+ * @return returns a vector<Track> full of tracks read from the file.
+*/
 vector <Track> DatabaseAPI :: readFromFile(QFile * userFiles){
     vector<Track> t;
     while(!userFiles->atEnd()){
@@ -285,6 +315,15 @@ vector <Track> DatabaseAPI :: readFromFile(QFile * userFiles){
     userFiles->close();
     return t;
 }
+/**
+ * This function is used as a core function of sendToDB() that writes structurally the content of the file.
+ * 
+ * It writes the data technically and structuraly as the rules set by the original author.
+ * It writes one track at each call. and it opens the file in Append mode.
+ * format of the line: songname|artistname|duration|playdate%trackURI
+ * @param Track & : representing the track to be appended to the file
+ * @throw it throws contant number "1" if the operation failed.
+*/
 void DatabaseAPI :: writeToFile(Track & t){
     if(userFiles.open(QIODevice::Append | QIODevice::Text)){
         QTextStream tofile(&userFiles);
@@ -296,6 +335,14 @@ void DatabaseAPI :: writeToFile(Track & t){
     }
     userFiles.close();
 }
+/**
+ * This function checks if a track passed in parametre exists at the current day.
+ * 
+ * it gets the files object that points to the "today" file and loops over it linearly.
+ * If the file of today doesn't exist yet it creates it also and it returns false = not found.
+ * @param Track & : representing the track to be looking for.
+ * @return it returns bool = true if found else false.
+*/
 bool DatabaseAPI :: checkForExistance(Track & t){
     bool found = false;
     if(userFiles.open(QIODevice::ReadOnly | QIODevice::Text)){
