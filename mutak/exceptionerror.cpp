@@ -22,13 +22,31 @@
 #include "exceptionerror.h"
 #include <iostream>
 
+/**
+ * Contructor for exceptionError class 
+ * 
+ * It sets the error code and error message that will be used by the class.
+ * @param int errorCode : the error code that will identiy the error
+ * @param QString errorMsg : the error's message that will be displayed alongside the error code.
+*/
 exceptionError::exceptionError(int errorCode, QString errorMsg){
     this->errorMsg = errorMsg;
     this->errorCode = errorCode;
 }
+/** 
+ * It gets the error code
+ * @return int : the error code
+*/
 int exceptionError::getErrorCode(){
     return this->errorCode;
 }
+/**
+ * It returns the error message in array of char
+ * 
+ * It converts the QString that contains the message initially to a char* pointer that points 
+ * to the first place in array. This should be converted to char * to be able to use it in QMessageBox::tr
+ * @return char * : a pointer to the first letter of the error message
+ */
 char * exceptionError::getErrorMsg(){
     char * buff;
     QByteArray ba = errorMsg.toLocal8Bit();

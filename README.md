@@ -46,3 +46,4 @@ We accept Pull request on Github ONLY. \
 ### Legal stuff
 This work is distributed under [MIT](https://opensource.org/licenses/MIT) License. \
 Copyright © 2020 - Ahmed Debbech
+Spotify is a registred trademark of the Spotify Group.

@@ -27,7 +27,9 @@
 #include "ui_mainwindow.h"
 #include "mainwindow.h"
 
-
+/**
+ * This method is used when the go back button in help section is pressed.
+*/
 void MainWindow :: on_gobackHelp_clicked(){
        ui->stackedWidget->setCurrentIndex(this->windowsCursor.previousWindowIndex);
        this->windowsCursor.currentWindowIndex = this->windowsCursor.previousWindowIndex;
