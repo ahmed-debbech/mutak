@@ -43,9 +43,9 @@
  * This Class should be instantiated each time a user logs in.
 */
 class Authorizer : public QObject{
-    QOAuth2AuthorizationCodeFlow spotify; //the flow of the authorization
-    QString clientID;
-    QString clientSecret;
+    QOAuth2AuthorizationCodeFlow spotify; ///< the OAuth2 object that holds every data about the user login
+    QString clientID;   ///< Client ID that Mutak uses to use Spotify's API
+    QString clientSecret; ///< Secret Key that Mutak uses to use Spotify's API
 public:
     Authorizer();
     void setValues();

@@ -46,11 +46,11 @@ using namespace std;
  * This class is instantiated each time the usr logs in.
 */
 class DatabaseAPI{
-    QDir userDir;
-    QFile userFiles;
-    QString settingsDir;
-    QString filePathToday;
-    QString userDirName;
+    QDir userDir; ///< the user current opened directory inn database
+    QFile userFiles; ///< the pointer on each file that the user opens in the database
+    QString settingsDir; ///< the setting file directory pointer 
+    QString filePathToday; ///< the pointer of the current openened file in read/write mode 
+    QString userDirName; ///< the path String of the current logged-in user
 public:
     //getters and setters
     QDir getUserDir(){return userDir;}

@@ -106,18 +106,18 @@ private:
         int currentWindowIndex;
         int previousWindowIndex;
     };
-    typedef RecentlyShowedWindows recentlyShowedWindows;
-    recentlyShowedWindows windowsCursor;
-    Ui::MainWindow *ui;
-    Authorizer auth;
-    User * user;
-    vector<Track> tracks;
-    DatabaseAPI * dbapi;
-    bool runningWeb;
-    int stopOnClose;
-    QTimer * timer;
-    QDate currentPageDate;
-    vector <WidgetItem*> widitem;
-    vector<retrivePhotosThread *> runningThreads;
+    typedef RecentlyShowedWindows recentlyShowedWindows; 
+    recentlyShowedWindows windowsCursor; ///< the pointer navigation between pages in UI
+    Ui::MainWindow *ui; ///< the ui pointer of the whole MUTAK GUI
+    Authorizer auth; ///< the authorization object
+    User * user; ///< a pointer to the current logged-in user object
+    vector<Track> tracks; ///< an array that is used whenever a list should be filled in GUI, represents the data model
+    DatabaseAPI * dbapi; ///< the only door that connects the app with the database, a pointer on a DatabaseAPI object that is used for any read/write operation
+    bool runningWeb; ///< a boolean variable tells if the application is curently using network or not
+    int stopOnClose; ///< a flag that tells to stop using network when the program is terminated
+    QTimer * timer; ///< a timer object that is used to track the auto-refresh time to refresh the list when it times out
+    QDate currentPageDate; ///< the current date of the day chosen by the calendar navigator
+    vector <WidgetItem*> widitem; ///< an array contains a pointers to WidgetItem objects that will be added to a list, represents view model 
+    vector<retrivePhotosThread *> runningThreads; ///< an array to store the running threads for the artwork retrieve to allow parallel connections
 };
 #endif // MAINWINDOW_H

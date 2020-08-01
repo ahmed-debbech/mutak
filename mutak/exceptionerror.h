@@ -39,8 +39,8 @@
  * This class is used for any error detection in the app.
  */
 class exceptionError{
-    int errorCode;
-    QString errorMsg;
+    int errorCode; ///< error code
+    QString errorMsg; ///< error message
 public:
     exceptionError(int error, QString errorMsg);
     int getErrorCode();

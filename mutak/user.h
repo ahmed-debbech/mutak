@@ -43,12 +43,12 @@ using namespace std;
  * It contains almost everything needed to login like access tokens, it inherits QObject.
 */
 class User : public QObject{
-    QString id;
-    QString name;
-    QString imageRef;
-    QString token;
-    QString refToken;
-    QByteArray photo;
+    QString id; ///< used ID for Spotify
+    QString name; ///< user name for Spotify
+    QString imageRef; ///< user image link to download from 
+    QString token; ///< access token 
+    QString refToken; ///< refresh access token 
+    QByteArray photo; ///< the data of the image after download
 private slots:
     void delete_threads(retrivePhotosThread * i){delete i;}
 public:

@@ -39,11 +39,11 @@
  * later it will be transformed into a item widget in the list of tracks.
 */
 class Track{
-    QString name;
-    QString artist;
-    double duration;
-    QDateTime playedAt;
-    QString linkID;
+    QString name; ///< the song name of the track
+    QString artist; ///< the artist name of the track
+    double duration; ///< the duration of the track in (ms)
+    QDateTime playedAt; ///< the data when the song was played in 
+    QString linkID; ///< the link ID used for the uniquness of the song in Spotify
 public:
     Track(QString namesong, QString artist, double duration,
           QDateTime playedAt, QString linkID);

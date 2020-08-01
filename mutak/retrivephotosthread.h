@@ -49,8 +49,8 @@ class photoDownloader : public QObject{
   void downloaded();
 
  private:
-  QNetworkAccessManager m_WebCtrl;
-  QByteArray m_DownloadedData;
+  QNetworkAccessManager m_WebCtrl; ///< the gateway to the internet used to get the song's artwork
+  QByteArray m_DownloadedData; ///< the data retrieved
 };
 /**
  * A basic class that makes a thread for each photo retrive from servers.
@@ -60,11 +60,11 @@ class photoDownloader : public QObject{
  *  instantiates a photoDownloader object as a pointer
 */
 class retrivePhotosThread : public QThread{
-    photoDownloader * pd;
-    QString downloadLink;
-    WidgetItem * currentItem;
-    QByteArray downData;
-    QLabel * photo;
+    photoDownloader * pd; ///< a pointer to the core connection object photoDownloader
+    QString downloadLink; ///< the link that will be used for connection
+    WidgetItem * currentItem; ///< the current WidgetItem that will be used to display the photo/artwork in it 
+    QByteArray downData; ///< the retrieved data
+    QLabel * photo; ///< a pointer to a Label that can transform the raw data retrieved from internet to a actual photo
 public:
     retrivePhotosThread(QString t, WidgetItem * i);
     retrivePhotosThread(QString q, QLabel * p);

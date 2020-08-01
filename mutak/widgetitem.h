@@ -56,7 +56,7 @@ private slots:
     void on_playButton_clicked();
 private:
     QString convertToMin(int millsec);
-    Ui::WidgetItem *ui;
+    Ui::WidgetItem *ui; ///< the ui pointer to everything inside WidgetItem widgets only
 };
 
 #endif // WIDGETITEM_H
