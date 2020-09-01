@@ -60,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     //preparing the customization of widgets
     this->setWindowTitle("Mutak");
     ui->calendarWidget->setHidden(true);
+    this->setCalendarMarks();
     ui->navNext->setDisabled(true);
     ui->wait_label->setHidden(true);
     ui->wait_label2->setHidden(true);
@@ -119,6 +120,11 @@ MainWindow::~MainWindow(){
     delete timer;
 }
 
+void MainWindow :: setCalendarMarks(){
+    QTextCharFormat fmt;
+    fmt.setBackground(Qt::yellow);
+    ui->calendarWidget->setDateTextFormat(QDate(2020,9,1), fmt);
+}
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     QJsonObject root;
     QEventLoop loop; // to never quit the function untill the reply is finished
@@ -575,8 +581,10 @@ void MainWindow::on_confirm_clicked(){
 void MainWindow::on_nav_clicked(){
     if(ui->calendarWidget->isHidden() == true){
         ui->calendarWidget->setHidden(false);
+        ui->countText->setText("Note: yellow dates mean a play history is found");
     }else{
         ui->calendarWidget->setHidden(true);
+        ui->countText->setText("-");
     }
 }
 void MainWindow::on_today_clicked(){

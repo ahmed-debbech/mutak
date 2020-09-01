@@ -95,6 +95,7 @@ private slots:
     void auto_refresh();
 private:
     //private functions
+    void setCalendarMarks();
     void showSearchResult(vector<WidgetItem*> t);
     void getArtworks(vector<Track> t);
     void addToList(vector <Track> t);
