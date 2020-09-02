@@ -21,6 +21,7 @@
  */
 #include <QDesktopServices>
 #include <iostream>
+#include <dirent.h>
 #include <QOAuth2AuthorizationCodeFlow>
 #include <QMessageBox>
 #include <QtNetwork>
@@ -120,10 +121,28 @@ MainWindow::~MainWindow(){
     delete timer;
 }
 
+/**
+ * @brief MainWindow::setCalendarMarks responsible for coloring the date that have a play history
+ * in the database.
+ *
+ */
 void MainWindow :: setCalendarMarks(){
-    QTextCharFormat fmt;
-    fmt.setBackground(Qt::yellow);
-    ui->calendarWidget->setDateTextFormat(QDate(2020,9,1), fmt);
+    struct dirent *entry;
+    char * c = dbapi->getUserDir().dirName().toStdString().c_str();
+
+    /*cout<<c<<endl;
+
+    DIR *dir = opendir(c);
+    if (dir == NULL) {
+        return;
+    }
+    while ((entry = readdir(dir)) != NULL) {
+        cout << entry->d_name << endl;
+        QTextCharFormat fmt;
+        fmt.setBackground(Qt::yellow);
+        ui->calendarWidget->setDateTextFormat(QDate(2020,9,1), fmt);
+    }
+    closedir(dir);*/
 }
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     QJsonObject root;
