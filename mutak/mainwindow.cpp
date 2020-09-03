@@ -61,7 +61,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     //preparing the customization of widgets
     this->setWindowTitle("Mutak");
     ui->calendarWidget->setHidden(true);
-    this->setCalendarMarks();
     ui->navNext->setDisabled(true);
     ui->wait_label->setHidden(true);
     ui->wait_label2->setHidden(true);
@@ -128,21 +127,29 @@ MainWindow::~MainWindow(){
  */
 void MainWindow :: setCalendarMarks(){
     struct dirent *entry;
-    char * c = dbapi->getUserDir().dirName().toStdString().c_str();
-
-    /*cout<<c<<endl;
-
+    const char * c = dbapi->getUserDir().absolutePath().toStdString().c_str();
     DIR *dir = opendir(c);
     if (dir == NULL) {
         return;
     }
     while ((entry = readdir(dir)) != NULL) {
         cout << entry->d_name << endl;
-        QTextCharFormat fmt;
-        fmt.setBackground(Qt::yellow);
-        ui->calendarWidget->setDateTextFormat(QDate(2020,9,1), fmt);
+        vector<Track>v = dbapi->retriveFromDB(entry->d_name);
+        if(v.size()>0){
+            int y,m,d;
+            int i = 0, count =0;
+            while(entry->d_name[i] != '/0'){
+                if(count == 0){
+
+                }
+                i++;
+            }
+            QTextCharFormat fmt;
+            fmt.setBackground(Qt::yellow);
+            ui->calendarWidget->setDateTextFormat(QDate(2020,9,1), fmt);
+        }
     }
-    closedir(dir);*/
+    closedir(dir);
 }
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     QJsonObject root;
@@ -424,6 +431,9 @@ void MainWindow :: isGranted(){
             dbapi->prepareUserDir(root.value("id").toString());
             //check for files in the current sys date
             dbapi->prepareUserFiles(user->getId());
+            //color calendar
+            this->setCalendarMarks();
+
             this->setAutoRefreshTime();
             on_refresh_button_clicked();
         }else{
