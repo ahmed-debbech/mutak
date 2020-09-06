@@ -59,7 +59,8 @@ public:
     DatabaseAPI();
     void prepareUserDir(QString id);
     void prepareUserFiles(QString userID);
-
+    //misc
+    bool checkFileExistance(char *);
     //input/output from DB,it uses the private methodes below
     bool sendToDB(vector <Track> & t);
     vector<Track> retriveFromDB();

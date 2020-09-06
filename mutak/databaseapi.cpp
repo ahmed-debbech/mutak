@@ -208,7 +208,7 @@ void DatabaseAPI :: writeToOldDayFile(QString day, Track & t){
  * This is the main function that retreives data from database of a specefic day.
  * 
  * This method gets a date, first checks if the files of that date exists 
- * if not then the are no tracks for that day else it opens the file .mu and retrieves all the data
+ * if not then there are no tracks for that day else it opens the file .mu and retrieves all the data
  * This function is overloaded.
  * @param QString : the date in format (dd-mm-yyyy) which is the same as the file name (dd-mm-yyyy.mu)
  * @return returns std::vector<Track> full of all the tracks in the file
@@ -260,6 +260,26 @@ vector<Track> DatabaseAPI :: retriveFromDB(){
     }
     return t;
 }
+//====================== MISC ======================================
+/**
+ * @brief DatabaseAPI::checkFileExistance checks if a files exists
+ * @param char * : the name of the file specified
+ * @return bool : yes or no
+ */
+bool DatabaseAPI :: checkFileExistance(char *a){
+   QFile file(a);
+    if(file.exists() == true){
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text) == true){
+            cout << "exists" << "\n";
+            userFiles.close();
+            return true;
+        }else{
+            cout << "wrong";
+        }
+    }
+    return false;
+}
+
 //=====================PRV METHODES ============================
 /**
  * This function is used as a core function of retriveFroDB() that reads structurally the content of the file.
