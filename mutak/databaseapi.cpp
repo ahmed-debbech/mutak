@@ -267,14 +267,12 @@ vector<Track> DatabaseAPI :: retriveFromDB(){
  * @return bool : yes or no
  */
 bool DatabaseAPI :: checkFileExistance(char *a){
-   QFile file(a);
+    QString ff = userDirName + a;
+   QFile file(ff);
     if(file.exists() == true){
         if(file.open(QIODevice::ReadOnly | QIODevice::Text) == true){
-            cout << "exists" << "\n";
             userFiles.close();
             return true;
-        }else{
-            cout << "wrong";
         }
     }
     return false;

@@ -137,10 +137,9 @@ void MainWindow :: setCalendarMarks(){
         if(dbapi->checkFileExistance(entry->d_name) == true){
             int y,m,d;
             sscanf(entry->d_name,"%d-%d-%d.mu", &d,&m,&y);
-            cout << "bobo" << d << m << y;
             QTextCharFormat fmt;
             fmt.setBackground(Qt::yellow);
-            ui->calendarWidget->setDateTextFormat(QDate(2020,9,1), fmt);
+            ui->calendarWidget->setDateTextFormat(QDate(y,m,d), fmt);
         }
     }
     closedir(dir);
