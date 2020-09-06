@@ -424,8 +424,6 @@ void MainWindow :: isGranted(){
             dbapi->prepareUserDir(root.value("id").toString());
             //check for files in the current sys date
             dbapi->prepareUserFiles(user->getId());
-            //color calendar
-            this->setCalendarMarks();
 
             this->setAutoRefreshTime();
             on_refresh_button_clicked();
@@ -603,6 +601,9 @@ void MainWindow::on_confirm_clicked(){
 void MainWindow::on_nav_clicked(){
     if(ui->calendarWidget->isHidden() == true){
         ui->calendarWidget->setHidden(false);
+        //color calendar
+        this->setCalendarMarks();
+
         ui->countText->setText("Note: yellow dates mean a play history is found");
     }else{
         ui->calendarWidget->setHidden(true);
