@@ -607,6 +607,18 @@ text-align: center;</string>
          <widget class="QListWidget" name="search_list"/>
         </item>
         <item>
+         <widget class="QLabel" name="date_ind">
+          <property name="styleSheet">
+           <string notr="true">color: white;
+font: bold 12px;
+text-align: center;</string>
+          </property>
+          <property name="text">
+           <string>Date of today</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QListWidget" name="listWidget">
           <property name="styleSheet">
            <string notr="true"/>

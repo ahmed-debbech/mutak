@@ -58,6 +58,8 @@ public:
     Ui::MainWindow * getUi(){ return ui;}
     void checkForInternet();
     QJsonObject  getFromEndPoint(const QUrl&);
+    QString convertDateToQString(QDate);
+    QString convertDateToQString(int day, int month, int year);
     void dataToTracksObjects(QJsonObject &);
     ~MainWindow();
 private slots:

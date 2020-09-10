@@ -82,6 +82,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     local.date().getDate( &y, &m, &d);
     QDate q; q.setDate(y,m,d);
     ui->calendarWidget->setMaximumDate(q);
+    //set date for date indicator
+    QString str = this->convertDateToQString(q);
+    ui->date_ind->setText("These are the songs for: " + str);
     this->currentPageDate = local.date();
     QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
 
@@ -143,6 +146,12 @@ void MainWindow :: setCalendarMarks(){
         }
     }
     closedir(dir);
+}
+QString MainWindow :: convertDateToQString(int day, int month, int year){
+
+}
+QString MainWindow :: convertDateToQString(QDate q){
+
 }
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     QJsonObject root;
