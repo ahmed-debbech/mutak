@@ -147,10 +147,63 @@ void MainWindow :: setCalendarMarks(){
     }
     closedir(dir);
 }
-QString MainWindow :: convertDateToQString(int day, int month, int year){
+/**
+ * @brief MainWindow::convertDateToQString this converts a QDate to a string of a passed date
+ * @param QDate this is the date that will be converted
+ * @return QString a string respresenting the result.
+ */
+QString MainWindow :: convertDateToQString(QDate q){
+    QString res;
+    res = res + QString::number(q.day());
+    res += " ";
+    switch(q.month()){
+        case 1: res += "January"; break;
+        case 2: res += "Februrary"; break;
+        case 3: res += "March"; break;
+        case 4: res += "April"; break;
+        case 5: res += "May"; break;
+        case 6: res += "June"; break;
+        case 7: res += "July"; break;
+        case 8: res += "August"; break;
+        case 9: res += "Septembre"; break;
+        case 10: res += "Octobre"; break;
+        case 11: res += "Novembre"; break;
+         case 12: res += "Decembre"; break;
+    }
+    res += " ";
+    res += QString::number(q.year());
+    return res;
 
 }
-QString MainWindow :: convertDateToQString(QDate q){
+/**
+ * @brief MainWindow::convertDateToQString this converts a date in integers to a string of a passed date
+ * This is an overloaded method
+ * @param int denoting the day number
+ * @param int denoting the month number
+ * @param int denoting the year number
+ * @return QString a string respresenting the result.
+ */
+QString MainWindow :: convertDateToQString(int d, int m, int y){
+    QString res;
+    res = res + QString::number(d);
+    res += " ";
+    switch(m){
+        case 1: res += "January"; break;
+        case 2: res += "Februrary"; break;
+        case 3: res += "March"; break;
+        case 4: res += "April"; break;
+        case 5: res += "May"; break;
+        case 6: res += "June"; break;
+        case 7: res += "July"; break;
+        case 8: res += "August"; break;
+        case 9: res += "Septembre"; break;
+        case 10: res += "Octobre"; break;
+        case 11: res += "Novembre"; break;
+         case 12: res += "Decembre"; break;
+    }
+    res += " ";
+    res += QString::number(y);
+    return res;
 
 }
 QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
@@ -507,6 +560,7 @@ void MainWindow::on_refresh_button_clicked(){
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
     int y,m,d;
     local.date().getDate( &y, &m, &d);
+    ui->date_ind->setText("These are the songs for: " + this->convertDateToQString(d,m,y));
     QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
     ui->dateName->setText(h);
     try{
@@ -590,7 +644,10 @@ void MainWindow::on_confirm_clicked(){
     ui->stop_button->setHidden(false);
     ui->search_button->setDisabled(true);
     try{
+        int d,m,y;
         vector <Track> t = dbapi->retriveFromDB(ui->dateName->text()+".mu");
+        sscanf(ui->dateName->text().toStdString().c_str(),"%d-%d-%d", &d,&m,&y);
+        ui->date_ind->setText("These are the songs for: " + this->convertDateToQString(d,m,y));
         this->addToList(t);
     }catch(QString s){
         ui->refresh_button->setHidden(false);

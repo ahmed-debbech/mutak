@@ -59,7 +59,7 @@ public:
     void checkForInternet();
     QJsonObject  getFromEndPoint(const QUrl&);
     QString convertDateToQString(QDate);
-    QString convertDateToQString(int day, int month, int year);
+    QString convertDateToQString(int, int, int);
     void dataToTracksObjects(QJsonObject &);
     ~MainWindow();
 private slots:
