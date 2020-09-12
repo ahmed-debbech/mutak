@@ -22,6 +22,10 @@
 #include <QDesktopServices>
 #include <iostream>
 #include <dirent.h>
+#include <windows.h>
+#include <wincred.h>
+#include <tchar.h>
+
 #include <QOAuth2AuthorizationCodeFlow>
 #include <QMessageBox>
 #include <QtNetwork>
@@ -109,11 +113,16 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->github->setIcon(QPixmap("://resources/github.png"));
  //end init about section
 
-    //start authorization stuff..
-    auth.setValues();
-    auth.connectToBrowser();
-    connect(auth.getAuthObject(), &QOAuth2AuthorizationCodeFlow::granted,
-                this, &MainWindow::isGranted);
+    //check if mutak remembers the user from vault
+    if(this->restoreTokens() == true){
+        cout << "theres stored";
+    }else{
+        //else start authorization stuff..
+        auth.setValues();
+        auth.connectToBrowser();
+        connect(auth.getAuthObject(), &QOAuth2AuthorizationCodeFlow::granted,
+                    this, &MainWindow::isGranted);
+    }
 }
 
 MainWindow::~MainWindow(){
@@ -462,15 +471,46 @@ void MainWindow::addToList(vector <Track> t){
         ui->navNext->setEnabled(true);
     }
 }
+/**
+ * @brief MainWindow::storeTokens it stores tokens in Windows Credential Manager for remmbering the user each time he/she logins
+ * @param token the access token to be stored
+ * @param ref the refresh for access token
+ */
+void MainWindow :: storeTokens(QString token, QString ref){
+    char* password;
+    strcmp(password,token.toStdString().c_str());
+    DWORD cbCreds = 1 + strlen(password);
 
+    CREDENTIALW cred = {0};
+    cred.Type = CRED_TYPE_GENERIC;
+    cred.TargetName = L"Mutak for Spotify";
+    cred.CredentialBlobSize = cbCreds;
+    cred.CredentialBlob = (LPBYTE)password;
+    cred.Persist = CRED_PERSIST_LOCAL_MACHINE;
+    cred.UserName = L"user";
 
-
+    BOOL ok = ::CredWriteW(&cred, 0);
+    if(ok == 1){
+        cout << "registered" << endl;
+    }
+}
+bool MainWindow :: restoreTokens(){
+    PCREDENTIALW pcred;
+    BOOL ok = ::CredReadW (L"Mutak for Spotify", CRED_TYPE_GENERIC, 0, &pcred);
+    if(ok == 1){
+        auth.getAuthObject()->setToken(QString::fromWCharArray(pcred->CredentialBlob));
+        // must free memory allocated by CredRead()!
+        ::CredFree (pcred);
+        return true;
+    }
+    return false;
+}
 //=================================SIGNALS=======================================
 void MainWindow :: isGranted(){
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
         QString Token = auth.getAuthObject()->token();
         QString refToken = auth.getAuthObject()->refreshToken();
-
+        this->storeTokens(Token,refToken);
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me"));
         if(root.empty() == false){
             //passing to the next interface after login
