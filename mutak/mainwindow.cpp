@@ -114,15 +114,22 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
  //end init about section
 
     //check if mutak remembers the user from vault
-    if(this->restoreTokens() == true){
-        cout << "theres stored";
+    bool k = this->restoreTokens();
+    if(k == true){
+        cout << "theres stored\n";
+        auth.setValues();
+        auth.connectToBrowser();
+        connect(auth.getAuthObject(), &QOAuth2AuthorizationCodeFlow::granted,
+                    this, &MainWindow::isGranted);
     }else{
         //else start authorization stuff..
+        cout << "false\n";
         auth.setValues();
         auth.connectToBrowser();
         connect(auth.getAuthObject(), &QOAuth2AuthorizationCodeFlow::granted,
                     this, &MainWindow::isGranted);
     }
+    cout << "ggg";
 }
 
 MainWindow::~MainWindow(){
@@ -477,14 +484,15 @@ void MainWindow::addToList(vector <Track> t){
  * @param ref the refresh for access token
  */
 void MainWindow :: storeTokens(QString token, QString ref){
-    char* password;
-    strcmp(password,token.toStdString().c_str());
+    char * password;
+    strcpy(password,token.toStdString().c_str());
     DWORD cbCreds = 1 + strlen(password);
 
     CREDENTIALW cred = {0};
     cred.Type = CRED_TYPE_GENERIC;
     cred.TargetName = L"Mutak for Spotify";
     cred.CredentialBlobSize = cbCreds;
+    printf("%s",password);
     cred.CredentialBlob = (LPBYTE)password;
     cred.Persist = CRED_PERSIST_LOCAL_MACHINE;
     cred.UserName = L"user";
@@ -498,7 +506,14 @@ bool MainWindow :: restoreTokens(){
     PCREDENTIALW pcred;
     BOOL ok = ::CredReadW (L"Mutak for Spotify", CRED_TYPE_GENERIC, 0, &pcred);
     if(ok == 1){
-        auth.getAuthObject()->setToken(QString::fromWCharArray(pcred->CredentialBlob));
+        cout << "it is pkay\n";
+        QString cv=""; int i=0;
+        cout <<"fff: " << (char*)pcred->CredentialBlob;
+        do{
+            cv += pcred->CredentialBlob[i];
+            i++;
+        }while(i <= pcred->CredentialBlobSize);
+        auth.setValues(cv);
         // must free memory allocated by CredRead()!
         ::CredFree (pcred);
         return true;

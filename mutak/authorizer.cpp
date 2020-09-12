@@ -20,6 +20,7 @@
     SOFTWARE.
  */
 #include "authorizer.h"
+#include <iostream>
 #include <QOAuthHttpServerReplyHandler>
 #include <QDesktopServices>
 #include <QObject>
@@ -41,6 +42,29 @@ void Authorizer :: setValues(){
     spotify.setReplyHandler(replyHandler);
     spotify.setAuthorizationUrl(QUrl("https://accounts.spotify.com/authorize"));
     spotify.setAccessTokenUrl(QUrl("https://accounts.spotify.com/api/token"));
+    spotify.setClientIdentifier(clientID);
+    spotify.setClientIdentifierSharedKey(clientSecret);
+    spotify.setScope("user-read-private user-read-recently-played");
+}
+/**
+ * This method is part of Authorizer class, it sets the values for the QOAuth2AuthorizationCodeFlow object attribute
+ * before starting the connection of authorization by setting the token manually from windows Credential manager.
+ * This is an overloaded method.
+*/
+void Authorizer :: setValues(QString token){
+    /*auto replyHandler = new QOAuthHttpServerReplyHandler(80, this);
+    replyHandler->setCallbackPath("cb");
+    spotify.setReplyHandler(replyHandler);*/
+    //spotify.setAuthorizationUrl(QUrl("https://accounts.spotify.com/authorize"));
+    //spotify.setAccessTokenUrl(QUrl("https://accounts.spotify.com/api/token"));
+    spotify.setToken(token);
+    switch(spotify.status()){
+        case QAbstractOAuth::Status::NotAuthenticated: std::cout << "WING:"<<0; break;
+    case QAbstractOAuth::Status::TemporaryCredentialsReceived: std::cout << "WING:"<<1;  break;
+    case QAbstractOAuth::Status::Granted	:std::cout << "WING:"<<2;  break;
+    case QAbstractOAuth::Status::RefreshingToken: std::cout << "WING:"<< 3;  break;
+    }
+
     spotify.setClientIdentifier(clientID);
     spotify.setClientIdentifierSharedKey(clientSecret);
     spotify.setScope("user-read-private user-read-recently-played");
