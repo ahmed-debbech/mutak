@@ -31,6 +31,7 @@
 #include <QtNetwork>
 #include <QStringRef>
 #include <QPixmap>
+#include <QDebug>
 #include <QListWidgetItem>
 #include <QWidget>
 #include <QDateTime>
@@ -116,20 +117,18 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     //check if mutak remembers the user from vault
     bool k = this->restoreTokens();
     if(k == true){
-        cout << "theres stored\n";
-        auth.setValues();
-        auth.connectToBrowser();
-        connect(auth.getAuthObject(), &QOAuth2AuthorizationCodeFlow::granted,
-                    this, &MainWindow::isGranted);
+        //passing to the next interface after login
+        ui->wait_label->setHidden(true);
+        this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
+        this->windowsCursor.currentWindowIndex = 1;
+        ui->stackedWidget->setCurrentIndex(1);
     }else{
         //else start authorization stuff..
-        cout << "false\n";
         auth.setValues();
         auth.connectToBrowser();
         connect(auth.getAuthObject(), &QOAuth2AuthorizationCodeFlow::granted,
                     this, &MainWindow::isGranted);
     }
-    cout << "ggg";
 }
 
 MainWindow::~MainWindow(){
@@ -233,6 +232,8 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
 
     connect(reply, &QNetworkReply::finished, [&root, reply, this]() { //this is a lambda fun
         if (reply->error() != QNetworkReply::NoError) {
+            QByteArray data = reply->readAll();
+            cout << data.toStdString();
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("An error occured while retriving data from server!"), QMessageBox::Ok);
         }else{
@@ -492,7 +493,7 @@ void MainWindow :: storeTokens(QString token, QString ref){
     cred.Type = CRED_TYPE_GENERIC;
     cred.TargetName = L"Mutak for Spotify";
     cred.CredentialBlobSize = cbCreds;
-    printf("%s",password);
+    printf("%s\n",password);
     cred.CredentialBlob = (LPBYTE)password;
     cred.Persist = CRED_PERSIST_LOCAL_MACHINE;
     cred.UserName = L"user";
@@ -512,8 +513,9 @@ bool MainWindow :: restoreTokens(){
         do{
             cv += pcred->CredentialBlob[i];
             i++;
-        }while(i <= pcred->CredentialBlobSize);
-        auth.setValues(cv);
+        }while(i < pcred->CredentialBlobSize);
+        cout << cv.toStdString() << "\n";
+        this->auth.setValues(cv);
         // must free memory allocated by CredRead()!
         ::CredFree (pcred);
         return true;

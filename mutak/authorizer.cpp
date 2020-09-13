@@ -52,11 +52,11 @@ void Authorizer :: setValues(){
  * This is an overloaded method.
 */
 void Authorizer :: setValues(QString token){
-    /*auto replyHandler = new QOAuthHttpServerReplyHandler(80, this);
+    auto replyHandler = new QOAuthHttpServerReplyHandler(80, this);
     replyHandler->setCallbackPath("cb");
-    spotify.setReplyHandler(replyHandler);*/
-    //spotify.setAuthorizationUrl(QUrl("https://accounts.spotify.com/authorize"));
-    //spotify.setAccessTokenUrl(QUrl("https://accounts.spotify.com/api/token"));
+    spotify.setReplyHandler(replyHandler);
+    spotify.setAuthorizationUrl(QUrl("https://accounts.spotify.com/authorize"));
+    spotify.setAccessTokenUrl(QUrl("https://accounts.spotify.com/api/token"));
     spotify.setToken(token);
     switch(spotify.status()){
         case QAbstractOAuth::Status::NotAuthenticated: std::cout << "WING:"<<0; break;
