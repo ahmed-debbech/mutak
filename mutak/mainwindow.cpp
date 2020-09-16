@@ -122,6 +122,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
         this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
         this->windowsCursor.currentWindowIndex = 1;
         ui->stackedWidget->setCurrentIndex(1);
+        this->isGranted();
     }else{
         //else start authorization stuff..
         auth.setValues();
@@ -233,7 +234,7 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     connect(reply, &QNetworkReply::finished, [&root, reply, this]() { //this is a lambda fun
         if (reply->error() != QNetworkReply::NoError) {
             QByteArray data = reply->readAll();
-            cout << data.toStdString();
+            qDebug() <<"THIS IS ERROR: " << data;
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr("An error occured while retriving data from server!"), QMessageBox::Ok);
         }else{
@@ -491,7 +492,7 @@ void MainWindow :: storeTokens(QString token, QString ref){
 
     CREDENTIALW cred = {0};
     cred.Type = CRED_TYPE_GENERIC;
-    cred.TargetName = L"Mutak for Spotify";
+    cred.TargetName = L"Mutak for Spotify 1";
     cred.CredentialBlobSize = cbCreds;
     printf("%s\n",password);
     cred.CredentialBlob = (LPBYTE)password;
@@ -500,22 +501,43 @@ void MainWindow :: storeTokens(QString token, QString ref){
 
     BOOL ok = ::CredWriteW(&cred, 0);
     if(ok == 1){
-        cout << "registered" << endl;
+        cout << "registered access token" << endl;
+    }
+
+    char * refresh;
+    strcpy(password,token.toStdString().c_str());
+    cbCreds = 1 + strlen(refresh);
+
+    cred.Type = CRED_TYPE_GENERIC;
+    cred.TargetName = L"Mutak for Spotify 2";
+    cred.CredentialBlobSize = cbCreds;
+    printf("%s\n",refresh);
+    cred.CredentialBlob = (LPBYTE)password;
+    cred.Persist = CRED_PERSIST_LOCAL_MACHINE;
+    cred.UserName = L"user";
+
+    ok = ::CredWriteW(&cred, 0);
+    if(ok == 1){
+        cout << "registered refresh token" << endl;
     }
 }
 bool MainWindow :: restoreTokens(){
     PCREDENTIALW pcred;
-    BOOL ok = ::CredReadW (L"Mutak for Spotify", CRED_TYPE_GENERIC, 0, &pcred);
-    if(ok == 1){
-        cout << "it is pkay\n";
-        QString cv=""; int i=0;
-        cout <<"fff: " << (char*)pcred->CredentialBlob;
+    PCREDENTIALW pcred1;
+    BOOL ok = ::CredReadW (L"Mutak for Spotify 1", CRED_TYPE_GENERIC, 0, &pcred);
+    BOOL okk = ::CredReadW (L"Mutak for Spotify 2", CRED_TYPE_GENERIC, 0, &pcred1);
+    if(ok == 1 && okk == 1){
+        QString cv="", ref=""; int i=0;
         do{
             cv += pcred->CredentialBlob[i];
             i++;
         }while(i < pcred->CredentialBlobSize);
-        cout << cv.toStdString() << "\n";
-        this->auth.setValues(cv);
+        i=0;
+        do{
+            ref += pcred1->CredentialBlob[i];
+            i++;
+        }while(i < pcred1->CredentialBlobSize);
+        this->auth.setValues(cv, ref);
         // must free memory allocated by CredRead()!
         ::CredFree (pcred);
         return true;

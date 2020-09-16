@@ -50,14 +50,17 @@ void Authorizer :: setValues(){
  * This method is part of Authorizer class, it sets the values for the QOAuth2AuthorizationCodeFlow object attribute
  * before starting the connection of authorization by setting the token manually from windows Credential manager.
  * This is an overloaded method.
+ * @param QString token: the access token to be set.
+ * @param QString ref: the refresh token
 */
-void Authorizer :: setValues(QString token){
+void Authorizer :: setValues(QString token, QString ref){
     auto replyHandler = new QOAuthHttpServerReplyHandler(80, this);
     replyHandler->setCallbackPath("cb");
     spotify.setReplyHandler(replyHandler);
     spotify.setAuthorizationUrl(QUrl("https://accounts.spotify.com/authorize"));
     spotify.setAccessTokenUrl(QUrl("https://accounts.spotify.com/api/token"));
     spotify.setToken(token);
+    spotify.setRefreshToken(ref);
     switch(spotify.status()){
         case QAbstractOAuth::Status::NotAuthenticated: std::cout << "WING:"<<0; break;
     case QAbstractOAuth::Status::TemporaryCredentialsReceived: std::cout << "WING:"<<1;  break;
