@@ -403,7 +403,6 @@ void MainWindow::getArtworks(vector<Track> t){
         if(theresInternet == true){
             runningWeb = true;
             QString link = t[i-1].getID();
-            qDebug() << stopOnClose;
             if(stopOnClose == false){
             //request the image of each track
             QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+link));
@@ -485,68 +484,49 @@ void MainWindow::addToList(vector <Track> t){
 /**
  * @brief MainWindow::storeTokens it stores tokens in Windows Credential Manager for remmbering the user each time he/she logins
  * @param token the access token to be stored
- * @param ref the refresh for access token
  */
-void MainWindow :: storeTokens(QString token, QString ref){
-    char * password;
+void MainWindow :: storeTokens(QString token){
+    char password[1024];
+    qDebug () << "erfij" ;
     strcpy(password,token.toStdString().c_str());
-    DWORD cbCreds = strlen(password);
+    qDebug () << "erfi0000j" ;
 
-    CREDENTIALW cred = {0};
+    DWORD cbCreds = (DWORD)strlen(password);
+    qDebug () << "1111erfij" ;
+
+    CREDENTIALW cred;
     cred.Type = CRED_TYPE_GENERIC;
-    cred.TargetName = L"Mutak for Spotify 1";
+    wchar_t *target = nullptr;
+    MultiByteToWideChar( CP_UTF8 , 0 , "Mutak for Spotify 1" , -1, target , 0 );
+    cred.TargetName = target;
     cred.CredentialBlobSize = cbCreds;
-    printf("%s\n",password);
     cred.CredentialBlob = (LPBYTE)password;
     cred.Persist = CRED_PERSIST_LOCAL_MACHINE;
-    cred.UserName = L"user";
-
+    wchar_t *user = nullptr;
+    MultiByteToWideChar( CP_UTF8 , 0 , "user" , -1, user , 0 );
+    cred.UserName = user;
+qDebug () << user ;
+qDebug () << "boboboob" ;
     BOOL ok = ::CredWriteW(&cred, 0);
     if(ok == 1){
-        cout << "registered access token" << endl;
-    }
-
-    char * refresh;
-    strcpy(password,token.toStdString().c_str());
-    cbCreds =  strlen(refresh);
-
-    cred.Type = CRED_TYPE_GENERIC;
-    cred.TargetName = L"Mutak for Spotify 2";
-    cred.CredentialBlobSize = cbCreds;
-    printf("%s\n",refresh);
-    cred.CredentialBlob = (LPBYTE)password;
-    cred.Persist = CRED_PERSIST_LOCAL_MACHINE;
-    cred.UserName = L"user";
-
-    ok = ::CredWriteW(&cred, 0);
-    if(ok == 1){
-        cout << "registered refresh token" << endl;
+        qDebug() << "registered access token" << endl;
     }
 }
 bool MainWindow :: restoreTokens(){
     PCREDENTIALW pcred;
-    PCREDENTIALW pcred1;
     BOOL ok = ::CredReadW (L"Mutak for Spotify 1", CRED_TYPE_GENERIC, 0, &pcred);
-    BOOL okk = ::CredReadW (L"Mutak for Spotify 2", CRED_TYPE_GENERIC, 0, &pcred1);
-    if(ok == 1 && okk == 1){
+    if(ok == 1){
         QString cv="", ref=""; int i=0;
         do{
             cv += pcred->CredentialBlob[i];
             i++;
         }while(i < pcred->CredentialBlobSize);
-        i=0;
-        do{
-            ref += pcred1->CredentialBlob[i];
-            i++;
-        }while(i < pcred1->CredentialBlobSize);
-        qDebug() << "REF: " << ref << "\n";
         qDebug() << "ACC: " << cv << "\n";
-        this->auth.setValues(cv, ref);
+        this->auth.setValues(cv);
         // must free memory allocated by CredRead()!
         ::CredFree (pcred);
         return true;
     }
-    qDebug() << "wrong";
     return false;
 }
 //=================================SIGNALS=======================================
@@ -554,7 +534,7 @@ void MainWindow :: isGranted(){
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
         QString Token = auth.getAuthObject()->token();
         QString refToken = auth.getAuthObject()->refreshToken();
-        this->storeTokens(Token,refToken);
+        this->storeTokens(Token);
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me"));
         if(root.empty() == false){
             //passing to the next interface after login

@@ -49,7 +49,7 @@ class Authorizer : public QObject{
 public:
     Authorizer();
     void setValues();
-    void setValues(QString, QString);
+    void setValues(QString);
     void connectToBrowser();
     QOAuth2AuthorizationCodeFlow * getAuthObject();
 };

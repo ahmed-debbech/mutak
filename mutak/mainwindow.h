@@ -61,7 +61,7 @@ public:
     QString convertDateToQString(QDate);
     QString convertDateToQString(int, int, int);
     void dataToTracksObjects(QJsonObject &);
-    void storeTokens(QString, QString);
+    void storeTokens(QString);
     bool restoreTokens();
     ~MainWindow();
 private slots:
