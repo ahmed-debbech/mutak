@@ -113,7 +113,10 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->linkedin->setIcon(QPixmap("://resources/linkedin.png"));
     ui->github->setIcon(QPixmap("://resources/github.png"));
  //end init about section
-
+   /*auth.setValues();
+    auth.connectToBrowser();
+    connect(auth.getAuthObject(), &QOAuth2AuthorizationCodeFlow::granted,
+                this, &MainWindow::isGranted);*/
     //check if mutak remembers the user from vault
     bool k = this->restoreTokens();
     if(k == true){
@@ -122,7 +125,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
         this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
         this->windowsCursor.currentWindowIndex = 1;
         ui->stackedWidget->setCurrentIndex(1);
-        this->isGranted();
+        auth.getAuthObject()->grant();
     }else{
         //else start authorization stuff..
         auth.setValues();
@@ -458,7 +461,6 @@ void MainWindow::addToList(vector <Track> t){
     ui->search_button->setDisabled(false);
     ui->stop_button->setHidden(true);
     ui->listWidget->setCursor(QCursor(Qt::ArrowCursor));
-
     //get the local date and time in sys
     QDateTime UTC(QDateTime::currentDateTimeUtc());
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
@@ -488,7 +490,7 @@ void MainWindow::addToList(vector <Track> t){
 void MainWindow :: storeTokens(QString token, QString ref){
     char * password;
     strcpy(password,token.toStdString().c_str());
-    DWORD cbCreds = 1 + strlen(password);
+    DWORD cbCreds = strlen(password);
 
     CREDENTIALW cred = {0};
     cred.Type = CRED_TYPE_GENERIC;
@@ -506,7 +508,7 @@ void MainWindow :: storeTokens(QString token, QString ref){
 
     char * refresh;
     strcpy(password,token.toStdString().c_str());
-    cbCreds = 1 + strlen(refresh);
+    cbCreds =  strlen(refresh);
 
     cred.Type = CRED_TYPE_GENERIC;
     cred.TargetName = L"Mutak for Spotify 2";
@@ -537,11 +539,14 @@ bool MainWindow :: restoreTokens(){
             ref += pcred1->CredentialBlob[i];
             i++;
         }while(i < pcred1->CredentialBlobSize);
+        qDebug() << "REF: " << ref << "\n";
+        qDebug() << "ACC: " << cv << "\n";
         this->auth.setValues(cv, ref);
         // must free memory allocated by CredRead()!
         ::CredFree (pcred);
         return true;
     }
+    qDebug() << "wrong";
     return false;
 }
 //=================================SIGNALS=======================================
