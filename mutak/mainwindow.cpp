@@ -487,26 +487,15 @@ void MainWindow::addToList(vector <Track> t){
  */
 void MainWindow :: storeTokens(QString token){
     char password[1024];
-    qDebug () << "erfij" ;
     strcpy(password,token.toStdString().c_str());
-    qDebug () << "erfi0000j" ;
-
     DWORD cbCreds = (DWORD)strlen(password);
-    qDebug () << "1111erfij" ;
-
-    CREDENTIALW cred;
+    CREDENTIALW cred ={0};
     cred.Type = CRED_TYPE_GENERIC;
-    wchar_t *target = nullptr;
-    MultiByteToWideChar( CP_UTF8 , 0 , "Mutak for Spotify 1" , -1, target , 0 );
-    cred.TargetName = target;
+    cred.TargetName = L"Mutak for Spotify 1\0";
     cred.CredentialBlobSize = cbCreds;
     cred.CredentialBlob = (LPBYTE)password;
     cred.Persist = CRED_PERSIST_LOCAL_MACHINE;
-    wchar_t *user = nullptr;
-    MultiByteToWideChar( CP_UTF8 , 0 , "user" , -1, user , 0 );
-    cred.UserName = user;
-qDebug () << user ;
-qDebug () << "boboboob" ;
+    cred.UserName = L"user";
     BOOL ok = ::CredWriteW(&cred, 0);
     if(ok == 1){
         qDebug() << "registered access token" << endl;
