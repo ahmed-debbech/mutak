@@ -113,10 +113,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->linkedin->setIcon(QPixmap("://resources/linkedin.png"));
     ui->github->setIcon(QPixmap("://resources/github.png"));
  //end init about section
-   /*auth.setValues();
-    auth.connectToBrowser();
-    connect(auth.getAuthObject(), &QOAuth2AuthorizationCodeFlow::granted,
-                this, &MainWindow::isGranted);*/
+
     //check if mutak remembers the user from vault
     bool k = this->restoreTokens();
     if(k == true){
@@ -126,6 +123,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
         this->windowsCursor.currentWindowIndex = 1;
         ui->stackedWidget->setCurrentIndex(1);
         auth.getAuthObject()->grant();
+        this->isAlreadyGranted();
     }else{
         //else start authorization stuff..
         auth.setValues();
@@ -485,7 +483,7 @@ void MainWindow::addToList(vector <Track> t){
  * @brief MainWindow::storeTokens it stores tokens in Windows Credential Manager for remmbering the user each time he/she logins
  * @param token the access token to be stored
  */
-void MainWindow :: storeTokens(QString token){
+void MainWindow :: storeTokens(QString token, QString ref){
     char password[1024];
     strcpy(password,token.toStdString().c_str());
     DWORD cbCreds = (DWORD)strlen(password);
@@ -500,30 +498,76 @@ void MainWindow :: storeTokens(QString token){
     if(ok == 1){
         qDebug() << "registered access token" << endl;
     }
-}
-bool MainWindow :: restoreTokens(){
-    PCREDENTIALW pcred;
-    BOOL ok = ::CredReadW (L"Mutak for Spotify 1", CRED_TYPE_GENERIC, 0, &pcred);
+    strcpy(password,ref.toStdString().c_str());
+    cbCreds = (DWORD)strlen(password);
+    cred ={0};
+    cred.Type = CRED_TYPE_GENERIC;
+    cred.TargetName = L"Mutak for Spotify 2\0";
+    cred.CredentialBlobSize = cbCreds;
+    cred.CredentialBlob = (LPBYTE)password;
+    cred.Persist = CRED_PERSIST_LOCAL_MACHINE;
+    cred.UserName = L"user";
+    ok = ::CredWriteW(&cred, 0);
     if(ok == 1){
+        qDebug() << "registered ref token" << endl;
+    }
+}
+/**
+ * @brief MainWindow::restoreTokens it rstores tokens from Windows Credential Manager to use it for authentication.
+ */
+bool MainWindow :: restoreTokens(){
+    PCREDENTIALW pcred, pcred1;
+    BOOL ok = ::CredReadW (L"Mutak for Spotify 1", CRED_TYPE_GENERIC, 0, &pcred);
+    BOOL ok1 = ::CredReadW (L"Mutak for Spotify 2", CRED_TYPE_GENERIC, 0, &pcred1);
+    if(ok == 1 && ok1 == 1){
         QString cv="", ref=""; int i=0;
         do{
             cv += pcred->CredentialBlob[i];
             i++;
         }while(i < pcred->CredentialBlobSize);
         qDebug() << "ACC: " << cv << "\n";
-        this->auth.setValues(cv);
+        i=0;
+        do{
+            ref += pcred1->CredentialBlob[i];
+            i++;
+        }while(i < pcred1->CredentialBlobSize);
+        qDebug() << "ACC: " << ref << "\n";
+        this->auth.setValues(cv, ref);
         // must free memory allocated by CredRead()!
         ::CredFree (pcred);
+        ::CredFree (pcred1);
         return true;
     }
     return false;
+}
+void MainWindow :: isAlreadyGranted(){
+        QString Token = auth.getAuthObject()->token();
+        QString refToken = auth.getAuthObject()->refreshToken();
+        QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me"));
+        if(root.empty() == false){
+            this->user = new User(root, Token, refToken);
+            this->user->printOnUI(this->getUi());
+
+            //check if the folder of user exists
+            dbapi->prepareUserDir(root.value("id").toString());
+            //check for files in the current sys date
+            dbapi->prepareUserFiles(user->getId());
+
+            this->setAutoRefreshTime();
+        }else{
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("Could not retrive account data."), QMessageBox::Ok);
+            this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
+            this->windowsCursor.currentWindowIndex = 0;
+            ui->stackedWidget->setCurrentIndex(0);
+        }
 }
 //=================================SIGNALS=======================================
 void MainWindow :: isGranted(){
     if(auth.getAuthObject()->status() == QAbstractOAuth::Status::Granted){
         QString Token = auth.getAuthObject()->token();
         QString refToken = auth.getAuthObject()->refreshToken();
-        this->storeTokens(Token);
+        this->storeTokens(Token, refToken);
         QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me"));
         if(root.empty() == false){
             //passing to the next interface after login

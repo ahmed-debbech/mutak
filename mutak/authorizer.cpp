@@ -53,20 +53,14 @@ void Authorizer :: setValues(){
  * @param QString token: the access token to be set.
  * @param QString ref: the refresh token
 */
-void Authorizer :: setValues(QString token){
+void Authorizer :: setValues(QString token, QString ref){
     auto replyHandler = new QOAuthHttpServerReplyHandler(80, this);
     replyHandler->setCallbackPath("cb");
     spotify.setReplyHandler(replyHandler);
     spotify.setAuthorizationUrl(QUrl("https://accounts.spotify.com/authorize"));
     spotify.setAccessTokenUrl(QUrl("https://accounts.spotify.com/api/token"));
     spotify.setToken(token);
-    switch(spotify.status()){
-        case QAbstractOAuth::Status::NotAuthenticated: std::cout << "WING:"<<0; break;
-    case QAbstractOAuth::Status::TemporaryCredentialsReceived: std::cout << "WING:"<<1;  break;
-    case QAbstractOAuth::Status::Granted	:std::cout << "WING:"<<2;  break;
-    case QAbstractOAuth::Status::RefreshingToken: std::cout << "WING:"<< 3;  break;
-    }
-
+    spotify.setRefreshToken(ref);
     spotify.setClientIdentifier(clientID);
     spotify.setClientIdentifierSharedKey(clientSecret);
     spotify.setScope("user-read-private user-read-recently-played");
