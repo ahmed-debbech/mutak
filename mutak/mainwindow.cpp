@@ -234,6 +234,8 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
 
     connect(reply, &QNetworkReply::finished, [&root, reply, this]() { //this is a lambda fun
         if (reply->error() != QNetworkReply::NoError) {
+            ::CredDeleteA("Mutak for Spotify 1", CRED_TYPE_GENERIC, 0);
+            ::CredDeleteA("Mutak for Spotify 2", CRED_TYPE_GENERIC, 0);
             QByteArray data = reply->readAll();
             qDebug() <<"THIS IS ERROR: " << data;
             QMessageBox::critical(nullptr, QObject::tr("Error"),
