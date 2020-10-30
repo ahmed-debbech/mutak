@@ -2,7 +2,8 @@
 
 <h1 align="center">Mutak : a Music Tracker for Spotify</h1>
 
-**Visit official website: [mutak.site](https://bit.ly/2WUHah8)**
+**Visit official website: [mutak.site](https://bit.ly/2WUHah8)** \
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 ### What is this?
 Mutak is a Windows desktop app and an Open Source project based on QT framework. \
 Have you ever loved song during its play on a specific playlist but you just missed its name after a while because you didn't press the heart button? \
