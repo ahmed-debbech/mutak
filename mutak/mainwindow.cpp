@@ -72,8 +72,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->stop_button->setHidden(true);
     ui->menuBar2->setHidden(true);
     ui->search_list->setHidden(true);
-     ui->search_tip->setHidden(true);
-
+    ui->search_tip->setHidden(true);
+    ui->tabWidget->setTabText(0,"All Songs");
+    ui->tabWidget->setTabText(1, "Songs out of your playlists");
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
     ui->listWidget->setStyleSheet("QListView::item:selected {background-image: #1db954; background-color: #1db954;padding: 0px;color: black;}\n"
                                   "QListView::item:hover{background-image: #202020; background-color: #202020;padding: 0px; color: black;}");

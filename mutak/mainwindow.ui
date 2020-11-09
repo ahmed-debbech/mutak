@@ -607,22 +607,46 @@ text-align: center;</string>
          <widget class="QListWidget" name="search_list"/>
         </item>
         <item>
-         <widget class="QLabel" name="date_ind">
-          <property name="styleSheet">
-           <string notr="true">color: white;
+         <widget class="QTabWidget" name="tabWidget">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="tab">
+           <attribute name="title">
+            <string>Tab 1</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_10">
+            <item>
+             <widget class="QLabel" name="date_ind">
+              <property name="styleSheet">
+               <string notr="true">color: white;
 font: bold 12px;
 text-align: center;</string>
-          </property>
-          <property name="text">
-           <string>Date of today</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QListWidget" name="listWidget">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
+              </property>
+              <property name="text">
+               <string>Date of today</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_9">
+              <item>
+               <widget class="QListWidget" name="listWidget"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_2">
+           <attribute name="title">
+            <string>Tab 2</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_12">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_11"/>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
         <item>
