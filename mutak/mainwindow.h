@@ -98,6 +98,8 @@ private slots:
     void on_gobackHelp_clicked();
     void delete_threads(retrivePhotosThread * i);
     void auto_refresh();
+    void on_tabWidget_currentChanged(int index);
+
 private:
     //private functions
     void setCalendarMarks();

@@ -47,6 +47,7 @@
 #include "ui_mainwindow.h"
 #include "authorizer.h"
 #include "exceptionerror.h"
+#include "playlistchecker.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this); // init all GUI
@@ -62,6 +63,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     //set signal to slots init
     connect(ui->search_text, &QLineEdit::textChanged, this, &MainWindow::refreshSearch);
     connect(ui->auto_refresh, &QComboBox::currentTextChanged, this, &MainWindow::changeValue);
+    connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(PlaylistChecker::onTabChanged(int)));
 
     //preparing the customization of widgets
     this->setWindowTitle("Mutak");
@@ -807,3 +809,10 @@ void MainWindow :: on_helpButton_clicked(){
     ui->stackedWidget->setCurrentIndex(5);
 }
 
+
+void MainWindow::on_tabWidget_currentChanged(int index){
+    if(index == 1){
+        PlaylistChecker pc;
+        std::cout << "ggggg";
+    }
+}
