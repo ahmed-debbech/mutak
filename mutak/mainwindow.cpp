@@ -649,6 +649,7 @@ void MainWindow::on_refresh_button_clicked(){
     ui->refresh_button->setHidden(true);
     ui->stop_button->setHidden(false);
     ui->search_button->setDisabled(true);
+    ui->tabWidget->setCurrentIndex(0);
     long int time = convertToMS(ui->auto_refresh->currentIndex());
     if(time != 0){
         timer->start(time);
