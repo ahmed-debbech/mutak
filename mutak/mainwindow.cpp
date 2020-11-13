@@ -813,6 +813,5 @@ void MainWindow :: on_helpButton_clicked(){
 void MainWindow::on_tabWidget_currentChanged(int index){
     if(index == 1){
         PlaylistChecker pc;
-        std::cout << "ggggg";
     }
 }
