@@ -27,6 +27,7 @@ void MainWindow::on_search_button_clicked(){
     ui->menuBar2->setHidden(false);
     ui->menuBar1->setHidden(true);
     ui->search_list->setHidden(false);
+    ui->tabWidget->setHidden(true);
     ui->listWidget->setHidden(true);
     ui->search_tip->setHidden(false);
     ui->search_tip->setText("Type in search bar for song/artist name");
@@ -37,6 +38,7 @@ void MainWindow::on_cancel_search_clicked(){
     ui->search_list->setHidden(true);
     ui->listWidget->setHidden(false);
     ui->search_tip->setHidden(true);
+    ui->tabWidget->setHidden(false);
 }
 void MainWindow::refreshSearch(){
     int index = ui->searchBy->currentIndex();
