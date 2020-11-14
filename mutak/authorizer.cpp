@@ -44,7 +44,7 @@ void Authorizer :: setValues(){
     spotify.setAccessTokenUrl(QUrl("https://accounts.spotify.com/api/token"));
     spotify.setClientIdentifier(clientID);
     spotify.setClientIdentifierSharedKey(clientSecret);
-    spotify.setScope("user-read-private user-read-recently-played");
+    spotify.setScope("user-read-private user-read-recently-played playlist-read-private playlist-read-collaborative");
 }
 /**
  * This method is part of Authorizer class, it sets the values for the QOAuth2AuthorizationCodeFlow object attribute

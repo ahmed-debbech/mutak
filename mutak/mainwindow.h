@@ -57,7 +57,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     Ui::MainWindow * getUi(){ return ui;}
     void checkForInternet();
-    QJsonObject  getFromEndPoint(const QUrl&);
+    QJsonObject static getFromEndPoint(Authorizer& , const QUrl&, User*);
     QString convertDateToQString(QDate);
     QString convertDateToQString(int, int, int);
     void dataToTracksObjects(QJsonObject &);

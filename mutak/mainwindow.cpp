@@ -226,7 +226,7 @@ QString MainWindow :: convertDateToQString(int d, int m, int y){
     return res;
 
 }
-QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
+QJsonObject MainWindow:: getFromEndPoint(Authorizer& auth, const QUrl &q, User *user){
     QJsonObject root;
     QEventLoop loop; // to never quit the function untill the reply is finished
     QTimer timer;    // timer for time out when no response
@@ -235,7 +235,7 @@ QJsonObject  MainWindow:: getFromEndPoint(const QUrl &q){
     connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
     connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
 
-    connect(reply, &QNetworkReply::finished, [&root, reply, this]() { //this is a lambda fun
+    connect(reply, &QNetworkReply::finished, [&root, reply]() { //this is a lambda fun
         if (reply->error() != QNetworkReply::NoError) {
             ::CredDeleteA("Mutak for Spotify 1", CRED_TYPE_GENERIC, 0);
             ::CredDeleteA("Mutak for Spotify 2", CRED_TYPE_GENERIC, 0);
@@ -408,7 +408,7 @@ void MainWindow::getArtworks(vector<Track> t){
             QString link = t[i-1].getID();
             if(stopOnClose == false){
             //request the image of each track
-            QJsonObject root = this->getFromEndPoint(QUrl("https://api.spotify.com/v1/tracks?ids="+link));
+            QJsonObject root = this->getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/tracks?ids="+link),user);
             root = (root.value("tracks").toArray().at(0)).toObject();
             root = root.value("album").toObject();
             QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
@@ -548,7 +548,7 @@ bool MainWindow :: restoreTokens(){
 void MainWindow :: isAlreadyGranted(){
         QString Token = auth.getAuthObject()->token();
         QString refToken = auth.getAuthObject()->refreshToken();
-        QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me"));
+        QJsonObject root = getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/me"),user);
         if(root.empty() == false){
             this->user = new User(root, Token, refToken);
             this->user->printOnUI(this->getUi());
@@ -573,7 +573,7 @@ void MainWindow :: isGranted(){
         QString Token = auth.getAuthObject()->token();
         QString refToken = auth.getAuthObject()->refreshToken();
         this->storeTokens(Token, refToken);
-        QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me"));
+        QJsonObject root = getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/me"),user);
         if(root.empty() == false){
             //passing to the next interface after login
             ui->wait_label->setHidden(true);
@@ -669,7 +669,7 @@ void MainWindow::on_refresh_button_clicked(){
     try{
         this->checkForInternet();
         ui->listWidget->clear();
-        QJsonObject root = getFromEndPoint(QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"));
+        QJsonObject root = getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"),user);
         this->dataToTracksObjects(root);
     }catch(exceptionError & e){
         QMessageBox::critical(nullptr, QObject::tr("Error"),
