@@ -64,6 +64,8 @@ public:
     void storeTokens(QString, QString);
     bool restoreTokens();
     void isAlreadyGranted();
+    Authorizer * getAuth(){return &auth;}
+    User * getUser(){return user;}
     ~MainWindow();
 private slots:
     void changeValue();

@@ -149,6 +149,12 @@ opacity: 0.7;
    </item>
    <item>
     <widget class="QComboBox" name="add_to_playlist">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>30</height>
+      </size>
+     </property>
      <property name="font">
       <font>
        <family>://resources/fonts/Gotham-UltraItalic.otf</family>
