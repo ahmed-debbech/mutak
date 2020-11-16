@@ -24,6 +24,7 @@ SOURCES += \
     helpwindow.cpp \
     main.cpp \
     mainwindow.cpp \
+    playlist.cpp \
     playlistchecker.cpp \
     retrivephotosthread.cpp \
     search.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     databaseapi.h \
     exceptionerror.h \
     mainwindow.h \
+    playlist.h \
     playlistchecker.h \
     retrivephotosthread.h \
     track.h \

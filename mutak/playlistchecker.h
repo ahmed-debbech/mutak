@@ -8,6 +8,7 @@ class PlaylistChecker{
     QJsonObject data;
 public:
     PlaylistChecker(Authorizer * auth, User * user);
+    void fetch();
 };
 
 #endif // PLAYLISTCHECKER_H
