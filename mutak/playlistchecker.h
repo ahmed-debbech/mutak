@@ -3,12 +3,17 @@
 
 #include "QJsonObject"
 #include "mainwindow.h"
+#include "playlist.h"
 
 class PlaylistChecker{
+private:
     QJsonObject data;
+    vector<Playlist> owned;
+
+    vector<Playlist> getOwnedPlaylists(QString);
 public:
     PlaylistChecker(Authorizer * auth, User * user);
-    void fetch();
+    void fetch(QString);
 };
 
 #endif // PLAYLISTCHECKER_H
