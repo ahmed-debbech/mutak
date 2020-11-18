@@ -41,9 +41,20 @@ void Playlist::setOwnerId(const QString &value)
     ownerId = value;
 }
 
-Playlist::Playlist(QString id, QString name, QString description, QString ownedId){
+vector<Track> Playlist::getTracks() const
+{
+    return tracks;
+}
+
+void Playlist::setTracks(const vector<Track> &value)
+{
+    tracks = value;
+}
+
+Playlist::Playlist(QString id, QString name, QString description, QString ownedId, vector<Track> v){
     this->id = id;
     this->name = name;
     this->ownerId = ownedId;
     this->description = description;
+    this->tracks = v;
 }

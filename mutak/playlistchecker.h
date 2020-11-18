@@ -9,7 +9,10 @@ class PlaylistChecker{
 private:
     QJsonObject data;
     vector<Playlist> owned;
+    User * user;
+    Authorizer * auth;
 
+    vector<Track> fetchTracks(QString, int);
     vector<Playlist> getOwnedPlaylists(QString);
 public:
     PlaylistChecker(Authorizer * auth, User * user);
