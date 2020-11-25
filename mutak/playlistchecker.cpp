@@ -5,9 +5,10 @@
 #include "playlist.h"
 #include "QJsonArray"
 
-PlaylistChecker::PlaylistChecker(Authorizer * auth, User * user){
+PlaylistChecker::PlaylistChecker(Authorizer * auth, User * user, DatabaseAPI *db){
     this->auth = auth;
     this->user = user;
+    this->db = db;
     data = MainWindow::getFromEndPoint(*auth,QUrl("https://api.spotify.com/v1/users/"+user->getId()+"/playlists?limit=50"),user);
     string strFromObj = QJsonDocument(data).toJson(QJsonDocument::Compact).toStdString().c_str();
     std::cout << strFromObj << std::endl;
@@ -67,13 +68,29 @@ vector<Track> PlaylistChecker::fetchTracks(QString url, int size){
     }
     return tracks;
 }
+bool PlaylistChecker :: compare(){
+    vector<Track> todaySongs = db->retriveFromDB();
+
+    for(int k=0; k<=todaySongs.size()-1; k++){
+        for(int i=0; i<=this->owned.size()-1; i++){
+            if(owned[i].getTracks().size() > 0){
+                for(int j=0; j<=owned[i].getTracks().size()-1; j++){
+                    if(owned[i].getTracks()[j].getID() != todaySongs[k].getID()){
+                        newTracks.push_back(todaySongs[k]);
+                    }
+                }
+            }
+        }
+    }
+}
 void PlaylistChecker::fetch(QString uid){
     //TODO get owned playlists
     owned = this->getOwnedPlaylists(uid);
     for(int i=0; i<=owned.size()-1; i++){
         cout << owned[i].getName().toStdString() <<endl;
-        cout << owned[i].getTracks()[0].getID().toStdString() <<endl;
+        cout << owned[i].getTracks()[0].getName().toStdString() <<endl;
     }
     //create a list of new tracks
+
     //render item widgets for each track
 }

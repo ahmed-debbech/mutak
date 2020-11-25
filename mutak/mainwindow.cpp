@@ -812,7 +812,7 @@ void MainWindow :: on_helpButton_clicked(){
 
 void MainWindow::on_tabWidget_currentChanged(int index){
     if(index == 1){
-        PlaylistChecker * pc = new PlaylistChecker(&auth, user);
+        PlaylistChecker * pc = new PlaylistChecker(&auth, user, dbapi);
         pc->fetch(user->getId());
     }
 }
