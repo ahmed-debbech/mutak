@@ -107,7 +107,7 @@ private:
     void setCalendarMarks();
     void showSearchResult(vector<WidgetItem*> t);
     void getArtworks(vector<Track> t);
-    void addToList(vector <Track> t);
+    void addToList(vector <Track> t, QListWidget * list);
     long int convertToMS(int index);
     vector<Track>  sortByTime(vector<Track> t);
     void setAutoRefreshTime();

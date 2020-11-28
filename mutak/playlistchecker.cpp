@@ -8,7 +8,7 @@
 PlaylistChecker::PlaylistChecker(Authorizer * auth, User * user, vector<Track> ne){
     this->auth = auth;
     this->user = user;
-    this->newTracks = ne;
+    this->todaySongs = ne;
     data = MainWindow::getFromEndPoint(*auth,QUrl("https://api.spotify.com/v1/users/"+user->getId()+"/playlists?limit=50"),user);
     string strFromObj = QJsonDocument(data).toJson(QJsonDocument::Compact).toStdString().c_str();
     std::cout << strFromObj << std::endl;
@@ -39,7 +39,8 @@ vector<Playlist> PlaylistChecker :: getOwnedPlaylists(QString uid){
     return v;
 }
 vector<Track> PlaylistChecker::fetchTracks(QString url, int size){
-    data = MainWindow::getFromEndPoint(*auth,QUrl(url+"?offset=0&limit="+size),user);
+    size -= 1;
+    data = MainWindow::getFromEndPoint(*auth,QUrl(url+"?offset=0&limit="+QString::number(size)),user);
     QJsonObject jb = data, r = data;
     QJsonArray arr;
     vector<Track> tracks;
@@ -68,8 +69,7 @@ vector<Track> PlaylistChecker::fetchTracks(QString url, int size){
     }
     return tracks;
 }
-bool PlaylistChecker :: compare(){
-
+vector<Track> PlaylistChecker :: generateNewTracksList(){
     vector<Track> newTracks;
     for(int k=0; k<=todaySongs.size()-1; k++){
         for(int i=0; i<=this->owned.size()-1; i++){
@@ -83,7 +83,7 @@ bool PlaylistChecker :: compare(){
         }
     }
 }
-void PlaylistChecker::fetch(QString uid){
+vector<Track> PlaylistChecker::fetch(QString uid){
     //TODO get owned playlists
     owned = this->getOwnedPlaylists(uid);
     for(int i=0; i<=owned.size()-1; i++){
@@ -91,6 +91,5 @@ void PlaylistChecker::fetch(QString uid){
         cout << owned[i].getTracks()[0].getName().toStdString() <<endl;
     }
     //create a list of new tracks
-
-    //render item widgets for each track
+    return this->generateNewTracksList();
 }

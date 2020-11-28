@@ -15,10 +15,10 @@ private:
 
     vector<Track> fetchTracks(QString, int);
     vector<Playlist> getOwnedPlaylists(QString);
-    bool compare();
+    vector<Track> generateNewTracksList();
 public:
     PlaylistChecker(Authorizer * auth, User * user, vector<Track>);
-    void fetch(QString);
+    vector<Track> fetch(QString);
 };
 
 #endif // PLAYLISTCHECKER_H

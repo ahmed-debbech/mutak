@@ -366,7 +366,7 @@ void MainWindow :: dataToTracksObjects(QJsonObject &data){
    if(dbapi->sendToDB(tracks) == true){//send to database to save
      try{
          vector<Track> t = dbapi->retriveFromDB(); //dataaaa
-         this->addToList(t);
+         this->addToList(t, ui->listWidget);
        }catch(QString string){
             ui->countText->setText(string);
             throw exceptionError(200, "No tracks yet for today");
@@ -424,7 +424,7 @@ void MainWindow::getArtworks(vector<Track> t){
         }
     }
 }
-void MainWindow::addToList(vector <Track> t){
+void MainWindow::addToList(vector <Track> t, QListWidget * list){
     t = this->sortByTime(t);
     //this is memory enhancment: we clear the old widget pointers to avoid memory leaks
     if(this->widitem.size() > 0){
@@ -433,7 +433,7 @@ void MainWindow::addToList(vector <Track> t){
         }
     }
     this->widitem.clear();
-    ui->listWidget->clear();
+    list->clear();
     //end of memory enhancment
     ui->confirm->setEnabled(false);
     ui->navPrev->setEnabled(false);
@@ -445,14 +445,14 @@ void MainWindow::addToList(vector <Track> t){
              WidgetItem *theWidgetItem = nullptr;
             //prepare the item and fill it with data
             theWidgetItem = new WidgetItem(t[i-1]);
-            QListWidgetItem * lwi = new QListWidgetItem(ui->listWidget);
-            ui->listWidget->addItem(lwi);
+            QListWidgetItem * lwi = new QListWidgetItem(list);
+            list->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());
             widitem.push_back(theWidgetItem); // we store the widget in individual vector to use it back
-            ui->listWidget->setItemWidget(lwi, theWidgetItem);
+            list->setItemWidget(lwi, theWidgetItem);
 
             ui->countText->setText("Please Wait...");
-            ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
+            list->setCursor(QCursor(Qt::BusyCursor));
         }
 
         //then retrive each photo for each track and update the item
@@ -462,11 +462,11 @@ void MainWindow::addToList(vector <Track> t){
     ui->refresh_button->setHidden(false);
     ui->search_button->setDisabled(false);
     ui->stop_button->setHidden(true);
-    ui->listWidget->setCursor(QCursor(Qt::ArrowCursor));
+    list->setCursor(QCursor(Qt::ArrowCursor));
     //get the local date and time in sys
     QDateTime UTC(QDateTime::currentDateTimeUtc());
     QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
-    int count = ui->listWidget->count();
+    int count = list->count();
     if(count != 0){
         ui->countText->setText("You've listened to " + QString::number(count)+ " tracks" + " on " +   ui->dateName->text());
     }else{
@@ -751,7 +751,7 @@ void MainWindow::on_confirm_clicked(){
         vector <Track> t = dbapi->retriveFromDB(ui->dateName->text()+".mu");
         sscanf(ui->dateName->text().toStdString().c_str(),"%d-%d-%d", &d,&m,&y);
         ui->date_ind->setText("These are the songs for: " + this->convertDateToQString(d,m,y));
-        this->addToList(t);
+        this->addToList(t, ui->listWidget);
     }catch(QString s){
         ui->refresh_button->setHidden(false);
         ui->stop_button->setHidden(true);
@@ -814,6 +814,7 @@ void MainWindow::on_tabWidget_currentChanged(int index){
     if(index == 1){
         vector<Track> ne = dbapi->retriveFromDB();
         PlaylistChecker * pc = new PlaylistChecker(&auth, user, ne);
-        pc->fetch(user->getId());
+        vector<Track> newTracks = pc->fetch(user->getId());
+        this->addToList(newTracks, ui->listOutPlaylists);
     }
 }
