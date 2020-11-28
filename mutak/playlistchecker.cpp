@@ -5,10 +5,10 @@
 #include "playlist.h"
 #include "QJsonArray"
 
-PlaylistChecker::PlaylistChecker(Authorizer * auth, User * user, DatabaseAPI *db){
+PlaylistChecker::PlaylistChecker(Authorizer * auth, User * user, vector<Track> ne){
     this->auth = auth;
     this->user = user;
-    this->db = db;
+    this->newTracks = ne;
     data = MainWindow::getFromEndPoint(*auth,QUrl("https://api.spotify.com/v1/users/"+user->getId()+"/playlists?limit=50"),user);
     string strFromObj = QJsonDocument(data).toJson(QJsonDocument::Compact).toStdString().c_str();
     std::cout << strFromObj << std::endl;
@@ -69,13 +69,13 @@ vector<Track> PlaylistChecker::fetchTracks(QString url, int size){
     return tracks;
 }
 bool PlaylistChecker :: compare(){
-    vector<Track> todaySongs = db->retriveFromDB();
 
+    vector<Track> newTracks;
     for(int k=0; k<=todaySongs.size()-1; k++){
         for(int i=0; i<=this->owned.size()-1; i++){
             if(owned[i].getTracks().size() > 0){
                 for(int j=0; j<=owned[i].getTracks().size()-1; j++){
-                    if(owned[i].getTracks()[j].getID() != todaySongs[k].getID()){
+                    if(owned[i].getTracks()[j] != todaySongs[k]){
                         newTracks.push_back(todaySongs[k]);
                     }
                 }

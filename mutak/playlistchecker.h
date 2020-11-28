@@ -11,14 +11,13 @@ private:
     vector<Playlist> owned;
     User * user;
     Authorizer * auth;
-    DatabaseAPI * db;
-    vector<Track> newTracks;
+    vector<Track> todaySongs;
 
     vector<Track> fetchTracks(QString, int);
     vector<Playlist> getOwnedPlaylists(QString);
     bool compare();
 public:
-    PlaylistChecker(Authorizer * auth, User * user, DatabaseAPI * db);
+    PlaylistChecker(Authorizer * auth, User * user, vector<Track>);
     void fetch(QString);
 };
 
