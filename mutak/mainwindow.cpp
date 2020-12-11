@@ -456,7 +456,7 @@ void MainWindow::addToList(vector <Track> t, QListWidget * list){
         }
 
         //then retrive each photo for each track and update the item
-        this->getArtworks(t);
+       // this->getArtworks(t);
     }
     runningWeb = false;
     ui->refresh_button->setHidden(false);
@@ -815,6 +815,6 @@ void MainWindow::on_tabWidget_currentChanged(int index){
         vector<Track> ne = dbapi->retriveFromDB();
         PlaylistChecker * pc = new PlaylistChecker(&auth, user, ne);
         vector<Track> newTracks = pc->fetch(user->getId());
-        //this->addToList(newTracks, ui->listOutPlaylists);
+        this->addToList(newTracks, ui->listOutPlaylists);
     }
 }

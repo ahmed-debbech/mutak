@@ -33,7 +33,7 @@ Track :: Track(QString namesong, QString art, double dur,
 Track :: Track(){
 
 }
-bool Track :: operator!=(Track t){
+bool Track :: operator==(Track t){
     if(this->linkID != t.getID()){
         return false;
     }

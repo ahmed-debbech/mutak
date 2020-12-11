@@ -53,7 +53,7 @@ public:
    double getDuration(){return duration;}
     QDateTime getPlayDate(){return playedAt;}
     QString getID(){ return linkID;}
-    bool operator!=(Track t);
+    bool operator==(Track t);
 };
 
 #endif // TRACK_H
