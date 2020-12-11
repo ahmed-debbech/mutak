@@ -815,6 +815,6 @@ void MainWindow::on_tabWidget_currentChanged(int index){
         vector<Track> ne = dbapi->retriveFromDB();
         PlaylistChecker * pc = new PlaylistChecker(&auth, user, ne);
         vector<Track> newTracks = pc->fetch(user->getId());
-        this->addToList(newTracks, ui->listOutPlaylists);
+        //this->addToList(newTracks, ui->listOutPlaylists);
     }
 }

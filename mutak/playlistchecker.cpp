@@ -39,8 +39,7 @@ vector<Playlist> PlaylistChecker :: getOwnedPlaylists(QString uid){
     return v;
 }
 vector<Track> PlaylistChecker::fetchTracks(QString url, int size){
-    size -= 1;
-    data = MainWindow::getFromEndPoint(*auth,QUrl(url+"?offset=0&limit="+QString::number(size)),user);
+    data = MainWindow::getFromEndPoint(*auth,QUrl(url+"?offset=0&limit=" + QString::number(size)),user);
     QJsonObject jb = data, r = data;
     QJsonArray arr;
     vector<Track> tracks;
@@ -64,8 +63,8 @@ vector<Track> PlaylistChecker::fetchTracks(QString url, int size){
         QString link = jb.value("spotify").toString();
         QStringRef substr(&link, 31, (link.size()-1) - 30);
         QString l = substr.toString();
-
-         tracks.push_back(Track(trackName,artistName,dur,playtimeConverted,l));
+            Track track(trackName,artistName,dur,playtimeConverted,l);
+         tracks.push_back(track);
     }
     return tracks;
 }
@@ -88,7 +87,9 @@ vector<Track> PlaylistChecker::fetch(QString uid){
     owned = this->getOwnedPlaylists(uid);
     for(int i=0; i<=owned.size()-1; i++){
         cout << owned[i].getName().toStdString() <<endl;
-        cout << owned[i].getTracks()[0].getName().toStdString() <<endl;
+        for(int j=0; j<=owned[i].getTracks().size()-1; j++){
+            cout << owned[i].getTracks()[j].getName().toStdString() <<endl;
+        }
     }
     //create a list of new tracks
     return this->generateNewTracksList();
