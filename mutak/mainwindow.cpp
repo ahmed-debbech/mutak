@@ -185,10 +185,10 @@ QString MainWindow :: convertDateToQString(QDate q){
         case 6: res += "June"; break;
         case 7: res += "July"; break;
         case 8: res += "August"; break;
-        case 9: res += "Septembre"; break;
-        case 10: res += "Octobre"; break;
-        case 11: res += "Novembre"; break;
-         case 12: res += "Decembre"; break;
+        case 9: res += "September"; break;
+        case 10: res += "October"; break;
+        case 11: res += "November"; break;
+         case 12: res += "December"; break;
     }
     res += " ";
     res += QString::number(q.year());
@@ -456,7 +456,7 @@ void MainWindow::addToList(vector <Track> t, QListWidget * list){
         }
 
         //then retrive each photo for each track and update the item
-       // this->getArtworks(t);
+        this->getArtworks(t);
     }
     runningWeb = false;
     ui->refresh_button->setHidden(false);
@@ -566,6 +566,25 @@ void MainWindow :: isAlreadyGranted(){
             this->windowsCursor.currentWindowIndex = 0;
             ui->stackedWidget->setCurrentIndex(0);
         }
+}
+void MainWindow :: list(vector<Track> t){
+    //list all the items in list
+    if(t.size() > 0){
+        for(unsigned int i=t.size(); (i>0); i--){
+             WidgetItem *theWidgetItem = nullptr;
+            //prepare the item and fill it with data
+            theWidgetItem = new WidgetItem(t[i-1]);
+            QListWidgetItem * lwi = new QListWidgetItem(ui->listOutPlaylists);
+            ui->listOutPlaylists->addItem(lwi);
+            lwi->setSizeHint (theWidgetItem->sizeHint());
+            ui->listOutPlaylists->setItemWidget(lwi, theWidgetItem);
+            ui->listOutPlaylists->setCursor(QCursor(Qt::BusyCursor));
+        }
+        //then retrieve photos
+        this->getArtworks(t);
+        runningWeb = false;
+    }
+    ui->listOutPlaylists->setCursor(QCursor(Qt::ArrowCursor));
 }
 //=================================SIGNALS=======================================
 void MainWindow :: isGranted(){
@@ -815,6 +834,6 @@ void MainWindow::on_tabWidget_currentChanged(int index){
         vector<Track> ne = dbapi->retriveFromDB();
         PlaylistChecker * pc = new PlaylistChecker(&auth, user, ne);
         vector<Track> newTracks = pc->fetch(user->getId());
-        this->addToList(newTracks, ui->listOutPlaylists);
+        this->list(newTracks);
     }
 }

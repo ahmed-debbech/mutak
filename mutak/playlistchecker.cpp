@@ -70,21 +70,23 @@ vector<Track> PlaylistChecker::fetchTracks(QString url, int size){
 }
 vector<Track> PlaylistChecker :: generateNewTracksList(){
     vector<Track> newTracks;
-    for(int k=0; k<=todaySongs.size()-1; k++){
-        bool found = false;
-        for(int i=0;( i<=this->owned.size()-1) && (found == false); i++){
+    if(todaySongs.size() > 0){
+        for(int k=0; k<=todaySongs.size()-1; k++){
+            bool found = false;
+            for(int i=0;( i<=this->owned.size()-1) && (found == false); i++){
 
-            if(owned[i].getTracks().size() > 0){
-                for(int j=0;( j<=owned[i].getTracks().size()-1) && (found == false); j++){
-                    if(owned[i].getTracks()[j] == todaySongs[k]){
-                        found = true;
+                if(owned[i].getTracks().size() > 0){
+                    for(int j=0;( j<=owned[i].getTracks().size()-1) && (found == false); j++){
+                        if(owned[i].getTracks()[j] == todaySongs[k]){
+                            found = true;
+                        }
                     }
                 }
             }
-        }
-        if(found == false){
-            newTracks.push_back(todaySongs[k]);
-            cout << todaySongs[k].getName().toStdString() <<endl;
+            if(found == false){
+                newTracks.push_back(todaySongs[k]);
+                cout << todaySongs[k].getName().toStdString() <<endl;
+            }
         }
     }
     return newTracks;

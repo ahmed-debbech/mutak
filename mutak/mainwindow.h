@@ -67,6 +67,8 @@ public:
     Authorizer * getAuth(){return &auth;}
     User * getUser(){return user;}
     ~MainWindow();
+    void list(vector<Track>);
+    
 private slots:
     void changeValue();
     void refreshSearch();
