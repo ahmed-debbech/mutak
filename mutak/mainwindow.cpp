@@ -392,36 +392,34 @@ void MainWindow::closeEvent (QCloseEvent *event){
         event->accept();
     }
 }
-void MainWindow::getArtworks(vector<Track> t){
+void MainWindow::getArtworks(vector<Track> t, vector<WidgetItem*>  widitem){
     stopOnClose = false;
     bool theresInternet = true;
     for(unsigned int i=t.size(); (theresInternet == true) && (i>0); i--){
          try{
-            this->checkForInternet();
+                this->checkForInternet();
+                runningWeb = true;
+                QString link = t[i-1].getID();
+                if(stopOnClose == false){
+                //request the image of each track
+                QJsonObject root = this->getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/tracks?ids="+link),user);
+                root = (root.value("tracks").toArray().at(0)).toObject();
+                root = root.value("album").toObject();
+                QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
+                retrivePhotosThread * rpt  = new retrivePhotosThread(download, widitem[t.size()-i]);
+                runningThreads.push_back(rpt);
+                connect(rpt, SIGNAL(finished()), this, SLOT(delete_threads(rpt)));
+                rpt->start();
+                ui->countText->setText("Please Wait... Downloading photos");
+                ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
+                }else{
+                        break;
+                }
          }catch(exceptionError & e){
             theresInternet = false;
             QMessageBox::critical(nullptr, QObject::tr("Error"),
             QObject::tr(e.getErrorMsg()), QMessageBox::Ok);
          }
-        if(theresInternet == true){
-            runningWeb = true;
-            QString link = t[i-1].getID();
-            if(stopOnClose == false){
-            //request the image of each track
-            QJsonObject root = this->getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/tracks?ids="+link),user);
-            root = (root.value("tracks").toArray().at(0)).toObject();
-            root = root.value("album").toObject();
-            QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
-           retrivePhotosThread * rpt  = new retrivePhotosThread(download, widitem[t.size()-i]);
-           runningThreads.push_back(rpt);
-           connect(rpt, SIGNAL(finished()), this, SLOT(delete_threads(rpt)));
-           rpt->start();
-            ui->countText->setText("Please Wait... Downloading photos");
-            ui->listWidget->setCursor(QCursor(Qt::BusyCursor));
-            }else{
-                break;
-            }
-        }
     }
 }
 void MainWindow::addToList(vector <Track> t, QListWidget * list){
@@ -456,7 +454,7 @@ void MainWindow::addToList(vector <Track> t, QListWidget * list){
         }
 
         //then retrive each photo for each track and update the item
-        this->getArtworks(t);
+        this->getArtworks(t,this->widitem);
     }
     runningWeb = false;
     ui->refresh_button->setHidden(false);
@@ -568,8 +566,11 @@ void MainWindow :: isAlreadyGranted(){
         }
 }
 void MainWindow :: list(vector<Track> t){
+    t = this->sortByTime(t);
+    ui->listOutPlaylists->clear();
     //list all the items in list
     if(t.size() > 0){
+        vector<WidgetItem*> tabitem;
         for(unsigned int i=t.size(); (i>0); i--){
              WidgetItem *theWidgetItem = nullptr;
             //prepare the item and fill it with data
@@ -578,13 +579,20 @@ void MainWindow :: list(vector<Track> t){
             ui->listOutPlaylists->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());
             ui->listOutPlaylists->setItemWidget(lwi, theWidgetItem);
+            tabitem.push_back(theWidgetItem); // we store the widget in individual vector to use it back
             ui->listOutPlaylists->setCursor(QCursor(Qt::BusyCursor));
         }
         //then retrieve photos
-        this->getArtworks(t);
-        runningWeb = false;
+        this->getArtworks(t,tabitem);
     }
+    runningWeb = false;
+    ui->refresh_button->setHidden(false);
+    ui->search_button->setDisabled(false);
+    ui->stop_button->setHidden(true);
     ui->listOutPlaylists->setCursor(QCursor(Qt::ArrowCursor));
+    ui->confirm->setEnabled(true);
+    ui->navPrev->setEnabled(true);
+    ui->today->setEnabled(true);
 }
 //=================================SIGNALS=======================================
 void MainWindow :: isGranted(){

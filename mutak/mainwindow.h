@@ -108,7 +108,7 @@ private:
     //private functions
     void setCalendarMarks();
     void showSearchResult(vector<WidgetItem*> t);
-    void getArtworks(vector<Track> t);
+    void getArtworks(vector<Track> t, vector<WidgetItem *> widitem);
     void addToList(vector <Track> t, QListWidget * list);
     long int convertToMS(int index);
     vector<Track>  sortByTime(vector<Track> t);
