@@ -739,6 +739,18 @@ width: 35px;
                </widget>
               </item>
               <item>
+               <widget class="QLabel" name="note_tab2">
+                <property name="styleSheet">
+                 <string notr="true">color: white;
+font: bold 20px;
+text-align: center;</string>
+                </property>
+                <property name="text">
+                 <string>Click the Refresh button!</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QListWidget" name="listOutPlaylists"/>
               </item>
              </layout>

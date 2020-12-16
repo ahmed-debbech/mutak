@@ -67,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     //preparing the customization of widgets
     this->setWindowTitle("Mutak");
+    ui->tabWidget->setEnabled(false);
     ui->calendarWidget->setHidden(true);
     ui->navNext->setDisabled(true);
     ui->wait_label->setHidden(true);
@@ -593,6 +594,7 @@ void MainWindow :: list(vector<Track> t){
     ui->confirm->setEnabled(true);
     ui->navPrev->setEnabled(true);
     ui->today->setEnabled(true);
+    ui->countText->setText("");
 }
 //=================================SIGNALS=======================================
 void MainWindow :: isGranted(){
@@ -675,35 +677,44 @@ void MainWindow::auto_refresh(){
     }
 }
 void MainWindow::on_refresh_button_clicked(){
+    ui->tabWidget->setEnabled(true);
     ui->refresh_button->setHidden(true);
     ui->stop_button->setHidden(false);
     ui->search_button->setDisabled(true);
-    ui->tabWidget->setCurrentIndex(0);
-    long int time = convertToMS(ui->auto_refresh->currentIndex());
-    if(time != 0){
-        timer->start(time);
-   }else{
-         timer->stop();
-   }
-    //get date and time of sys to name the file after it (if file doesnt exist)
-    QDateTime UTC(QDateTime::currentDateTimeUtc());
-    QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
-    int y,m,d;
-    local.date().getDate( &y, &m, &d);
-    ui->date_ind->setText("These are the songs for: " + this->convertDateToQString(d,m,y));
-    QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
-    ui->dateName->setText(h);
-    try{
-        this->checkForInternet();
-        ui->listWidget->clear();
-        QJsonObject root = getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"),user);
-        this->dataToTracksObjects(root);
-    }catch(exceptionError & e){
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-        QObject::tr(e.getErrorMsg()), QMessageBox::Ok);
-        ui->refresh_button->setHidden(false);
-        ui->stop_button->setHidden(true);
-        ui->search_button->setDisabled(false);
+    if(ui->tabWidget->currentIndex() == 0){
+            long int time = convertToMS(ui->auto_refresh->currentIndex());
+            if(time != 0){
+                timer->start(time);
+           }else{
+                 timer->stop();
+           }
+            //get date and time of sys to name the file after it (if file doesnt exist)
+            QDateTime UTC(QDateTime::currentDateTimeUtc());
+            QDateTime local = QDateTime(UTC.date(), UTC.time(), Qt::UTC).toLocalTime();
+            int y,m,d;
+            local.date().getDate( &y, &m, &d);
+            ui->date_ind->setText("These are the songs for: " + this->convertDateToQString(d,m,y));
+            QString h = QString::number(d) + "-" +QString::number(m) + "-" + QString::number(y);
+            ui->dateName->setText(h);
+            try{
+                this->checkForInternet();
+                ui->listWidget->clear();
+                QJsonObject root = getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"),user);
+                this->dataToTracksObjects(root);
+            }catch(exceptionError & e){
+                QMessageBox::critical(nullptr, QObject::tr("Error"),
+                QObject::tr(e.getErrorMsg()), QMessageBox::Ok);
+                ui->refresh_button->setHidden(false);
+                ui->stop_button->setHidden(true);
+                ui->search_button->setDisabled(false);
+            }
+    }else{
+        if(ui->tabWidget->currentIndex() ==1){
+                vector<Track> ne = dbapi->retriveFromDB();
+                PlaylistChecker * pc = new PlaylistChecker(&auth, user, ne);
+                vector<Track> newTracks = pc->fetch(user->getId());
+                this->list(newTracks);
+        }
     }
 }
 void MainWindow::on_settings_button_clicked(){
@@ -839,9 +850,10 @@ void MainWindow :: on_helpButton_clicked(){
 
 void MainWindow::on_tabWidget_currentChanged(int index){
     if(index == 1){
-        vector<Track> ne = dbapi->retriveFromDB();
-        PlaylistChecker * pc = new PlaylistChecker(&auth, user, ne);
-        vector<Track> newTracks = pc->fetch(user->getId());
-        this->list(newTracks);
+        if(ui->listOutPlaylists->count() == 0){
+               ui->note_tab2->setHidden(false);
+        }else{
+            ui->note_tab2->setHidden(true);
+        }
     }
 }
