@@ -51,12 +51,14 @@ public:
     explicit WidgetItem( Track &t,QWidget *parent = nullptr);
     WidgetItem(WidgetItem * item);
     ~WidgetItem();
-    Ui::WidgetItem * getUi(){ return ui;}
+    Ui::WidgetItem * getUi(){return ui;}
 private slots:
     void on_playButton_clicked();
+
 private:
     QString convertToMin(int millsec);
     Ui::WidgetItem *ui; ///< the ui pointer to everything inside WidgetItem widgets only
+
 };
 
 #endif // WIDGETITEM_H

@@ -50,10 +50,10 @@ void MainWindow::refreshSearch(){
                 for(int i=0; i<=widitem.size()-1; i++){
                     Ui::WidgetItem * uiWid = widitem[i]->getUi();
                        if(ui->search_text->text() != ""){
-                        if(uiWid->name->text().toLower().startsWith(ui->search_text->text().toLower())){
-                            t.push_back(new WidgetItem(widitem[i]));
-                            cout << "rr";
-                        }
+                            if(uiWid->name->text().toLower().startsWith(ui->search_text->text().toLower())){
+                                t.push_back(new WidgetItem(widitem[i]));
+                                cout << "rr";
+                            }
                        }
                 }
         }else{

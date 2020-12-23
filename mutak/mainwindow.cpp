@@ -48,7 +48,6 @@
 #include "authorizer.h"
 #include "exceptionerror.h"
 #include "playlistchecker.h"
-#include "widgetitem2.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this); // init all GUI
@@ -574,9 +573,9 @@ void MainWindow :: list(vector<Track> t){
     if(t.size() > 0){
         vector<WidgetItem*> tabitem;
         for(unsigned int i=t.size(); (i>0); i--){
-             WidgetItem2 *theWidgetItem = nullptr;
+             WidgetItem *theWidgetItem = nullptr;
             //prepare the item and fill it with data
-            theWidgetItem = new WidgetItem2(t[i-1]);
+            theWidgetItem = new WidgetItem(t[i-1]);
             QListWidgetItem * lwi = new QListWidgetItem(ui->listOutPlaylists);
             ui->listOutPlaylists->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());

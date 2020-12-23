@@ -31,8 +31,7 @@ SOURCES += \
     settingswindow.cpp \
     track.cpp \
     user.cpp \
-    widgetitem.cpp \
-    widgetitem2.cpp
+    widgetitem.cpp
 
 HEADERS += \
     api_keys.h \
@@ -45,13 +44,11 @@ HEADERS += \
     retrivephotosthread.h \
     track.h \
     user.h \
-    widgetitem.h \
-    widgetitem2.h
+    widgetitem.h
 
 FORMS += \
     mainwindow.ui \
-    widgetitem.ui \
-    widgetitem2.ui
+    widgetitem.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
