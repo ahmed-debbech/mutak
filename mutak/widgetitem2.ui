@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WidgetItem</class>
- <widget class="QWidget" name="WidgetItem">
+ <class>WidgetItem2</class>
+ <widget class="QWidget" name="WidgetItem2">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -113,34 +113,6 @@ font-size: 12px;
     <widget class="QLabel" name="id_track">
      <property name="enabled">
       <bool>false</bool>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="playButton">
-     <property name="toolTip">
-      <string>Play this song</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#playButton {
-color: white;
-background-color:  #393939;
-border-radius: 25px;
-border: none;
-  padding: 20px;
-  width: 10px;
-  height: 20px;
-opacity: 0.7;
- }
-#playButton:hover {
-	background-color: #3AE476;
- }
-#playButton:pressed{
-	background-color: #2BB85D;
-}</string>
      </property>
      <property name="text">
       <string/>

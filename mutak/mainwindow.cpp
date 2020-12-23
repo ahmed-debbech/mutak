@@ -48,6 +48,7 @@
 #include "authorizer.h"
 #include "exceptionerror.h"
 #include "playlistchecker.h"
+#include "widgetitem2.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this); // init all GUI
@@ -573,9 +574,9 @@ void MainWindow :: list(vector<Track> t){
     if(t.size() > 0){
         vector<WidgetItem*> tabitem;
         for(unsigned int i=t.size(); (i>0); i--){
-             WidgetItem *theWidgetItem = nullptr;
+             WidgetItem2 *theWidgetItem = nullptr;
             //prepare the item and fill it with data
-            theWidgetItem = new WidgetItem(t[i-1]);
+            theWidgetItem = new WidgetItem2(t[i-1]);
             QListWidgetItem * lwi = new QListWidgetItem(ui->listOutPlaylists);
             ui->listOutPlaylists->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());
@@ -591,6 +592,7 @@ void MainWindow :: list(vector<Track> t){
     ui->search_button->setDisabled(false);
     ui->stop_button->setHidden(true);
     ui->listOutPlaylists->setCursor(QCursor(Qt::ArrowCursor));
+    ui->listWidget->setCursor(QCursor(Qt::ArrowCursor));
     ui->confirm->setEnabled(true);
     ui->navPrev->setEnabled(true);
     ui->today->setEnabled(true);
@@ -681,6 +683,7 @@ void MainWindow::on_refresh_button_clicked(){
     ui->refresh_button->setHidden(true);
     ui->stop_button->setHidden(false);
     ui->search_button->setDisabled(true);
+
     if(ui->tabWidget->currentIndex() == 0){
             long int time = convertToMS(ui->auto_refresh->currentIndex());
             if(time != 0){

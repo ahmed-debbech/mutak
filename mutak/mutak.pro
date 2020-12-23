@@ -31,7 +31,8 @@ SOURCES += \
     settingswindow.cpp \
     track.cpp \
     user.cpp \
-    widgetitem.cpp
+    widgetitem.cpp \
+    widgetitem2.cpp
 
 HEADERS += \
     api_keys.h \
@@ -44,7 +45,8 @@ HEADERS += \
     retrivephotosthread.h \
     track.h \
     user.h \
-    widgetitem.h
+    widgetitem.h \
+    widgetitem2.h
 
 FORMS += \
     mainwindow.ui \
