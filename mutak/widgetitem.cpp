@@ -24,8 +24,9 @@
 #include <iostream>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QComboBox>
 
-WidgetItem::WidgetItem(Track & t, QWidget *parent) :
+WidgetItem::WidgetItem(int type, Track & t, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WidgetItem)
 {
@@ -56,6 +57,15 @@ WidgetItem::WidgetItem(Track & t, QWidget *parent) :
     ui->duration->setText(this->convertToMin(static_cast<int>(t.getDuration())));
     ui->playedat->setText(t.getPlayDate().toString());
     ui->id_track->setText(t.getID());
+    if(type == 2){
+            QComboBox * qcb = new QComboBox();
+
+            qcb->setStyleSheet("QComboBox {color: black; font: bold 22px '://resources/fonts/Gotham-UltraItalic.otf';background-color:"
+                               "  #787878; border-radius: 10px;padding: 10px; width: 35px;}\nQComboBox:hover {background-color: #999999;}");
+            qcb->addItem("Add");
+            qcb->setCurrentText("Add");
+            this->layout()->addWidget(qcb);
+    }
 }
 WidgetItem :: WidgetItem(WidgetItem * item) : ui(new Ui::WidgetItem){
     ui->setupUi(this);
@@ -67,7 +77,7 @@ WidgetItem :: WidgetItem(WidgetItem * item) : ui(new Ui::WidgetItem){
     ui->name->setText(item->getUi()->name->text());
 
     ui->name->setStyleSheet("color: #1db954;\nfont: bold 9pt  '://resources/fonts/Gotham-Bold.otf';");
-        ui->artist->setText(item->getUi()->artist->text());
+    ui->artist->setText(item->getUi()->artist->text());
     ui->duration->setText(item->getUi()->duration->text());
     ui->playedat->setText(item->getUi()->playedat->text());
     ui->id_track->setText(item->getUi()->id_track->text());

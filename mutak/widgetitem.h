@@ -48,7 +48,7 @@ class WidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit WidgetItem( Track &t,QWidget *parent = nullptr);
+    explicit WidgetItem(int type, Track &t,QWidget *parent = nullptr);
     WidgetItem(WidgetItem * item);
     ~WidgetItem();
     Ui::WidgetItem * getUi(){return ui;}
