@@ -76,8 +76,10 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->menuBar2->setHidden(true);
     ui->search_list->setHidden(true);
     ui->search_tip->setHidden(true);
+    ui->tabWidget->setTabToolTip(0, "All the songs you listened to Today.");
+    ui->tabWidget->setTabToolTip(1, "Today's songs that are not in any of your own playlists.");
     ui->tabWidget->setTabText(0,"All Songs");
-    ui->tabWidget->setTabText(1, "Songs out of your playlists");
+    ui->tabWidget->setTabText(1, "Songs not in your playlists");
     ui->listWidget->verticalScrollBar()->setStyleSheet("QScrollBar:vertical {\nborder: 2px solid black;\nbackground: grey;\n}");
     ui->listWidget->setStyleSheet("QListView::item:selected {background-image: #1db954; background-color: #1db954;padding: 0px;color: black;}\n"
                                   "QListView::item:hover{background-image: #202020; background-color: #202020;padding: 0px; color: black;}");

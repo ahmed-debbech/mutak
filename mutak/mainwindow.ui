@@ -682,7 +682,7 @@ font: bold 12px;
 text-align: center;</string>
                    </property>
                    <property name="text">
-                    <string>These are the song of today that are not in any playlist you own.</string>
+                    <string>These are today's songs that are not in any of your playlist you own.</string>
                    </property>
                   </widget>
                  </item>
