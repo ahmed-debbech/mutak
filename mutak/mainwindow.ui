@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>725</width>
+    <width>736</width>
     <height>855</height>
    </rect>
   </property>
@@ -1184,6 +1184,17 @@ font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
            <widget class="QPushButton" name="twitter">
+            <property name="styleSheet">
+             <string notr="true">#twitter {
+color: white;
+font: bold 10px '://resources/fonts/Gotham-UltraItalic.otf';
+background-color:  #787878;
+border-radius: 10px;
+padding: 5px;
+width: 70px;
+ }
+</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -1191,6 +1202,16 @@ font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
           </item>
           <item>
            <widget class="QPushButton" name="linkedin">
+            <property name="styleSheet">
+             <string notr="true">#linkedin {
+color: white;
+font: bold 10px '://resources/fonts/Gotham-UltraItalic.otf';
+background-color:  #787878;
+border-radius: 10px;
+padding: 5px;
+width: 70px;
+ }</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -1198,6 +1219,16 @@ font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
           </item>
           <item>
            <widget class="QPushButton" name="github">
+            <property name="styleSheet">
+             <string notr="true">#github {
+color: white;
+font: bold 10px '://resources/fonts/Gotham-UltraItalic.otf';
+background-color:  #787878;
+border-radius: 10px;
+padding: 5px;
+width: 70px;
+ }</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -1206,8 +1237,14 @@ font: 14pt  '://resources/fonts/GothamBook.ttf';</string>
           <item>
            <widget class="QPushButton" name="website">
             <property name="styleSheet">
-             <string notr="true">font: bold 12pt  '://resources/fonts/Gotham-UltraItalic.otf';
-color: white;</string>
+             <string notr="true">#website {
+color: white;
+font: bold 12pt  '://resources/fonts/Gotham-UltraItalic.otf';
+background-color:  #787878;
+border-radius: 10px;
+padding: 5px;
+width: 70px;
+ }</string>
             </property>
             <property name="text">
              <string>Official Website</string>
@@ -1291,7 +1328,7 @@ color: white;
 background-color:  #1db954;
 border-radius: 25px;
   padding: 20px;
-  width: 60px;
+  width: 30px;
 font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf';
  }
 #gobackAbout:hover {
@@ -1594,7 +1631,7 @@ font: bold 14px '://resources/fonts/GothamLight.ttf';
 </string>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;1 - Login first and you'll be redirected to a webpage where you&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;should give the permissions to Mutak.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;2 - After Login you can press Refresh to get your recently played songs.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;3 - You can also use the navigation bar in the left&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;corner bellow to navigate between days.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;4 - A well as you can also navigate through the calendar and &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;select the date and then press the confirm button to go&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;to the histroy of that specefic day.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;5 - You can search for a song or an artist of a specefic day.&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;NOTE: The list of tracks gives you the UNIQUE tracks that you listened&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;to in a specefic day. Which mean there's no redundant tracks.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;NOTE: Yellow dates in calendar mean there's a play history.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;For more information please visit:&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://mutak.site/faq.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1db954;&quot;&gt;http://mutak.site/faq.html&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;1 - Login first and you'll be redirected to a webpage where you&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;should give the permissions to Mutak.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;2 - After Login you can press Refresh to get your recently played songs.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;3 - You can also use the navigation bar in the left&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;corner bellow to navigate between days.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;4 - You can also navigate through the calendar and &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;select the date and then press the confirm button to go&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;to the histroy of that specefic day.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;5 - You can search for a song or an artist of a specefic day.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;6- It is possible to see the songs of today which are not in any of your own&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;playlists by going to 'Songs not in your playlists' tab.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;7- You can add each individual song to a specefic playlist that you own, &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;or save it as whole new playlist.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;NOTE: The list of tracks gives you the UNIQUE tracks that you listened&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;to in a specefic day. Which mean there's no redundant tracks.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;NOTE: Yellow dates in calendar mean there's a play history.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;For more information please visit:&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://mutak.site/faq.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1db954;&quot;&gt;http://mutak.site/faq.html&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
