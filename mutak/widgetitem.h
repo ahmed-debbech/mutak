@@ -32,6 +32,7 @@
 
 #include <QWidget>
 #include "track.h"
+#include "playlist.h"
 #include <QTime>
 
 namespace Ui {
@@ -48,7 +49,7 @@ class WidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit WidgetItem(int type, Track &t,QWidget *parent = nullptr);
+    explicit WidgetItem(int type, Track &t,vector<Playlist> playlist,QWidget *parent = nullptr);
     WidgetItem(WidgetItem * item);
     ~WidgetItem();
     Ui::WidgetItem * getUi(){return ui;}

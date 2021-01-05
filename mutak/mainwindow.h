@@ -36,6 +36,7 @@
 #include "user.h"
 #include "track.h"
 #include "databaseapi.h"
+#include "playlistchecker.h"
 #include <QCloseEvent>
 #include <QDateTime>
 
@@ -131,5 +132,7 @@ private:
     QDate currentPageDate; ///< the current date of the day chosen by the calendar navigator
     vector <WidgetItem*> widitem; ///< an array contains a pointers to WidgetItem objects that will be added to a list, represents view model 
     vector<retrivePhotosThread *> runningThreads; ///< an array to store the running threads for the artwork retrieve to allow parallel connections
+    PlaylistChecker * thePlaylistChecker;
+
 };
 #endif // MAINWINDOW_H

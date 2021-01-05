@@ -2,7 +2,8 @@
 #define PLAYLISTCHECKER_H
 
 #include "QJsonObject"
-#include "mainwindow.h"
+#include "authorizer.h"
+#include "user.h"
 #include "playlist.h"
 
 class PlaylistChecker{
@@ -18,6 +19,7 @@ private:
     vector<Track> generateNewTracksList();
 public:
     PlaylistChecker(Authorizer * auth, User * user, vector<Track>);
+    vector<Playlist> getPlaylists(){return owned;}
     vector<Track> fetch(QString);
 };
 

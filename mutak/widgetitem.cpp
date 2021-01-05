@@ -20,13 +20,14 @@
     SOFTWARE.
  */
 #include "widgetitem.h"
+#include "playlist.h"
 #include "ui_widgetitem.h"
 #include <iostream>
 #include <QDesktopServices>
 #include <QUrl>
 #include <QComboBox>
 
-WidgetItem::WidgetItem(int type, Track & t, QWidget *parent) :
+WidgetItem::WidgetItem(int type, Track & t,vector<Playlist> playlist ,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WidgetItem)
 {
@@ -64,6 +65,9 @@ WidgetItem::WidgetItem(int type, Track & t, QWidget *parent) :
                                "  #787878; border-radius: 10px;padding: 10px; width: 35px;}\nQComboBox:hover {background-color: #999999;}");
             qcb->addItem("Add");
             qcb->setCurrentText("Add");
+            for(int i=0; i<=playlist.size()-1; i++){
+                   qcb->addItem(playlist[i].getName());
+            }
             this->layout()->addWidget(qcb);
     }
 }

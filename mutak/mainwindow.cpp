@@ -47,7 +47,6 @@
 #include "ui_mainwindow.h"
 #include "authorizer.h"
 #include "exceptionerror.h"
-#include "playlistchecker.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this); // init all GUI
@@ -445,7 +444,8 @@ void MainWindow::addToList(vector <Track> t, QListWidget * list){
         for(unsigned int i=t.size(); (i>0); i--){
              WidgetItem *theWidgetItem = nullptr;
             //prepare the item and fill it with data
-            theWidgetItem = new WidgetItem(1,t[i-1]);
+            vector<Playlist> p;
+            theWidgetItem = new WidgetItem(1,t[i-1], p);
             QListWidgetItem * lwi = new QListWidgetItem(list);
             list->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());
@@ -455,7 +455,6 @@ void MainWindow::addToList(vector <Track> t, QListWidget * list){
             ui->countText->setText("Please Wait...");
             list->setCursor(QCursor(Qt::BusyCursor));
         }
-
         //then retrive each photo for each track and update the item
         this->getArtworks(t,this->widitem);
     }
@@ -577,7 +576,7 @@ void MainWindow :: list(vector<Track> t){
         for(unsigned int i=t.size(); (i>0); i--){
              WidgetItem *theWidgetItem = nullptr;
             //prepare the item and fill it with data
-            theWidgetItem = new WidgetItem(2,t[i-1]);
+            theWidgetItem = new WidgetItem(2,t[i-1], thePlaylistChecker->getPlaylists());
             QListWidgetItem * lwi = new QListWidgetItem(ui->listOutPlaylists);
             ui->listOutPlaylists->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());
@@ -715,8 +714,8 @@ void MainWindow::on_refresh_button_clicked(){
     }else{
         if(ui->tabWidget->currentIndex() ==1){
                 vector<Track> ne = dbapi->retriveFromDB();
-                PlaylistChecker * pc = new PlaylistChecker(&auth, user, ne);
-                vector<Track> newTracks = pc->fetch(user->getId());
+                thePlaylistChecker = new PlaylistChecker(&auth, user, ne);
+                vector<Track> newTracks = thePlaylistChecker->fetch(user->getId());
                 this->list(newTracks);
         }
     }
