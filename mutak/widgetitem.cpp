@@ -61,8 +61,8 @@ WidgetItem::WidgetItem(int type, Track & t,vector<Playlist> playlist ,QWidget *p
     if(type == 2){
             QComboBox * qcb = new QComboBox();
 
-            qcb->setStyleSheet("QComboBox {color: black; font: bold 22px '://resources/fonts/Gotham-UltraItalic.otf';background-color:"
-                               "  #787878; border-radius: 10px;padding: 10px; width: 35px;}\nQComboBox:hover {background-color: #999999;}");
+            qcb->setStyleSheet("QComboBox{ color: white; background-color: #393939; border-radius: 25px; font: bold 14px '://resources/fonts/Gotham-UltraItalic.otf'; border: none; padding: 20px; width: 10px; height: 20px; opacity: 0.7; } "
+                               "QComboBox:hover { background-color: #3AE476; } QComboBox:pressed{ background-color: #2BB85D; } ");
             qcb->addItem("Add");
             qcb->setCurrentText("Add");
             for(int i=0; i<=playlist.size()-1; i++){

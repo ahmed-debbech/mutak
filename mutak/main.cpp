@@ -23,6 +23,7 @@
 
 #include <QApplication>
 #include <iostream>
+#include <QDesktopWidget>
 
 int main(int argc, char *argv[])
 {

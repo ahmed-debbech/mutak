@@ -39,6 +39,7 @@
 #include <QScrollBar>
 #include <QSslSocket>
 #include <QLibrary>
+#include <QDesktopWidget>
 
 #include "retrivephotosthread.h"
 #include "widgetitem.h"
@@ -50,6 +51,24 @@
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this); // init all GUI
+
+    //set window size
+    QSize availableSize = qApp->desktop()->availableGeometry().size();
+       int width = availableSize.width();
+       int height = availableSize.height();
+       qDebug() << "Available dimensions " << width << "x" << height;
+       width *= 0.7; // 70% of the screen size
+       height *= 0.9; // 90% of the screen size
+       qDebug() << "Computed dimensions " << width << "x" << height;
+       QSize newSize( width, height );
+       setGeometry(
+           QStyle::alignedRect(
+               Qt::LeftToRight,
+               Qt::AlignCenter,
+               newSize,
+               qApp->desktop()->availableGeometry()
+           )
+       );
 
     //set icon
     this->setWindowIcon(QIcon("://resources/spotifyico.png"));
