@@ -31,9 +31,11 @@
 #define WIDGETITEM_H
 
 #include <QWidget>
+#include "mainwindow.h"
 #include "track.h"
 #include "playlist.h"
 #include <QTime>
+#include <QMainWindow>
 
 namespace Ui {
 class WidgetItem;
@@ -49,8 +51,9 @@ class WidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit WidgetItem(int type, Track &t,vector<Playlist> playlist,QWidget *parent = nullptr);
+    explicit WidgetItem(MainWindow * mw, int type, Track &t,vector<Playlist> playlist,QWidget *parent);
     WidgetItem(WidgetItem * item);
+    void itemChanged(QString & text);
     ~WidgetItem();
     Ui::WidgetItem * getUi(){return ui;}
 private slots:
@@ -59,7 +62,9 @@ private slots:
 private:
     QString convertToMin(int millsec);
     Ui::WidgetItem *ui; ///< the ui pointer to everything inside WidgetItem widgets only
-
+    vector<Playlist> playlists;
+    Track track;
+    MainWindow * mw;
 };
 
 #endif // WIDGETITEM_H

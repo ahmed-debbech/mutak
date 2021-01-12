@@ -19,15 +19,15 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
  */
-#include "widgetitem.h"
 #include "playlist.h"
 #include "ui_widgetitem.h"
+#include "widgetitem.h"
 #include <iostream>
 #include <QDesktopServices>
 #include <QUrl>
 #include <QComboBox>
 
-WidgetItem::WidgetItem(int type, Track & t,vector<Playlist> playlist ,QWidget *parent) :
+WidgetItem::WidgetItem(MainWindow * mw , int type, Track & t,vector<Playlist> playlist ,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WidgetItem)
 {
@@ -35,6 +35,8 @@ WidgetItem::WidgetItem(int type, Track & t,vector<Playlist> playlist ,QWidget *p
     ui->playButton->setIcon(QPixmap("://resources/play_button.png"));
     ui->photo->setPixmap(QPixmap("://resources/unloaded.png"));
     ui->id_track->setHidden(true);
+    this->playlists = playlist;
+    this->mw = mw;
     if(t.getName().size() <= 32){
         ui->name->setText(t.getName());
     }else{
@@ -68,8 +70,22 @@ WidgetItem::WidgetItem(int type, Track & t,vector<Playlist> playlist ,QWidget *p
             for(int i=0; i<=playlist.size()-1; i++){
                    qcb->addItem(playlist[i].getName());
             }
+          connect(qcb, SIGNAL(currentIndexChanged(const QString&)),
+                   this, SLOT(itemChanged(const QString&)));
+           this->layout()->addWidget(qcb);
             this->layout()->addWidget(qcb);
     }
+}
+void WidgetItem::itemChanged(QString & text){
+        //get the playlist id first
+        QString id = "";
+        for(int i=0; i<=playlists.size()-1; i++){
+                if(playlists[i].getName() == text){
+                        id = playlists[i].getId();
+                        break;
+                }
+        }
+        QJsonObject js = mw->getFromEndPoint(*(mw->getAuth()), "https://api.spotify.com/v1/playlists/"+id + "/tracks?uris=spotify%3Atrack%3A"+track.getID(), mw->getUser());
 }
 WidgetItem :: WidgetItem(WidgetItem * item) : ui(new Ui::WidgetItem){
     ui->setupUi(this);
