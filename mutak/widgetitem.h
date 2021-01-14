@@ -31,7 +31,6 @@
 #define WIDGETITEM_H
 
 #include <QWidget>
-#include "mainwindow.h"
 #include "track.h"
 #include "playlist.h"
 #include <QTime>
@@ -51,7 +50,7 @@ class WidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit WidgetItem(MainWindow * mw, int type, Track &t,vector<Playlist> playlist,QWidget *parent);
+    explicit WidgetItem( int type, Track &t,vector<Playlist> playlist,QWidget *parent = nullptr);
     WidgetItem(WidgetItem * item);
     void itemChanged(QString & text);
     ~WidgetItem();
@@ -64,7 +63,6 @@ private:
     Ui::WidgetItem *ui; ///< the ui pointer to everything inside WidgetItem widgets only
     vector<Playlist> playlists;
     Track track;
-    MainWindow * mw;
 };
 
 #endif // WIDGETITEM_H
