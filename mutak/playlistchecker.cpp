@@ -9,7 +9,7 @@ PlaylistChecker::PlaylistChecker(Authorizer * auth, User * user, vector<Track> n
     this->auth = auth;
     this->user = user;
     this->todaySongs = ne;
-    data = MainWindow::getFromEndPoint(*auth,QUrl("https://api.spotify.com/v1/users/"+user->getId()+"/playlists?limit=50"),user);
+    data = auth->getFromEndPoint(*auth,QUrl("https://api.spotify.com/v1/users/"+user->getId()+"/playlists?limit=50"),user);
     string strFromObj = QJsonDocument(data).toJson(QJsonDocument::Compact).toStdString().c_str();
     std::cout << strFromObj << std::endl;
 }
@@ -39,7 +39,7 @@ vector<Playlist> PlaylistChecker :: getOwnedPlaylists(QString uid){
     return v;
 }
 vector<Track> PlaylistChecker::fetchTracks(QString url, int size){
-    data = MainWindow::getFromEndPoint(*auth,QUrl(url+"?offset=0&limit=" + QString::number(size)),user);
+    data = auth->getFromEndPoint(*auth,QUrl(url+"?offset=0&limit=" + QString::number(size)),user);
     QJsonObject jb = data, r = data;
     QJsonArray arr;
     vector<Track> tracks;

@@ -19,35 +19,9 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
  */
-#include <QDesktopServices>
-#include <iostream>
-#include <dirent.h>
-#include <windows.h>
-#include <wincred.h>
-#include <tchar.h>
 
-#include <QOAuth2AuthorizationCodeFlow>
-#include <QMessageBox>
-#include <QtNetwork>
-#include <QStringRef>
-#include <QPixmap>
-#include <QDebug>
-#include <QListWidgetItem>
-#include <QWidget>
-#include <QDateTime>
-#include <QTimeZone>
-#include <QScrollBar>
-#include <QSslSocket>
-#include <QLibrary>
-#include <QDesktopWidget>
-
-#include "retrivephotosthread.h"
-#include "widgetitem.h"
-#include "user.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "authorizer.h"
-#include "exceptionerror.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this); // init all GUI
@@ -247,53 +221,6 @@ QString MainWindow :: convertDateToQString(int d, int m, int y){
     return res;
 
 }
-QJsonObject MainWindow:: getFromEndPoint(Authorizer& auth, const QUrl &q, User *user){
-    QJsonObject root;
-    QEventLoop loop; // to never quit the function untill the reply is finished
-    QTimer timer;    // timer for time out when no response
-    timer.setSingleShot(true);
-    auto reply = auth.getAuthObject()->get(q);
-    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
-    connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
-
-    connect(reply, &QNetworkReply::finished, [&root, reply]() { //this is a lambda fun
-        if (reply->error() != QNetworkReply::NoError) {
-            ::CredDeleteA("Mutak for Spotify 1", CRED_TYPE_GENERIC, 0);
-            ::CredDeleteA("Mutak for Spotify 2", CRED_TYPE_GENERIC, 0);
-            QByteArray data = reply->readAll();
-            qDebug() <<"THIS IS ERROR: " << data;
-            QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("An error occured while retriving data from server!"), QMessageBox::Ok);
-        }else{
-            QByteArray data = reply->readAll();
-            QJsonDocument document = QJsonDocument::fromJson(data);
-            root = document.object();
-        }
-        reply->deleteLater();
-    });
-    timer.start(8000);  // use miliseconds
-    loop.exec();
-    /* If the timer ended before the reply from the net then there's no internet if not then
-     * the response came before the timer timed out eventually there's internet*/
-    if(timer.isActive() == true){ //check if the timer is still running
-        timer.stop();
-        if (reply->bytesAvailable()){
-            if(root.contains("error") == true){
-                auth.getAuthObject()->refreshAccessToken();
-                user->setToken(auth.getAuthObject()->token());
-                QMessageBox::critical(nullptr, QObject::tr("Error"),
-                QObject::tr("An error occured while retriving data from server!"), QMessageBox::Ok);
-            }else{
-                return root;
-            }
-        }
-    }else{
-        disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
-        disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
-        reply->abort();
-    }
-    return root;
-}
 
 void MainWindow::checkForInternet(){
     QNetworkAccessManager nam;
@@ -423,7 +350,7 @@ void MainWindow::getArtworks(vector<Track> t, vector<WidgetItem*>  widitem){
                 QString link = t[i-1].getID();
                 if(stopOnClose == false){
                 //request the image of each track
-                QJsonObject root = this->getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/tracks?ids="+link),user);
+                QJsonObject root = auth.getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/tracks?ids="+link),user);
                 root = (root.value("tracks").toArray().at(0)).toObject();
                 root = root.value("album").toObject();
                 QString download = (root.value("images").toArray().at(2)).toObject().value("url").toString();
@@ -464,7 +391,7 @@ void MainWindow::addToList(vector <Track> t, QListWidget * list){
              WidgetItem *theWidgetItem = nullptr;
             //prepare the item and fill it with data
             vector<Playlist> p;
-            theWidgetItem = new WidgetItem(1,t[i-1], p);
+            theWidgetItem = new WidgetItem(&auth, user,1,t[i-1], p);
             QListWidgetItem * lwi = new QListWidgetItem(list);
             list->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());
@@ -567,7 +494,7 @@ bool MainWindow :: restoreTokens(){
 void MainWindow :: isAlreadyGranted(){
         QString Token = auth.getAuthObject()->token();
         QString refToken = auth.getAuthObject()->refreshToken();
-        QJsonObject root = getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/me"),user);
+        QJsonObject root = auth.getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/me"),user);
         if(root.empty() == false){
             this->user = new User(root, Token, refToken);
             this->user->printOnUI(this->getUi());
@@ -595,7 +522,7 @@ void MainWindow :: list(vector<Track> t){
         for(unsigned int i=t.size(); (i>0); i--){
              WidgetItem *theWidgetItem = nullptr;
             //prepare the item and fill it with data
-            theWidgetItem = new WidgetItem(2,t[i-1], thePlaylistChecker->getPlaylists());
+            theWidgetItem = new WidgetItem(&auth, user,2,t[i-1], thePlaylistChecker->getPlaylists());
             QListWidgetItem * lwi = new QListWidgetItem(ui->listOutPlaylists);
             ui->listOutPlaylists->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());
@@ -623,7 +550,7 @@ void MainWindow :: isGranted(){
         QString Token = auth.getAuthObject()->token();
         QString refToken = auth.getAuthObject()->refreshToken();
         this->storeTokens(Token, refToken);
-        QJsonObject root = getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/me"),user);
+        QJsonObject root = auth.getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/me"),user);
         if(root.empty() == false){
             //passing to the next interface after login
             ui->wait_label->setHidden(true);
@@ -721,7 +648,7 @@ void MainWindow::on_refresh_button_clicked(){
             try{
                 this->checkForInternet();
                 ui->listWidget->clear();
-                QJsonObject root = getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"),user);
+                QJsonObject root = auth.getFromEndPoint(auth,QUrl("https://api.spotify.com/v1/me/player/recently-played?limit=50"),user);
                 this->dataToTracksObjects(root);
             }catch(exceptionError & e){
                 QMessageBox::critical(nullptr, QObject::tr("Error"),

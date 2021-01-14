@@ -35,6 +35,8 @@
 #include "playlist.h"
 #include <QTime>
 #include <QMainWindow>
+#include "authorizer.h"
+#include "user.h"
 
 namespace Ui {
 class WidgetItem;
@@ -50,7 +52,7 @@ class WidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit WidgetItem( int type, Track &t,vector<Playlist> playlist,QWidget *parent = nullptr);
+    explicit WidgetItem( Authorizer * auth, User * user, int type, Track &t,vector<Playlist> playlist,QWidget *parent = nullptr);
     WidgetItem(WidgetItem * item);
     void itemChanged(QString & text);
     ~WidgetItem();
@@ -63,6 +65,8 @@ private:
     Ui::WidgetItem *ui; ///< the ui pointer to everything inside WidgetItem widgets only
     vector<Playlist> playlists;
     Track track;
+    Authorizer * auth;
+    User * user;
 };
 
 #endif // WIDGETITEM_H

@@ -31,14 +31,39 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QCloseEvent>
+#include <QDesktopServices>
+#include <iostream>
+#include <dirent.h>
+#include <windows.h>
+#include <wincred.h>
+#include <tchar.h>
+
 #include <QOAuth2AuthorizationCodeFlow>
+#include <QMessageBox>
+#include <QtNetwork>
+#include <QStringRef>
+#include <QPixmap>
+#include <QDebug>
+#include <QListWidgetItem>
+#include <QWidget>
+#include <QDateTime>
+#include <QTimeZone>
+#include <QScrollBar>
+#include <QSslSocket>
+#include <QLibrary>
+#include <QDesktopWidget>
+
+#include "retrivephotosthread.h"
+#include "widgetitem.h"
+#include "user.h"
+#include "authorizer.h"
+#include "exceptionerror.h"
 #include "authorizer.h"
 #include "user.h"
 #include "track.h"
 #include "databaseapi.h"
 #include "playlistchecker.h"
-#include <QCloseEvent>
-#include <QDateTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -58,7 +83,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     Ui::MainWindow * getUi(){ return ui;}
     void checkForInternet();
-    QJsonObject static getFromEndPoint(Authorizer& , const QUrl&, User*);
     QString convertDateToQString(QDate);
     QString convertDateToQString(int, int, int);
     void dataToTracksObjects(QJsonObject &);

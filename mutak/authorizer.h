@@ -33,8 +33,17 @@
 #include <QOAuthHttpServerReplyHandler>
 #include <QOAuth2AuthorizationCodeFlow>
 #include <QString>
+#include <QTimer>
+#include <QJsonDocument>
+#include <QMessageBox>
 #include <QMainWindow>
-
+#include <QNetworkReply>
+#include <iostream>
+#include <dirent.h>
+#include <windows.h>
+#include <wincred.h>
+#include <tchar.h>
+#include "user.h"
 /**
  * This class contains everything needed to authorize a user in OAuth2 workflow.
  * 
@@ -52,6 +61,7 @@ public:
     void setValues(QString,QString);
     void connectToBrowser();
     QOAuth2AuthorizationCodeFlow * getAuthObject();
+    QJsonObject  getFromEndPoint(Authorizer& , const QUrl&, User*);
 };
 
 #endif // AUTHORIZER_H

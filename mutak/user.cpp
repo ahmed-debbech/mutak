@@ -28,6 +28,7 @@
 #include <QPainter>
 #include <QBitmap>
 #include <iostream>
+#include "retrivephotosthread.h"
 
 User::User(const QJsonObject & data, QString t, QString r){
    id = data.value("id").toString();

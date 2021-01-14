@@ -34,8 +34,8 @@
 #include <QJsonObject>
 #include "ui_mainwindow.h"
 #include <QObject>
-#include "retrivephotosthread.h"
-
+//include "retrivephotosthread.h"
+class retrivePhotosThread;
 using namespace std;
 /**
  * This class holdes all the data related to the user logged in 

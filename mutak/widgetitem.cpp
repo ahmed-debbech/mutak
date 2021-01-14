@@ -27,7 +27,7 @@
 #include <QUrl>
 #include <QComboBox>
 
-WidgetItem::WidgetItem(int type, Track & t,vector<Playlist> playlist ,QWidget *parent) :
+WidgetItem::WidgetItem(Authorizer * auth, User * user, int type, Track & t,vector<Playlist> playlist ,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WidgetItem)
 {
@@ -36,6 +36,8 @@ WidgetItem::WidgetItem(int type, Track & t,vector<Playlist> playlist ,QWidget *p
     ui->photo->setPixmap(QPixmap("://resources/unloaded.png"));
     ui->id_track->setHidden(true);
     this->playlists = playlist;
+    this->auth = auth;
+    this->user = user;
     if(t.getName().size() <= 32){
         ui->name->setText(t.getName());
     }else{
@@ -84,7 +86,7 @@ void WidgetItem::itemChanged(QString & text){
                         break;
                 }
         }
-       // QJsonObject js = mw->getFromEndPoint(*(mw->getAuth()), "https://api.spotify.com/v1/playlists/"+id + "/tracks?uris=spotify%3Atrack%3A"+track.getID(), mw->getUser());
+       QJsonObject js = auth->getFromEndPoint(*auth, "https://api.spotify.com/v1/playlists/"+id + "/tracks?uris=spotify%3Atrack%3A"+track.getID(), user);
 }
 WidgetItem :: WidgetItem(WidgetItem * item) : ui(new Ui::WidgetItem){
     ui->setupUi(this);
