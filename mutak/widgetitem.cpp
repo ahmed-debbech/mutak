@@ -71,13 +71,14 @@ WidgetItem::WidgetItem(Authorizer * auth, User * user, int type, Track & t,vecto
             for(int i=0; i<=playlist.size()-1; i++){
                    qcb->addItem(playlist[i].getName());
             }
-          connect(qcb, SIGNAL(currentIndexChanged(const QString&)),
+          connect(qcb, SIGNAL(currentTextChanged(const QString&)),
                    this, SLOT(itemChanged(const QString&)));
            this->layout()->addWidget(qcb);
             this->layout()->addWidget(qcb);
     }
 }
-void WidgetItem::itemChanged(QString & text){
+void WidgetItem::itemChanged(const QString & text){
+        cout << "entered app " <<endl;
         //get the playlist id first
         QString id = "";
         for(int i=0; i<=playlists.size()-1; i++){
@@ -86,7 +87,9 @@ void WidgetItem::itemChanged(QString & text){
                         break;
                 }
         }
+        qDebug() << "helo" <<text;
        QJsonObject js = auth->getFromEndPoint(*auth, "https://api.spotify.com/v1/playlists/"+id + "/tracks?uris=spotify%3Atrack%3A"+track.getID(), user);
+        cout<< js.count();
 }
 WidgetItem :: WidgetItem(WidgetItem * item) : ui(new Ui::WidgetItem){
     ui->setupUi(this);

@@ -62,6 +62,7 @@ public:
     void connectToBrowser();
     QOAuth2AuthorizationCodeFlow * getAuthObject();
     QJsonObject  getFromEndPoint(Authorizer& , const QUrl&, User*);
+    QJsonObject addToPlaylist(Authorizer &, const QUrl&, User*);
 };
 
 #endif // AUTHORIZER_H

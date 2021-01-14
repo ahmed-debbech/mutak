@@ -128,3 +128,50 @@ QJsonObject Authorizer:: getFromEndPoint(Authorizer& auth, const QUrl &q, User *
     }
     return root;
 }
+
+QJsonObject Authorizer :: addToPlaylist(Authorizer & auth , const QUrl& q, User* user){
+    cout << "hereeee" << endl;
+    QJsonObject root;
+    QEventLoop loop; // to never quit the function untill the reply is finished
+    QTimer timer;    // timer for time out when no response
+    timer.setSingleShot(true);
+    auto reply = auth.getAuthObject()->get(q);
+    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+
+    connect(reply, &QNetworkReply::finished, [&root, reply]() { //this is a lambda fun
+        if (reply->error() != QNetworkReply::NoError) {
+            QByteArray data = reply->readAll();
+            qDebug() <<"THIS IS ERROR: " << data;
+            QMessageBox::critical(nullptr, QObject::tr("Error"),
+            QObject::tr("An error occured while retriving data from server!"), QMessageBox::Ok);
+        }else{
+            QByteArray data = reply->readAll();
+            QJsonDocument document = QJsonDocument::fromJson(data);
+            root = document.object();
+        }
+        reply->deleteLater();
+    });
+    timer.start(8000);  // use miliseconds
+    loop.exec();
+    /* If the timer ended before the reply from the net then there's no internet if not then
+     * the response came before the timer timed out eventually there's internet*/
+    if(timer.isActive() == true){ //check if the timer is still running
+        timer.stop();
+        if (reply->bytesAvailable()){
+            if(root.contains("error") == true){
+                auth.getAuthObject()->refreshAccessToken();
+                user->setToken(auth.getAuthObject()->token());
+                QMessageBox::critical(nullptr, QObject::tr("Error"),
+                QObject::tr("An error occured while retriving data from server!"), QMessageBox::Ok);
+            }else{
+                return root;
+            }
+        }
+    }else{
+        disconnect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+        disconnect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+        reply->abort();
+    }
+    return root;
+}
