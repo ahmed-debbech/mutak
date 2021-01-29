@@ -78,6 +78,10 @@ void MainWindow::setAutoRefreshTime(){
 }
 void MainWindow::on_logout_button_clicked(){
     if(runningWeb == false){
+        wchar_t* c = L"Mutak for Spotify 1\0";
+        ::CredDeleteW((LPCWSTR)c,CRED_TYPE_GENERIC ,0);
+        c = L"Mutak for Spotify 2\0";
+        ::CredDeleteW((LPCWSTR)c,CRED_TYPE_GENERIC ,0);
         delete user;
         this->windowsCursor.previousWindowIndex = ui->stackedWidget->currentIndex();
         this->windowsCursor.currentWindowIndex = 0;
