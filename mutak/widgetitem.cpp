@@ -36,6 +36,7 @@ WidgetItem::WidgetItem(Authorizer * auth, User * user, int type, Track & t,vecto
     ui->photo->setPixmap(QPixmap("://resources/unloaded.png"));
     ui->id_track->setHidden(true);
     this->playlists = playlist;
+    this->track = t;
     this->auth = auth;
     this->user = user;
     if(t.getName().size() <= 32){
@@ -71,24 +72,30 @@ WidgetItem::WidgetItem(Authorizer * auth, User * user, int type, Track & t,vecto
             for(int i=0; i<=playlist.size()-1; i++){
                    qcb->addItem(playlist[i].getName());
             }
-          connect(qcb, SIGNAL(currentTextChanged(const QString&)),
-                   this, SLOT(itemChanged(const QString&)));
+          //connect(qcb, SIGNAL(currentIndexChanged(int)),
+             //      this, SLOT(this->itemChanged()));
+            connect(qcb, QOverload<int>::of(&QComboBox::currentIndexChanged),
+                [=](int index){ this->itemChanged(); });
+            qDebug() << "in constructor";
            this->layout()->addWidget(qcb);
             this->layout()->addWidget(qcb);
     }
 }
-void WidgetItem::itemChanged(const QString & text){
-        cout << "entered app " <<endl;
+void WidgetItem::itemChanged(){
+        qDebug() << "entered app ";
         //get the playlist id first
         QString id = "";
         for(int i=0; i<=playlists.size()-1; i++){
-                if(playlists[i].getName() == text){
+                if(playlists[i].getName() == "Favourite Of The Arabs"){
                         id = playlists[i].getId();
                         break;
                 }
         }
-        qDebug() << "helo" <<text;
-       QJsonObject js = auth->getFromEndPoint(*auth, "https://api.spotify.com/v1/playlists/"+id + "/tracks?uris=spotify%3Atrack%3A"+track.getID(), user);
+        qDebug() << "helo" <<id;
+        qDebug() << track.getID();
+        QString c = "https://api.spotify.com/v1/playlists/"+id + "/tracks?uris=spotify%3Atrack%3A"+ track.getID();
+        qDebug() << c ;
+       QJsonObject js = auth->postFromEndPoint(*auth,c, user);
         cout<< js.count();
 }
 WidgetItem :: WidgetItem(WidgetItem * item) : ui(new Ui::WidgetItem){

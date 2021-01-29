@@ -660,6 +660,11 @@ void MainWindow::on_refresh_button_clicked(){
     }else{
         if(ui->tabWidget->currentIndex() ==1){
                 vector<Track> ne = dbapi->retriveFromDB();
+                if(ne.size() <= 0){
+                    QMessageBox::critical(nullptr, QObject::tr("Error"),
+                    QObject::tr("No tracks for today yet."), QMessageBox::Ok);
+                    return;
+                }
                 thePlaylistChecker = new PlaylistChecker(&auth, user, ne);
                 vector<Track> newTracks = thePlaylistChecker->fetch(user->getId());
                 this->list(newTracks);

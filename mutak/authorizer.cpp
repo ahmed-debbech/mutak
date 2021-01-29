@@ -44,7 +44,7 @@ void Authorizer :: setValues(){
     spotify.setAccessTokenUrl(QUrl("https://accounts.spotify.com/api/token"));
     spotify.setClientIdentifier(clientID);
     spotify.setClientIdentifierSharedKey(clientSecret);
-    spotify.setScope("user-read-private user-read-recently-played playlist-read-private playlist-read-collaborative");
+    spotify.setScope("user-read-private playlist-modify-private playlist-modify-public user-read-recently-played playlist-read-private playlist-read-collaborative");
 }
 /**
  * This method is part of Authorizer class, it sets the values for the QOAuth2AuthorizationCodeFlow object attribute
@@ -63,7 +63,7 @@ void Authorizer :: setValues(QString token, QString ref){
     spotify.setRefreshToken(ref);
     spotify.setClientIdentifier(clientID);
     spotify.setClientIdentifierSharedKey(clientSecret);
-    spotify.setScope("user-read-private user-read-recently-played");
+    spotify.setScope("user-read-private playlist-modify-private playlist-modify-public user-read-recently-played playlist-read-private playlist-read-collaborative");
 }
 /**
  * This method belongs to Authorizer class, after setting the values this function is called after that.
@@ -129,13 +129,12 @@ QJsonObject Authorizer:: getFromEndPoint(Authorizer& auth, const QUrl &q, User *
     return root;
 }
 
-QJsonObject Authorizer :: addToPlaylist(Authorizer & auth , const QUrl& q, User* user){
-    cout << "hereeee" << endl;
+QJsonObject Authorizer :: postFromEndPoint(Authorizer & auth , const QUrl& q, User* user){
     QJsonObject root;
     QEventLoop loop; // to never quit the function untill the reply is finished
     QTimer timer;    // timer for time out when no response
     timer.setSingleShot(true);
-    auto reply = auth.getAuthObject()->get(q);
+    auto reply = auth.getAuthObject()->post(q);
     connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
     connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
 
@@ -144,7 +143,7 @@ QJsonObject Authorizer :: addToPlaylist(Authorizer & auth , const QUrl& q, User*
             QByteArray data = reply->readAll();
             qDebug() <<"THIS IS ERROR: " << data;
             QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("An error occured while retriving data from server!"), QMessageBox::Ok);
+            QObject::tr("An error occured while sending data to server!"), QMessageBox::Ok);
         }else{
             QByteArray data = reply->readAll();
             QJsonDocument document = QJsonDocument::fromJson(data);

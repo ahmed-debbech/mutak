@@ -54,7 +54,7 @@ class WidgetItem : public QWidget
 public:
     explicit WidgetItem( Authorizer * auth, User * user, int type, Track &t,vector<Playlist> playlist,QWidget *parent = nullptr);
     WidgetItem(WidgetItem * item);
-    void itemChanged(const QString & text);
+    void itemChanged();
     ~WidgetItem();
     Ui::WidgetItem * getUi(){return ui;}
 private slots:
