@@ -45,7 +45,7 @@ WidgetItem::WidgetItem(Authorizer * auth, User * user, int type, Track & t,vecto
         QString n = t.getName();
         QStringRef substr(&n, 0, 29);
         QString l = substr.toString() + "...";
-        ui->name->setText(l);
+        ui->name->setText(QObject::tr(l.toStdString().c_str()));
         ui->name->setToolTip(t.getName());
     }
     ui->name->setStyleSheet("color: #1db954;\nfont: bold 9pt  '://resources/fonts/Gotham-Bold.otf';");
@@ -104,7 +104,7 @@ WidgetItem :: WidgetItem(WidgetItem * item) : ui(new Ui::WidgetItem){
     QImage image( pixmap->toImage() );
     ui->photo->setPixmap(QPixmap::fromImage(image));
     ui->id_track->setHidden(true);
-    ui->name->setText(item->getUi()->name->text());
+    ui->name->setText(QObject::tr(item->getUi()->name->text().toStdString().c_str()));
 
     ui->name->setStyleSheet("color: #1db954;\nfont: bold 9pt  '://resources/fonts/Gotham-Bold.otf';");
     ui->artist->setText(item->getUi()->artist->text());

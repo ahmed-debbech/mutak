@@ -43,7 +43,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
                qApp->desktop()->availableGeometry()
            )
        );
-
     //set icon
     this->setWindowIcon(QIcon("://resources/spotifyico.png"));
     timer = new QTimer(this);
