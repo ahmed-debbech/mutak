@@ -72,30 +72,29 @@ WidgetItem::WidgetItem(Authorizer * auth, User * user, int type, Track & t,vecto
             for(int i=0; i<=playlist.size()-1; i++){
                    qcb->addItem(playlist[i].getName());
             }
-          //connect(qcb, SIGNAL(currentIndexChanged(int)),
-             //      this, SLOT(this->itemChanged()));
-            connect(qcb, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                [=](int index){ this->itemChanged(); });
+          //connect(qcb, SIGNAL(currentTextChanged(QString)),
+            //       this, SLOT(this->itemChanged(QString)));
+           connect(qcb, &QComboBox::currentTextChanged,
+                [=](QString index){ this->itemChanged(index); });
             qDebug() << "in constructor";
            this->layout()->addWidget(qcb);
             this->layout()->addWidget(qcb);
     }
 }
-void WidgetItem::itemChanged(){
+void WidgetItem::itemChanged(QString text){
         qDebug() << "entered app ";
         //get the playlist id first
         QString id = "";
         for(int i=0; i<=playlists.size()-1; i++){
-                if(playlists[i].getName() == "Favourite Of The Arabs"){
+                if(playlists[i].getName() == text){
                         id = playlists[i].getId();
                         break;
                 }
         }
-        qDebug() << "helo" <<id;
         qDebug() << track.getID();
         QString c = "https://api.spotify.com/v1/playlists/"+id + "/tracks?uris=spotify%3Atrack%3A"+ track.getID();
         qDebug() << c ;
-       QJsonObject js = auth->postFromEndPoint(*auth,c, user);
+        QJsonObject js = auth->postFromEndPoint(*auth,c, user);
         cout<< js.count();
 }
 WidgetItem :: WidgetItem(WidgetItem * item) : ui(new Ui::WidgetItem){
