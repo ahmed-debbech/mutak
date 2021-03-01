@@ -96,7 +96,7 @@ void WidgetItem::itemChanged(QString text){
         qDebug() << c ;
         QJsonObject js = auth->postFromEndPoint(*auth,c, user);
         cout<< js.count();
-        this->setStyleSheet("background-color: #484848;");
+        this->setStyleSheet("background-color: #303030;");
         this->feedback->setText(track.getName() + " was added to " + text);
 }
 WidgetItem :: WidgetItem(WidgetItem * item) : ui(new Ui::WidgetItem){
