@@ -390,7 +390,7 @@ void MainWindow::addToList(vector <Track> t, QListWidget * list){
              WidgetItem *theWidgetItem = nullptr;
             //prepare the item and fill it with data
             vector<Playlist> p;
-            theWidgetItem = new WidgetItem(&auth, user,1,t[i-1], p);
+            theWidgetItem = new WidgetItem(this->ui->countText, &auth, user,1,t[i-1], p);
             QListWidgetItem * lwi = new QListWidgetItem(list);
             list->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());
@@ -521,7 +521,7 @@ void MainWindow :: list(vector<Track> t){
         for(unsigned int i=t.size(); (i>0); i--){
              WidgetItem *theWidgetItem = nullptr;
             //prepare the item and fill it with data
-            theWidgetItem = new WidgetItem(&auth, user,2,t[i-1], thePlaylistChecker->getPlaylists());
+            theWidgetItem = new WidgetItem(ui->countText, &auth, user,2,t[i-1], thePlaylistChecker->getPlaylists());
             QListWidgetItem * lwi = new QListWidgetItem(ui->listOutPlaylists);
             ui->listOutPlaylists->addItem(lwi);
             lwi->setSizeHint (theWidgetItem->sizeHint());

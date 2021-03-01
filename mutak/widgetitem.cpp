@@ -27,7 +27,7 @@
 #include <QUrl>
 #include <QComboBox>
 
-WidgetItem::WidgetItem(Authorizer * auth, User * user, int type, Track & t,vector<Playlist> playlist ,QWidget *parent) :
+WidgetItem::WidgetItem(QLabel *feedback, Authorizer * auth, User * user, int type, Track & t,vector<Playlist> playlist ,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WidgetItem)
 {
@@ -38,6 +38,7 @@ WidgetItem::WidgetItem(Authorizer * auth, User * user, int type, Track & t,vecto
     this->playlists = playlist;
     this->track = t;
     this->auth = auth;
+    this->feedback = feedback;
     this->user = user;
     if(t.getName().size() <= 32){
         ui->name->setText(t.getName());
@@ -82,7 +83,6 @@ WidgetItem::WidgetItem(Authorizer * auth, User * user, int type, Track & t,vecto
     }
 }
 void WidgetItem::itemChanged(QString text){
-        qDebug() << "entered app ";
         //get the playlist id first
         QString id = "";
         for(int i=0; i<=playlists.size()-1; i++){
@@ -96,6 +96,8 @@ void WidgetItem::itemChanged(QString text){
         qDebug() << c ;
         QJsonObject js = auth->postFromEndPoint(*auth,c, user);
         cout<< js.count();
+        this->setStyleSheet("background-color: #484848;");
+        this->feedback->setText(track.getName() + " was added to " + text);
 }
 WidgetItem :: WidgetItem(WidgetItem * item) : ui(new Ui::WidgetItem){
     ui->setupUi(this);

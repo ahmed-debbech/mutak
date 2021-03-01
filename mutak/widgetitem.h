@@ -52,7 +52,7 @@ class WidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit WidgetItem( Authorizer * auth, User * user, int type, Track &t,vector<Playlist> playlist,QWidget *parent = nullptr);
+    explicit WidgetItem(QLabel * feedback, Authorizer * auth, User * user, int type, Track &t,vector<Playlist> playlist,QWidget *parent = nullptr);
     WidgetItem(WidgetItem * item);
     void itemChanged(QString);
     ~WidgetItem();
@@ -67,6 +67,7 @@ private:
     Track track;
     Authorizer * auth;
     User * user;
+    QLabel * feedback;
 };
 
 #endif // WIDGETITEM_H
